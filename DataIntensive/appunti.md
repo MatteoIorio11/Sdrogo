@@ -2,7 +2,7 @@
 
 ## Introduzione al Machine learning 
 
-Attraverso **ambienti virtuali** è possibile addestrare gli algoritmi, fornendo tantissima conoscenza. L'intelligenza viene ricavata dai dati utilizzati durante l'addestramento, qualsiasi informazione viene rappresentata come un vettore. Il training permette di minimizzare le funzioni errore andando ad individuare punti di minimo. La **Regressione** ci permette di predire una variabile continua, andando ad effettuare oltre classificazioni (predizione variabile discreta e.g. {0;1}) delle previsioni (prezzi, eta di morte, ecc).
+Attraverso **ambienti virtuali** è possibile addestrare gli algoritmi, fornendo tantissima conoscenza. L'intelligenza viene ricavata dai dati utilizzati durante l'addestramento, qualsiasi informazione viene rappresentata come un vettore. Il training permette di minimizzare le funzioni errore andando ad individuare punti di minimo. La **Regressione** ci permette di predire una variabile continua, andando ad effettuare oltre alle classificazioni (predizione variabile discreta e.g. {0;1}), delle previsioni (prezzi, eta di morte, ecc).
 
 Il _deep learning_ è una rete neurale con un numero elevatissimo di **layer**, assieme al _deep reinforcement learning_ sono due tecniche molto precise ed accurate ma purtroppo richiedono grandi capacità computazionali. L'intelligenza artificiale **non è cablata nel codice** ma è **appresa da un insieme di dati**. 
 
