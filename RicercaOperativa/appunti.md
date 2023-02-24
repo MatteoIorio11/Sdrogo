@@ -15,7 +15,7 @@ Una **istanza** rappresenta i dati noti del problema, per risolvere un problema 
 
 ### Modelli
 
-I *modelli* sono una rappresentazione, spesso semplificata, di concetti. I modelli possono riguardare sia aspetti puramente teorici che del mondo reale. 
+I *modelli* sono una rappresentazione, spesso semplificata, di concetti. I modelli possono riguardare sia aspetti puramente teorici che aspetti del mondo reale. 
 I modelli possono essere di tipo : verbale, grafico, fisico, matematico ecc ecc..
 
 Attraverso l'utilizzo dei modelli è possibile perseguire i seguenti obbiettivi: 
@@ -23,7 +23,7 @@ Attraverso l'utilizzo dei modelli è possibile perseguire i seguenti obbiettivi:
 2. **Spiegare, controllare e predire eventi**, anche sulla base di osservazioni passate
 3. **Supportare i processi decisionali**
 
-Ciò che deve essere rappresentato all'interno di un modello può essere composto da molte componenti, di conseguenza è necessario effettuare delle **semplificazioni** al modello, che non *interferiscano* con l'utilizzo che se ne vuole fare. Non bisogna adottare modelli complicatissimi. 
+Ciò che deve essere rappresentato all'interno di un modello può essere composto da molte componenti, di conseguenza è necessario effettuare delle **semplificazioni** al modello, che non *interferiscano* con l'utilizzo che se ne vuole fare. Non bisogna adottare modelli complicatissimi. Purtroppo anche l'utilizzo di modelli estremamente semplificati portano ad avere un alto numero di errori. 
 
 Attraverso il **Modello Matematico** è possibile rappresentare la realtà di interesse con un alto grado di astrazione. I modelli matematici prevedono l'uso di parametri.
 
@@ -35,7 +35,7 @@ Le approssimazioni nei parametri dei modelli possono portare ad errori nel calco
 
 ### Approssimazioni di un Modello
 Prima del calcolo:
-1. modello 
+1. modello scelto
 2. misure empiriche
 3. precedenti calcoli.
 
@@ -45,6 +45,7 @@ Durante il calcolo:
 
 ### Errori
 **Errore di Troncamento**: L'errore di troncamento è dato dalla differenza tra il *risultato reale* e quello prodotto dall'algoritmo. 
+
 **Errore di Arrotondamento**: L'errore di arrotondamento è dato dalla differenza tra il risultato prodotto da un dato algoritmo usando un'aritmentica esatta e il risultato prodotto dallo stesso algoritmo usando un'altra aritmetica approssimata. Errori che *vengono introdotti dalla macchina*, in quanto costituita da valori finiti (calcolatrice, registri del computer, memoria a disposizione del calcolatore ecc ecc). 
 
 Gli errori di calcolo possono **propagarsi**, nei calcoli successivi andando a sporcare sempre di più i nostri output.
@@ -55,7 +56,7 @@ Piu le rette tendono ad essere parallele e più vengono amplificati gli errori, 
 ### Tipologie di Problemi
 1. Problema di **Decisione**: data un'istanza si vuole determinare se esiste o meno una soluzione
 2. Problema di **Ricerca**: data un'istanza si vuole determinare una possibile soluzione
-3. Problema di **Enumerazione**: data un'istanza si vuole determinare tutte le possibili soluzioni
+3. Problema di **Enumerazione**: data un'istanza si vogliono determinare tutte le possibili soluzioni
 4. Problema di **Ottimizzazione**: data un'istanza si vuole determinare la *migliore soluzione* possibile. 
 
 ### Complessità Computazionale
