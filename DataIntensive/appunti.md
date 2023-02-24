@@ -29,7 +29,7 @@ Il **data mining** è l'estrazione di conoscenza dai dati.
 ### Tipi di analisi
 
 * _analisi descrittiva_ &rarr; descrivere che cosa è successo, in allegato si possno aggiungere anche informazioni di tipo statistico
-* _diagnostica_ &rarr; perché tutto ciò è successo, capire accuratamente i motivi per cui certi eventi accadono
+* _diagnostica_ &rarr; perché tutto ciò è successo, capire accuratamente i motivi per cui certi eventi accadono (*Explainability*)
 * _predittiva_ &rarr; predire ciò che succederà
 * _prescrittiva_ &rarr; che cosa possiamo fare affinché un evento accada/non accada
 
