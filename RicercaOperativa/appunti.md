@@ -91,7 +91,7 @@ Per risolvere un problema bisogna **costruire un modello** che sia risolvibile d
 
 ### Esempi
 #### Ottimizzazione Non-Vincolata
-In generale mediante l'ottimizzazione non vincolata, stiamo ottimizzando una funzione senza la presenza di ulteriori vincoli (?).
+In generale mediante l'ottimizzazione non vincolata, stiamo ottimizzando una funzione senza la presenza generale di ulteriori vincoli sulle nostre incognite (il prezzo deve essere maggiore di una determinata soglia, ecc ecc).
 ##### Domanda e Ricavo
 Viene prevista l'equazione della domanda $q = -2.000p  +150.000$, ovvero il *modello lineare* del problema con:
 - $q$ numero di libri venduti.
@@ -105,8 +105,8 @@ Che risulta essere un *modello* ora *quadratico*. Risulta immediato ora calcolar
 Questo prezzo  $p$ trovato rappresenta la soluzione ottimale del problema.
 
 #### Ottimizzazione Vincolata
-(Magari breve descrizione di Ottimizzazione non vincolata)
-#####  Miscelazione
+I modelli di *Ottimizzazione Vincolata* presentano dei veri e propri **vincoli** sulle incognite, così facendo per risolvere il nostro sistema i vincoli dovranno essere sempre soddisfatti.
+##### Miscelazione
 Esistono le seguenti ricette per la miscelazione di 3 bevande:
 - *PineOrange*: 2 parti di succo d'ananas e 2 parti di succo d'arancia.
 - *PineKiwi*: 3 parti di succo d'ananas e 1 parte di succo di kiwi.
@@ -217,7 +217,7 @@ Il vincolo di budget determina quindi infine l'equazione:
 $$10x_{A,B} + 20x_{A,D} + 5x_{C,B} + 10x_{C,D} = 475$$.
 
 Si otttiene così un sistema sovradeterminato in 5 equazioni e e 4 variaibli, ma riducendo la matrice con Gauss-Jordan, fortunatamente si scopre che un'equazione è combinazione lineare delle altre, perciò può essere estratta la soluzione:
-$$(x_{A,B}, x_{A,D}, x_{C,B}, x_{C,D}) = (5, 15, 5, 10)$$. 
+$$(x_{A,B}, x_{A,D}, x_{C,B}, x_{C,D}) = (5, 15, 5, 10)$$
 
 Osservazioni:
 - Il risultato è intero poiché la matrice associata risulta **interamente unimodulare** (?non so se si dice così), ottenendo così gratis la soluzione intera.
@@ -289,4 +289,5 @@ $$
 \end{cases}
 $$
 
-Aspettiamo lezione prossima per trarre conclusioni
+### Ottimizzazione in Generale
+Durante la risoluzione dei nostri modelli, indipendetemente dalla tecnica risolutoria è strettamente necessario **controllare la consistenza stessa del modello**.
