@@ -197,7 +197,7 @@ I costi di spostamento da una sede ad un altra sono come segue:
 - A &rarr; D : 20$
 - C &rarr; D : 10$
 
-Esiste un **vincolo di budget** di 475$
+Esiste un **vincolo di budget** di 475$. (Tale vincolo deve essere sempre rispettato affinché ci sia consistenza nel nostro modello)
 
 **D**: con il budget previsto, è possibile spostare le auto tra le 4 sedi?
 
@@ -214,7 +214,7 @@ mediante le quali si può modellare modellare il problema di flusso con le rispe
 - La sede D richiede 25 auto &rarr; $x_{A,D} + x_{C,D} = 25$
 
 Il vincolo di budget determina quindi infine l'equazione:
-$$10x_{A,B} + 20x_{A,D} + 5x_{C,B} + 10x_{C,D} = 475$$.
+$$10x_{A,B} + 20x_{A,D} + 5x_{C,B} + 10x_{C,D} = 475$$
 
 Si otttiene così un sistema sovradeterminato in 5 equazioni e e 4 variaibli, ma riducendo la matrice con Gauss-Jordan, fortunatamente si scopre che un'equazione è combinazione lineare delle altre, perciò può essere estratta la soluzione:
 $$(x_{A,B}, x_{A,D}, x_{C,B}, x_{C,D}) = (5, 15, 5, 10)$$
