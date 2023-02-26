@@ -91,7 +91,7 @@ Per risolvere un problema bisogna **costruire un modello** che sia risolvibile d
 
 ### Esempi
 #### Ottimizzazione Non-Vincolata
-In generale mediante l'ottimizzazione non vincolata, stiamo ottimizzando una funzione senza la presenza generale di ulteriori vincoli sulle nostre incognite (il prezzo deve essere maggiore di una determinata soglia, ecc ecc).
+In generale mediante l'ottimizzazione non vincolata, stiamo ottimizzando una funzione senza la presenza generale di ulteriori vincoli sulle nostre incognite. Questo fa in modo di dare maggiore libertà nella risoluzione del modello.
 ##### Domanda e Ricavo
 Viene prevista l'equazione della domanda $q = -2.000p  +150.000$, ovvero il *modello lineare* del problema con:
 - $q$ numero di libri venduti.
