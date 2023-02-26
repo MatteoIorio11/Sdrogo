@@ -70,7 +70,15 @@ Un algoritmo risolve un problema se è in grado di generare una soluzione per og
 
 I **problemi semplici** sono quelli polinomiali (insieme **P**), mentre i **problemi difficili** sono quelli "non polinomiali* (insieme **NP**, Nondeterministic Polynomial Time), tra cui ci sono i problemi **NP-Completi**. **NP** è l'insieme dei problemi in cui se esiste soluzione la si può verificare in tempo polinomiale ma il calcolo della soluzione richiede un tempo non polinomiale (controllare i cammini hamiltoniani si fa in tempo polinomiale, ma il calcolo della soluzione per tale problema lo si fa in tempo non polinomiale). 
 
-Un problema decisionale F:I &rarr; {0,1} è *riducibile polinomialmente* a g:I &rarr; {0,1} se esiste una funzione "h" calcolabile in tempo polinomiale. **In sostanza se la soluzione si può controllare in tempo polinomiale**. 
+Un problema decisionale 
+
+$$F:I \rightarrow \{0, 1\}$$ 
+
+è *riducibile polinomialmente* a 
+
+$$G:I \rightarrow \{0, 1\} $$
+
+se esiste una funzione "h" calcolabile in tempo polinomiale. **In sostanza se la soluzione si può controllare in tempo polinomiale**. 
 
 
 ### Problemi vs Algoritmi
