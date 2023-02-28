@@ -299,3 +299,160 @@ $$
 
 ### Ottimizzazione in Generale
 Durante la risoluzione dei nostri modelli, indipendetemente dalla tecnica risolutoria è strettamente necessario **controllare la consistenza stessa del modello**.
+
+
+### Ottimizzazione Vincolata
+Il sistema di disequazioni definisce l'insieme delle **soluzioni ammissibili** del nostro problema, chiamata anche come *Regione Ammissibile*. La *Regione Ammissibile* racchiude tutti i punti che soddisfano i vincoli del problema. 
+
+Con il termine di **programmazione matematica** si intende il criterio con la quale decidere quale sia il miglior punto della regione ammissibile.
+
+
+#### Esempio 
+Riprendiamo il nostro esempio dei succhi. 
+Se ipotizziamo che il profitto per ogni litro di succo di mela di tipo 1 è 0.25 Euro e per quello di tipo 2 0.75. Questa volta il problema di *programmazione lineare* si può scrivere in questo modo:
+
+$$z= Max(0.25 x_1 + 0.75x_2) \\ 
+    30x_1 + 20x_2 \leq 30000 \\
+    2x_1 + 12x_2 \leq 3600 \\
+    x_1 \geq 0 \\
+    x_2 \geq 0 
+$$
+tale funzione *z* viene chiamata **Funzione Obbiettivo**, la nostra funzione obbiettivo va sempre ottimizzata, mentre le disequazioni sottostanti sono i nostri **vincoli**, i quali vanno sempre soddisfatti, definiscono la *regione dei punti da considerare*.
+
+Tra i tanti metodi con la quale risolvere tale sistema si può utilizzare il **Metodo del Simplesso**. Il *metodo del simplesso formato tableau*, usa le operazioni elementari per risolvere dei sistemi lineari. 
+
+La **soluzione ottima** è $$
+(x_1, x_2) = (900, 150)\\
+z = Max(0.25x_1 + 0.75x_2) = 337.5 $$
+
+la soluzione ottima nei sistemi lineari sono sempre **gli estremi**.
+
+Si può portare il nostro problema in una funzione a due incognite
+$$
+    f(x_1, x_2) = 0.25x_1 + 0.75x_2
+$$
+
+calcolandone poi la derivata, attraverso il gradiente è poi possibile trovare il nostro punto di massimo per risolvere la nostra *funzione obbiettivo*.
+
+#### Costruzione del modello generale
+
+E' possibile costruire per il nostro problema di *programmazione lineare* si può sirivere come:
+
+* $p$ variabile del nostro profitto
+* $b$ disponibilità, quanta materia prima ho
+* $a$ quanto consumo per ogni unità
+
+$$
+    z = Max \sum_{i=1} p_ix_i \\
+    s.t \sum_i a_{ij}x_i \leq b_j j = 1,...., m \\
+    x_i \geq 0 i = 1,....n
+$$
+
+Il primo passo è quello di **definire il modello matematico**. Il modello si può rappresentare come:
+$$
+    z = min(f(x)) \\
+    s.t g_i(x) \leq b_i i = 1,..., n \\
+    h_j(x) = d_j j = 1,..., m \\
+    x \geq 0
+$$
+
+la funzione $f(x)$ è detta **funzione obbiettivo**, le espressioni $g_i(x) \leq b_i$ e $h_j(x) = d_j$ rappresentano i vincoli e $x = (x_1, ...., x_f)$ sono variabili. Se le funzioni $f(x), g_i(x) \leq b_i, h_j(x) = d_j$ sono lineari parliamo di **programmazione lineare continua**. 
+
+### Modelli Matematici per l'Ottimizzazione
+Se aggiungiamo dei vincoli per cui la nostra soluzione $x$ deve essere intera, allora parliamo di **programmazione lineare intera**. 
+
+Se *solamente alcune* delle componenti di $x$ devono essere intere allora parliamo di **programmazione lineare mista intera**. 
+
+#### Bound
+Dato un problema di programmazione lineare di P di minimo, un valido *lower bound* $z_{LB}$ è una stima per difetto del valore della soluzione ottima. Tale procedura viene chiamata **procedura di bounding**, ci permette di stimare i limiti inferiori.
+
+Dato un problema di programmazione lineare di P di minimo, una soluzione ammissibile corrisponde a un valido *upper bound* $z_{UB} e quindi un eccesso del valore per la soluzione ottima. Le procedure per lalcolare soluzioni ammissibili sono dette **euristiche**. 
+
+Dato un problema di programmazione lineare P, un **algoritmo esatto** garantisce la determinazione della soluzione ottima di P.
+
+
+#### Knapsack Problem
+Il problema di knapsack può essere modellato matematicamente come segue:
+$$
+    max z_{KP} = \sum_{i=1} p_ix_i \\
+    s.t. \sum_{i=1} w_ix_i \leq W \\
+    x_i  \{0, 1\} i = 1, ..., n
+$$
+Si traduce in:
+$$
+max z_{KP} = 12x_1 + 4x_2 + 15x_3 + 3x_4 \\
+s.t. 6x_1 + 4x_2 + 5x_3 + 2x_4 \leq 10 \\
+x_1, x_2, x_3, x_3 \{0, 1\}
+$$
+
+Calcoliamo per ogni oggetto $i$ il suo profitto per unità di capacità: $r_i =  p_i \div w_i$, l'oggetto che ha il valore $r_i$ più alto è quello che ci fa guadagnare di più per ogni unità di capacità impiegata.
+
+Se l'oggetto 1 *fosse divisibile* posso prendere solo la frazione che ci sta, ottenendo l'occupazione di tutto il knapsack con il profitto **ottimo**. pari a: $z = 12 * 5/6 + 0 + 15 * 1 + 0 = 25$
+
+Se però gli oggetti non sono divisibili, allora il valore $z'_{KP} = 25$ è solo una **stima per eccesso**, il nostro *upper bound*. Qualsiasi soluzione ammissibile del nostro problema è una **stima per difetto**, il nostro *lower bound*. 
+
+Il problema in cui ammettiamo anche una sola soluzione frazionaria, è detto **rilassamento lineare**, in questo caso abbiamo *sempre* una soluzione in cui avremo **al più una soluzione frazionaria**, che chiameremo *splitting item*.
+
+ Tale approccio è noto come **branch and bound**. Quando in un nodo dell'**albero di ricerca**, la soluzione è intera ci fermiamo e se migliora la soluzione ottima emergente la sostituisce. 
+
+#### Knapsack Problem Dinamyc Programming
+ Una delle alternative più efficienti è la **programmazione dinamica**. L'approccio della programmazione dinamica prevede $n$ stadi. Ad ogni stadio $j app {1, ..., n}$ e per ogni stato $w app {0, ..., W}$ si risolve il seguente sottoproblema:
+
+$$
+    (KP_j(w)) z_j(w) = max \sum_{i=1} p_ix_i \\
+    s.t. \sum_{i=1} w_ix_i \leq w \\
+    x_i \{0, 1\} i = 1, ..., j
+$$
+
+La programmazione dinamica di fattp è una enumaerazione parziale delle soluzioni. Risolvere per ogni stato $w$ dello stadio di $j$ i problemi $KP_j(w)$ equivale ad utilizzare la seguente recursione:
+1. Inizializza $KP_0(w) = 0$, per ogni $w app {0, .., W}
+2. Ad ogni stadio $j app \{1, ...n\}$ e per ogni stato $w app \{0, ..., W\}$:
+
+$$
+z_j(w) = 
+\begin{cases}
+        z_{j-1}(w) se w \le w_j \\
+        max\{z_{j-1}(w), z_{j-1}(w - w_j) + p_j\} se w\geq w_j
+\end{cases}
+$$
+La complessità è $O(nW)$, quindi si dice che è "*pseudopolinomiale*". 
+
+```python
+def knapsack(W, weights, prices, n):
+    if(n == 0 or W == 0):
+        return 0
+    
+    if(weights[n-1] > W):
+        return knapsack(W, weights, prices, n-1)
+    else:
+        return max(prices[n-1] + knapsack(W-weights[n-1], weights, prices, n-1),
+         knapsack(W, weights, prices, n-1))
+
+```
+### Metodi di soluzione
+I problemi di programmazione lineare (LP) continua possono essere risolti con diverse tecniche:
+* Simplesso Primale
+* Simplesso Duale
+* Simplesso per le reti
+* Metodo Barrier
+  
+I problemi di programmazione lineare intera o mista (PLI), possono essere risolti utilizzando i seguenti algoritmi:
+* Branch & Bound
+* Branch & Cut &rarr; aggiungo dei vincoli in questo modo trovo soluzioni frazionarie
+* Branch & Price &rarr; genero variabili
+* Branch & Price & Cut
+* Programmazione Dinamica
+
+
+
+
+
+
+
+
+
+
+
+
+
+
