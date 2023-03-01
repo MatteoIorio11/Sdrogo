@@ -311,19 +311,25 @@ Con il termine di **programmazione matematica** si intende il criterio con la qu
 Riprendiamo il nostro esempio dei succhi. 
 Se ipotizziamo che il profitto per ogni litro di succo di mela di tipo 1 è 0.25 Euro e per quello di tipo 2 0.75. Questa volta il problema di *programmazione lineare* si può scrivere in questo modo:
 
-$$z= Max(0.25 x_1 + 0.75x_2) \\ 
-    30x_1 + 20x_2 \leq 30000 \\
-    2x_1 + 12x_2 \leq 3600 \\
-    x_1 \geq 0 \\
-    x_2 \geq 0 
 $$
+\begin{align*}
+& z = \text{Max}(0.25 x_1 + 0.75x_2)  \\
+& s.t. \qquad 30x_1 + 20x_2 \leq 30000 \\
+& \qquad\qquad 2x_1 + 12x_2 \leq 3600  \\
+& \qquad \qquad x_1 \geq 0  \\
+& \qquad \qquad x_2 \geq 0  \\ 
+\end{align*}
+$$
+
 tale funzione *z* viene chiamata **Funzione Obbiettivo**, la nostra funzione obbiettivo va sempre ottimizzata, mentre le disequazioni sottostanti sono i nostri **vincoli**, i quali vanno sempre soddisfatti, definiscono la *regione dei punti da considerare*.
 
 Tra i tanti metodi con la quale risolvere tale sistema si può utilizzare il **Metodo del Simplesso**. Il *metodo del simplesso formato tableau*, usa le operazioni elementari per risolvere dei sistemi lineari. 
 
-La **soluzione ottima** è $$
+La **soluzione ottima** è 
+$$
 (x_1, x_2) = (900, 150)\\
-z = Max(0.25x_1 + 0.75x_2) = 337.5 $$
+z = \text{Max}(0.25x_1 + 0.75x_2) = 337.5
+$$
 
 la soluzione ottima nei sistemi lineari sono sempre **gli estremi**.
 
@@ -343,20 +349,26 @@ E' possibile costruire per il nostro problema di *programmazione lineare* si pu�
 * $a$ quanto consumo per ogni unità
 
 $$
-    z = Max \sum_{i=1} p_ix_i \\
-    s.t \sum_i a_{ij}x_i \leq b_j j = 1,...., m \\
-    x_i \geq 0 i = 1,....n
+\begin{align*}
+    & z = \text{Max}\sum_{i=1} p_ix_i \\ 
+    & s.t. \\
+    &  \sum_i a_{ij}x_i \leq b_j && j = 1,...., m \\
+    & x_i \geq 0 && i = 1,....n
+\end{align*}
 $$
 
 Il primo passo è quello di **definire il modello matematico**. Il modello si può rappresentare come:
 $$
+\begin{align*}
     z = min(f(x)) \\
-    s.t g_i(x) \leq b_i i = 1,..., n \\
-    h_j(x) = d_j j = 1,..., m \\
-    x \geq 0
+    s.t  \\
+    & g_i(x) \leq b_i && i = 1,..., n \\
+    & h_j(x) = d_j  && j = 1,..., m \\
+    & x \geq 0
+\end{align*}
 $$
 
-la funzione $f(x)$ è detta **funzione obbiettivo**, le espressioni $g_i(x) \leq b_i$ e $h_j(x) = d_j$ rappresentano i vincoli e $x = (x_1, ...., x_f)$ sono variabili. Se le funzioni $f(x), g_i(x) \leq b_i, h_j(x) = d_j$ sono lineari parliamo di **programmazione lineare continua**. 
+la funzione $f(x)$ è detta **funzione obbiettivo**, le espressioni $g_i(x) \leq b_i$ e $h_j(x) = d_j$ rappresentano i **vincoli** e $x = (x_1, ...., x_f)$ sono **variabili**. Se le funzioni $f(x), g_i(x) \leq b_i, h_j(x) = d_j$ sono lineari parliamo di **programmazione lineare continua**. 
 
 ### Modelli Matematici per l'Ottimizzazione
 Se aggiungiamo dei vincoli per cui la nostra soluzione $x$ deve essere intera, allora parliamo di **programmazione lineare intera**. 
@@ -374,18 +386,24 @@ Dato un problema di programmazione lineare P, un **algoritmo esatto** garantisce
 #### Knapsack Problem
 Il problema di knapsack può essere modellato matematicamente come segue:
 $$
-    max z_{KP} = \sum_{i=1} p_ix_i \\
-    s.t. \sum_{i=1} w_ix_i \leq W \\
-    x_i  \{0, 1\} i = 1, ..., n
+\begin{align*}
+\text{maximize } & z_{KP} = \sum_{i=1} p_ix_i \\ 
+s.t. \\ 
+& \sum_{i=1} w_ix_i \leq W \\
+&x_i  \{0, 1\} & i = 1, ..., n
+\end{align*}
 $$
 Si traduce in:
 $$
-max z_{KP} = 12x_1 + 4x_2 + 15x_3 + 3x_4 \\
-s.t. 6x_1 + 4x_2 + 5x_3 + 2x_4 \leq 10 \\
-x_1, x_2, x_3, x_3 \{0, 1\}
+\begin{align*}{}
+    & \text{maximize} \qquad z_{KP} = 12x_1 + 4x_2 + 15x_3 + 3x_4 &\\
+    & \qquad s.t. \\
+    & \qquad\qquad\qquad 6x_1 + 4x_2 + 5x_3 + 2x_4 \leq 10 & \\
+    & \qquad\qquad\qquad x_1, x_2, x_3, x_3  \in \{0, 1\} & \\
+\end{align*}
 $$
 
-Calcoliamo per ogni oggetto $i$ il suo profitto per unità di capacità: $r_i =  p_i \div w_i$, l'oggetto che ha il valore $r_i$ più alto è quello che ci fa guadagnare di più per ogni unità di capacità impiegata.
+Calcoliamo per ogni oggetto $i$ il suo profitto per unità di capacità: $r_i =  \frac{p_i}{w_i}$, l'oggetto che ha il valore $r_i$ più alto è quello che ci fa guadagnare di più per ogni unità di capacità impiegata.
 
 Se l'oggetto 1 *fosse divisibile* posso prendere solo la frazione che ci sta, ottenendo l'occupazione di tutto il knapsack con il profitto **ottimo**. pari a: $z = 12 * 5/6 + 0 + 15 * 1 + 0 = 25$
 
@@ -396,23 +414,26 @@ Il problema in cui ammettiamo anche una sola soluzione frazionaria, è detto **r
  Tale approccio è noto come **branch and bound**. Quando in un nodo dell'**albero di ricerca**, la soluzione è intera ci fermiamo e se migliora la soluzione ottima emergente la sostituisce. 
 
 #### Knapsack Problem Dinamyc Programming
- Una delle alternative più efficienti è la **programmazione dinamica**. L'approccio della programmazione dinamica prevede $n$ stadi. Ad ogni stadio $j app {1, ..., n}$ e per ogni stato $w app {0, ..., W}$ si risolve il seguente sottoproblema:
+ Una delle alternative più efficienti è la **programmazione dinamica**. L'approccio della programmazione dinamica prevede $n$ **stadi**. Ad ogni stadio $j \in {1, ..., n}$ e per ogni **stato** $w \in {0, ..., W}$ si risolve il seguente sottoproblema:
 
 $$
-    (KP_j(w)) z_j(w) = max \sum_{i=1} p_ix_i \\
-    s.t. \sum_{i=1} w_ix_i \leq w \\
-    x_i \{0, 1\} i = 1, ..., j
+\begin{align*}
+&(KP_j(w)) z_j(w) = max \sum_{i=1} p_ix_i \\
+& \qquad s.t. \\
+& \qquad\qquad \sum_{i=1} w_ix_i \leq w \\
+& \qquad\qquad x_i \{0, 1\} && i = 1, ..., j
+\end{align*}
 $$
 
-La programmazione dinamica di fattp è una enumaerazione parziale delle soluzioni. Risolvere per ogni stato $w$ dello stadio di $j$ i problemi $KP_j(w)$ equivale ad utilizzare la seguente recursione:
-1. Inizializza $KP_0(w) = 0$, per ogni $w app {0, .., W}
-2. Ad ogni stadio $j app \{1, ...n\}$ e per ogni stato $w app \{0, ..., W\}$:
+La programmazione dinamica di fatto è una enumaerazione parziale delle soluzioni. Risolvere per ogni stato $w$ dello stadio di $j$ i problemi $KP_j(w)$ equivale ad utilizzare la seguente recursione:
+1. Inizializza $KP_0(w) = 0$, per ogni $w \in {0, .., W}$
+2. Ad ogni stadio $j \in \{1, ...n\}$ e per ogni stato $w \in \{0, ..., W\}$:
 
 $$
 z_j(w) = 
 \begin{cases}
-        z_{j-1}(w) se w \le w_j \\
-        max\{z_{j-1}(w), z_{j-1}(w - w_j) + p_j\} se w\geq w_j
+        z_{j-1}(w) & \text{se} \quad w \le w_j \\
+        \text{max}\{z_{j-1}(w), z_{j-1}(w - w_j) + p_j\} & \text{se}\quad w\geq w_j
 \end{cases}
 $$
 La complessità è $O(nW)$, quindi si dice che è "*pseudopolinomiale*". 
