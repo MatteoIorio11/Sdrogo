@@ -622,3 +622,147 @@ param recipe : water apple :=
 ```
 
 EASY!
+
+#### Esercizio 3/4
+In questo eserizio viene mostrata la differenza sostanziale che esiste tra un problema di programmazione lineare che ha a che fare con variaibli continue (caso facile), e uno stesso problema che ha a che fare con *variaibli intere* (?).
+
+##### Parte 1
+- Un'azienda ha $n$ depositi e $m$ punti vendita.
+- Da ogni deposito $i=1..n$ deve trasferire $a_i$ quantità di merce.
+- A ogni punto vendita $j=1..m$ devono arrivare $b_j$ unità di merce.
+- Trasportare *una unità di merce* dal depositio $i$ al punto vendita $j$ costa $c_{ij}$ (**costo variaible**).
+
+**D**: Determinare come rifornire i punti vendita dai depositi **minimizzando** il costo di trasporto, dati i seguenti parametri:
+- Depositi $n=2$: $a_1=10$ e $a_2 = 15$.
+- Punti vendita $m=3$: $b_1=5$, $b_2 = 12$ e $b_3 = 8$.
+- Costi per i trasporti:
+  - Deposito 1: $c_{11} = 100$, $c_{12} = 300$ e $c_{13}=500$.
+  - Deposito 2: $c_{21} = 200$, $c_{22} = 400$ e $c_{23}=600$.
+
+Si determina subito il modello di programmazione lineare:
+$$
+\begin{align*}
+    & z = \text{Min}\sum_{i=1}^{n}{\sum_{j=1}^{m}{c_{ij}x_{ij}}} \\
+    & \qquad s.t. \\
+    & \qquad \qquad \sum_{j=1}^{m}{x_{ij}} = a_j & i=1..n \\
+    & \qquad \qquad \sum_{i=1}^{n}{x_{ij}} = b_j & j=1..m \\
+    & \qquad \qquad x_{ij} \geq 0 & i=1..n,\quad j=1..m
+\end{align*}
+$$
+
+- Da notare che è necessario che $\sum_{i=1}^{n}a_i = \sum_{j=1}^{m}b_j$ affinché non si abbiano sbilanciamenti. In caso contrario una possibile soluzione sarebbe quella di generare dalla parte sbilanciata un oggetto **dummy** per poter mantenere il vincolo soddisfatto, dove per non interferire con gli *archi* (collegamento da magazzino $i$ a punto vendita $j$) vengono settati con costo $c_{ij}$ pari a 0. Penso che lo rivedremo più avanti.
+- Basta che solo $b_j$ e $a_i$ siano interi per ottenere una **soluzione intera** (lo vedremo più avanti il perché).
+
+Traducendo il modello per AMPL si ottiene:
+```bash
+# es3.mod
+
+set depot;      # depositi
+set pdv;        # punti vendita
+
+param disp {depot};         # disponibilità dei depositi
+param req {pdv};            # richieste dei punti vendita
+param cost {depot, pdv};    # costi da deposito i a pdv j
+
+var x {depot, pdv} >= 0; # quantità trasportata dal deposito i al pdv j
+
+minimize tot_cost : sum {i in depot} sum {j in pdv} cost[i,j] * x[i,j];
+
+subject to depot_limit {i in depot} : sum {j in pdv} x[i,j] = disp[i];
+subject to req_limit {j in pdv} : sum {i in depot} x[i,j] = req[j];
+```
+Mentre il file dati può essere scritto come:
+```bash
+# es3.dat
+
+set depot := depBO depMI;
+set pdv := pdvFI pdvRM pdvNA;
+
+param : disp :=
+    depBO 10
+    depMI 15;
+
+param : req :=
+    pdvFI  5
+    pdvRM 12
+    pdvNA  8;
+
+param cost : pdvFI pdvRM pdvNA :=
+    depBO     100   300   500
+    depMI     200   400   600
+```
+
+##### Parte 2
+Come cambia il problema dell'esercizio precedente se per essere abilitato a trasportare una qualunque quantità di merce dal deposito $i$ al punto vendita $j$ bisogna pagare un costo fisso $f_{ij}$?
+
+Per quanto possa sembrare una cazzata, con questo vincolo il problema che prima era facile ora diventa difficilissmo ($\in \text{NP}$).
+
+(? non so se le cose dette in questo paragrafo hanno senso)
+Questo succede poiché durante la risoluzione del problema, vengono rilassati i vincoli di interezza, che portano il problema ad un cattivo *bounding* che può essere addirittura molto lontano dalla soluzione ottima. 
+
+Viene quindi aggiunta una nuova variabile decisionale al modello di prima, $y_{ij}$ che sta ad indicare quanti mezzi vengono impiegati per effettuare il viaggio dal deposito $i$ al punto vendita $j$. Questa variaible necessità del vincolo di non negatività e di **interezza**. È inoltre necessario definire un limite ad ogni mezzo impiegato di quante unità può trasportare, modellato da $u_{ij}$.
+
+Il modello ora assume questa forma:
+$$
+\begin{align*}
+    & z = \text{Min}\sum_{i=1}^{n}{\sum_{j=1}^{m}{c_{ij}x_{ij}} + f_{ij}y_{ij}} \\
+    & \qquad s.t. \\
+    & \qquad\qquad \sum_{j=1}^{m}{x_{ij} = a_i}      & i=1..n \\
+    & \qquad\qquad \sum_{i=1}^{n}{x_{ij} = b_j}      & j=1..m \\
+    & \qquad\qquad 0 \leq x_{ij} \leq u_{ij}y_{ij}   & i=1..n, \quad j=1..m \\
+    & \qquad\qquad y_{ij} \geq 0 \quad \text{intero}          & i=1..n, \quad j=1..m
+\end{align*}
+$$
+
+La soluzione in AMPL viene modificata come segue:
+```bash
+# es3-2.mod
+
+set depot;
+set pdv;
+
+param disp {depot};
+param req {pdv};
+param cost {depot, pdv};
+param fixcost {depot, pdv}
+param cap {depot, pdv}
+
+var x {depot, pdv} >= 0;
+var y {depot, pdv} integer >= 0;
+
+minimize tot_cost : sum {i in depot} sum {j in pdv} (cost[i,j] * x[i,j]) + (fixcost[i,j] * y[i,j])
+
+subject to depot_limit {i in depot} : sum {j in pdv} x[i,j] = disp[i];
+subject to pdv_limit {j in pdv} : sum {i in depot} x[i,j] = req[j];
+subject to cap_limit {i in depot, j in pdv} : x[i,j] <= cap[i,j] * y[i,j]
+```
+che prevede di caricare i seguenti dati:
+```bash
+set depot := depBO depMI
+set pdv := pdvFI pdvRM pdvNA
+
+param : disp :=
+    depBO   10
+    depMI   15;
+
+param : req 
+    pdvFI   5
+    pdvRM   12
+    pdvNA   8;
+
+param cost : pdvFI pdvRM pdvNA :=
+    depBO     100   300   500
+    depMI     200   400   600
+
+param fixcost : pdvFI pdvRM pdvNA :=
+    depBO       1000  1000  1000
+    depMI       1000  1000  1000
+
+param cap : pdvFI pdvRM pdvNA :=
+    depBO     8     8     8
+    depMI     8     8     8
+```
+
+Nota: avendo in posto il vincolo di interezza nella variabile $y$, i tempi d'esecuzione possono prolonguarsi notevolemnte, ed essendo il problema $\in \text{NP}$, non è detto che venga fornita dal solver la soluzione ottima. In caso, viene fornita, oltre alla soluzione calcolata, la distanza dalla soluzione ottima.
+
+### Intelligenza Artificiale
