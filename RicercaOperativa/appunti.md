@@ -464,16 +464,161 @@ I problemi di programmazione lineare intera o mista (PLI), possono essere risolt
 * Branch & Price & Cut
 * Programmazione Dinamica
 
+## Linguaggi di modellazione
+Servono per descrivere un problma di ottmizzazione con un buon libello di astrazione e semplicità. Compito del linguaggio di modellazione è l'interfacciamento con i *solver* per caricare e risolvere il problema e per accedere ai dati e alle soluzioni.
+
+Useremo AMPL da linea di comando, ma è possibile linkare le librerie con vari linguaggi (C/C++, Python, Java, ...)
+
+AMPL funziona con **modelli lineari** e **quadratici**.
+
+### Guida d'uso rapida AMPL
+È possibile utilizzare AMPL da linea di comando richiamando il comando `./ampl` o `ampl` se è presente in `PATH`.
+In questo modo è possibile specificare:
+- `var <name>`: variabile decisionale specificata dal `<name>`.
+- `maximize/minimize <f_obj_name> : <expr>`: dichiarare una funzione obiettivo, definita da un'equazione dopo i ":".
+- `subject to <constraint_name>: <expr>`: dichiarazione di un vincolo.
+- `solve`: risolve il problema di programmazione lineare.
+- `display <var>`: mostra il valore di una variaible o parametro
 
 
+#### Generalizzazione
+AMPL consente di separare il modello dai dati. In particolare gli elementi fondamentali di un problema LP sono:
+- **DATI**
+  - *Insiemi* (`set`): liste di prodotti, risorse,...
+  - *Parametri* (`param`): Sono gli input numerici del problema, e possono essere *vettori* oppure *scalari*
+- **MODELLO**
+  - *Variabili* (`var`): var. decisionali definite dal risolutore.
+  - *Funzione Obiettivo*: funzione delle var. decsionali da *massimizzare*/*minimizzare*.
+  - *Vincoli* (`subject to`): funzioni delle var. decisionali che devono rimanere entro certi limiti.
 
+#### Esempi d'uso
+#### Esempio 1
+Consideriamo il seguente problema LP:
+$$
+\begin{align*}
+    & z = \text{Max}3x_1 + 4x_2 & \text{Rendimento} \\
+    & \qquad s.t.  \\
+    & \qquad\qquad x_1 + x_2      \leq 100 & \text{Capitale} \\
+    & \qquad\qquad 2x_1 + x_2     \leq 150 & \text{Rating Medio} \\
+    & \qquad\qquad 3x_1 + 4x_2    \leq 360 & \text{Scadenza Media} \\
+    & \qquad\qquad x_1,x_2 \geq 0 \\
+\end{align*}
+$$
 
+Seguendo l'approccio generalizzato, è possibile creare i seguenti file, rispettivamente per il modello e per i dati:
+```bash
+# bonds.mod
 
+set bonds; # insieme di bonds
+param yield {bonds};    # rendimenti
+param rating {bonds};   # ratings
+param maturity {bonds}; # scadenze
+param max_rating;       # massimo rating medio ammesso
+param max_maturity;     # Massima scadenza media ammessa
+param max_cash;         # capitale massimo disponibile
 
+var buy {bonds} >= 0    # Quantità da investire per il prodotto i: var. decisionale
 
+maximize total_yield : sum {i in bonds} yield[i] * buy[i];
 
+# Vincoli delle variaibli e f. obiettivo
+subject to cash_limit : sum {i in bonds} buy[i] <= max_cash
+subject to rating_limit : sum {i in bonds} rating[i] * buy[i] <= max_rating
+subject to maturity_limit : sum {i in bonds} maturity[i] * buy[i] <= max_maturity
+```
 
+```bash
+# bonds.dat
 
+set bonds := A B; # da notare lo spazio come delimitatore 🤮
 
+param : yield rating maturity :=
+    A       4       2       3
+    B       3       1       4;
 
+param max_cash := 100;
+param max_rating := 150;
+param max_maturity := 360;
+```
 
+Per risolvere il problema, basterà ora lanciare:
+```bash
+$ ampl: model bonds.mod
+$ ampl: data bonds.dat
+$ ampl: solve;
+...
+$ ampl: display buy;
+buy[*] :=
+A 50
+B 50
+```
+
+In questo modo se si vogliono cambiare i dati (anche aggiungere un ulteriore bond), sarà sufficiente modificare il file `*.dat`.
+
+Osservazioni interessanti:
+- Un parametro definito con `param` può essere un vettore o uno scalare: quando viene specificata la dimensione tra parentesi graffe, si sta definiendo la sua dimensione (e.g. `param yield {bonds}` dichiara un parametro `yield` per ogni elemento contenuto in `bond`).
+- Per ogni parametro, essi sono i **termini noti** delle equazioni del problema.
+  - È possiible visualizzarli dopo il `solve;` per visualizzare le **variabili duali** ottime (? non ho capito bene cosa siano ma le vedremo più avanti).
+- I delimitatori sono degli spazi.
+- Si possono modificare i dati direttamente da console con l'istruzione `data`.
+- È fortemente consigliato ad ogni risoluzioned i resettare le variaibli, mediante `reset data` (con `reset` si resetta anche il modello), mentre con `reset data <nomevar>` si droppa un solo dato.
+
+#### Esempio 2
+- Un'azienda deve produrre $n$ prodotti con a disposizione $m$ materie prime (simile all'eserizio di miscelazione).
+- Ogni prodotto $i$ ha una ricetta che indica per ogni materia prima $j$ la quantità $a_{ij}$ per produrre una unità.
+- Ogni unità di prodotto genera un profitto $p_i$ e la disponibilità di ogni materia prima $j$ è pari a $b_j$.
+
+**D**: Trovare le quantità di prodotto per **Massimizzare** il profitto dati i seguenti dati:
+- Materie prime $m=2$ con $b_1=30000$ e $b_2=3600$
+- Prodotto $n=2$:
+  - $p_1 = 0.25$, $a_{11} = 30$ e $a_{12}=2$
+  - $p_2 = 0.75$, $a_{21} = 20$ e $a_{22}=12$
+
+Il testo corrisponde al problema di **programmazione lineare**, e sarebbe esprimibile come segue:
+$$
+\begin{align*}
+    &z = \text{Max}\sum_{i=1}^{n}{p_ix_i} \\
+    & \qquad s.t. \\
+    & \qquad\qquad \sum_{i=1}^{n}{a_{ij}x_i} \leq b_j & j=1..m \\
+    & \qquad\qquad x_i \geq 0 & i=1..n
+\end{align*}
+$$
+
+Che trasposto su AMPL diventa:
+```bash
+# es1.mod
+
+set prod;   # prodotti
+set raw;    # materie prime
+
+param profit {prod};        # profitti
+param qnt {raw};            # quantità materie prime disponibili
+param recipe {prod, raw};   # ricetta
+
+var x {prod} >= 0;      # v. decisionale, quanto produrre di prodotto i
+
+maximaze tot_prof : sum {i in prod} profit[i] * x[i];
+
+# abbiamo un limite per ogni materia prima
+subject to raw_limit {j in raw} : sum {i in prod} recipe[i,j] * x[i] <= qnt[j]
+```
+
+```bash
+# es1.dat
+set prod := T1 T2;
+set raw := water apple;
+
+param : profit :=
+    T1  0.25
+    T2  0.75;
+
+param : qnt :=
+    water   30000
+    apple    3600;
+
+param recipe : water apple :=
+    T1      30       2 
+    T2      20      12;
+```
+
+EASY!
