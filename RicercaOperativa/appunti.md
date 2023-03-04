@@ -766,3 +766,14 @@ param cap : pdvFI pdvRM pdvNA :=
 Nota: avendo in posto il vincolo di interezza nella variabile $y$, i tempi d'esecuzione possono prolonguarsi notevolemnte, ed essendo il problema $\in \text{NP}$, non è detto che venga fornita dal solver la soluzione ottima. In caso, viene fornita, oltre alla soluzione calcolata, la distanza dalla soluzione ottima.
 
 ### Intelligenza Artificiale
+
+Molti plrobemi relativi al supporto delle decisioni possono essere risolti con **la programmazione matematica** e **l'ottimizzazione combinatoria**.
+
+L'intelligenza artificiale copre l'area degli *algoritmi euristici*.
+
+Il *machine learning* può utilizzare due approcci:
+* supervisionato
+* non-supervisionato
+
+### Regressione
+Una *regressione* ci permette di costruire quelle funzioni che dovrebbero approssimare il comportamento del fenomeno di nostro interesse. 
