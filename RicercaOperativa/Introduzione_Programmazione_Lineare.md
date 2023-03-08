@@ -58,6 +58,7 @@ $$
     & \qquad\qquad\qquad 0 \leq x_i \leq 1, & i=1..n
 \end{align*}
 $$
+In questo caso all'interno delle condizioni di esistenza *diamo la possibilità di prendere frazioni di elementi* nel caso in cui non si potesse prendere l'elemento interamente.
 È possiible così ricavare un valido upper bound mediante il seguente algoritmo:
 ```python
 def upper_bound_KP(W, w, p, x):
@@ -81,10 +82,13 @@ def greedy_KP(W, w, p, x):
     # Ordina tutti gli oggetti per ordine non crescente di r[i] = p[i]/w[i]
     # Inizializza W1 = W e x[i] = 0 for i..n
     for i in range(n):
-        if W1 >= r[i].weight: #ci sta? posso usarlo? Poiché vogliamo solo soluzioni intere
+        if W1 >= r[i].weight: #ci sta? posso usarlo?
+        \ #Poiché vogliamo solo soluzioni intere
             x[i] = 1
             W1 -= r[i].weight
 ```
+In questo codice si va rilevare il *lower bound* migliore, si può notare infatti che i nostri elementi vengono presi interamente oppure non vengono presi affatto. 
+
 Questo algoritmo può essere migliorato se si considerano le diverse permutazioni all'ordinamento originario, dando luogo anche alla permutazione per cui si ottiene la soluzione ottima.
 
 ### KP: Algoritmi Esatti
@@ -164,6 +168,8 @@ $$
     & \qquad\qquad\qquad x_i \in \{0,1\}, \qquad i=1,...,j
 \end{align*}
 $$
+
+In questo caso $w$ è lo spazio totale che possiamo ancora occupare all'interno dello zaino in uno specifico stadio. **Per ogni stadio ho tanti stati**. 
 
 Risolvere per ogni stato $w$ dello stadio $j$ i problemi $KP_j(w)$ equivale ad utilizzare la seguente recurcsione:
 1. Inizializza $KP_0(w)= 0$, $\forall w \in \{0,...,W\}$
