@@ -30,7 +30,7 @@ Dato un problema di programmazione lineare di *minimo*, un valido **lower bound*
 
 È possibile invece individuare un **upper bound**, ovvero una soluzione ammissibile calcolata come stima per eccesso del valore della soluzione ottima: $ z_P \leq z_{UB} $. È calcolabile tramite **procedure euristici** (euristiche?).
 
-Nel caso il problema di PL sia di *masismo*, i ruoli si invertono, ovvero le procedure di bounding forniscono l'upper bound, mentre i metodi euristici un lower bound.
+Nel caso il problema di PL sia di *massimo*, i ruoli si invertono, ovvero le procedure di bounding forniscono l'upper bound, mentre i metodi euristici un lower bound.
 
 ---
 Un **algoritmo esatto** invece, è un algoritmo che *garantisce* la determinazione della soluzione ottima di P (compatibilmente con le risorse di memoria e tempo di calcolo disponibili).
@@ -68,7 +68,8 @@ def upper_bound_KP(W, w, p, x):
             x[i] = 1;
             W1 -= r[i].weight
         else:
-            x[i] = W1/r[i].weight # Elemento Critico
+            x[i] = W1/r[i].weight # Elemento Critico, prendo la 
+            \ #parte frazionaria che riesco a mettere dentro
             return
 ```
 È importante notare come in questo approccio se arrivassimo al punto in cui riempiamo completamente il knapsack senza solzuzioni frazionare (*Elemento Critico*), allora si arriverebbe direttamente alla soluzione ottima!
@@ -80,7 +81,7 @@ def greedy_KP(W, w, p, x):
     # Ordina tutti gli oggetti per ordine non crescente di r[i] = p[i]/w[i]
     # Inizializza W1 = W e x[i] = 0 for i..n
     for i in range(n):
-        if W1 >= r[i].weight:
+        if W1 >= r[i].weight: #ci sta? posso usarlo? Poiché vogliamo solo soluzioni intere
             x[i] = 1
             W1 -= r[i].weight
 ```
@@ -92,14 +93,14 @@ La soluzione ottima può essere ricavata mediante due approcci:
 - **Programmazione Dinamica**
 
 #### KP: Branch \& Bound
-È un algoritmo di **enumerazione** che utilizza procdure di bounding per ridurre le dimensioni dell'albero di ricerca. Ad **ogni nodo** dell'albero viene calcolato il bounding e possono verificarsi le seguenti condizioni
+È un algoritmo di **enumerazione** che utilizza procedure di bounding per ridurre le dimensioni dell'albero di ricerca. Ad **ogni nodo** dell'albero viene calcolato il bounding e possono verificarsi le seguenti condizioni
 1. Il bound indica che **non può essere** ottenuta una soluzione migliore della migliore soluzione ammisibile &rarr; il nodo viene eliminato.
 2. Il bound fornisce una **soluzione ammissibile** (intera) &rarr; si aggiorna la migliore soluzione ammissibile disponibile e il nodo viene elminato.
 3. Non si verifica ne (1) ne (2) (e.g. viene calcolata una soluzione frazionaria) &rarr; **branching**: il problema viene ulteriormente decomposto in $k$ sottoproblemi.
 
 Possiamo così definire i seguenti insiemi per ogni nodo dell'albero:
-- $F_0 \subseteq \{1,...,n\}$: variabili fissate a 0
-- $F_1 \subseteq \{1,...,n\}$: variabili fissate a 1
+- $F_0 \subseteq \{1,...,n\}$: variabili fissate a 0, gli elementi che non vengono presi
+- $F_1 \subseteq \{1,...,n\}$: variabili fissate a 1, gli elementi che vengono utilizzati
   - ovviamente vale $F_0 \cap F_1 = \empty$
 - $L = \{1,...,n\}\setminus(F_0 \cup F_1)$: insieme delle variabili *libere*.
 
@@ -112,6 +113,9 @@ $$
     & \qquad\qquad\qquad 0 \leq x_i \leq 1 \qquad i \in L
 \end{align*}
 $$
+
+La nostra funzione obbiettivo è quindi la sommatoria di tutti gli elementi gia presi $p_i$ sommata alla sommatoria di tutti gli altri elementi che ancora devono essere aggiunti $p_ix_i$.
+Nei vincoli invece troviamo $W-\sum_{i \in F_1} w_i$, che si traduce in: rimuovo dallo spazio disponibile $W$ i volumi degli elementi presi $w_i$.  
 
 Un algoritmo Branch \& Bound per il knapsack (0-1) è il seguente:
 ```python
@@ -133,7 +137,7 @@ def BBKP(f0, f1, W, w, p, x, z):
 
 Dove nello pseudocodice:
 - `Z_LKP(L, f0, f1)` = $z_{LKP}$, ovvero l'[upper bound](#kp-upper-bound) calcolato nel nodo corrente dell'albero.
-- L'`elif` sta ad indcare che nella soluzione trovata tramite il calcolo dell'upper bound fino a quel punto, l'ultimo elemento trovato $j$ nella soluzione prende il nome di elemento critico poiché può essere intero o frazionario.
+- L'`elif` sta ad indicare che nella soluzione trovata tramite il calcolo dell'upper bound fino a quel punto, l'ultimo elemento trovato $j$ nella soluzione prende il nome di elemento critico poiché può essere intero o frazionario.
   - In caso sia intero e maggiore della soluzione massima corrente, allora la soluzione trovata sostituisce la soluzione corrente.
   - In caso sia frazionario, allora si esplora il suo sottoalbero come indicato dalle chiamate ricorsive nelle ultime due righe.
 

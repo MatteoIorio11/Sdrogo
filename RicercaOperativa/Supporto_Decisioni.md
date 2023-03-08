@@ -697,6 +697,7 @@ Come cambia il problema dell'esercizio precedente se per essere abilitato a tras
 
 Per quanto possa sembrare una cazzata, con questo vincolo il problema che prima era facile ora diventa difficilissmo ($\in \text{NP}$).
 
+(? non so se le cose dette in questo paragrafo hanno senso)
 Questo succede poiché durante la risoluzione del problema, vengono rilassati i vincoli di interezza, che portano il problema ad un cattivo *bounding* che può essere addirittura molto lontano dalla soluzione ottima, le soluzioni trovate potrebbero discostarsi tanto dalla soluzione migliore. 
 
 Viene quindi aggiunta una nuova variabile decisionale al modello di prima, $y_{ij}$ che sta ad indicare quanti mezzi vengono impiegati per effettuare il viaggio dal deposito $i$ al punto vendita $j$. Questa variaible necessità del vincolo di non negatività e di **interezza**. È inoltre necessario definire un limite ad ogni mezzo impiegato di quante unità può trasportare, modellato da $u_{ij}$.
