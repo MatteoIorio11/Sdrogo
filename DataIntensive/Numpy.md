@@ -44,7 +44,7 @@ Le operazioni sono le stesse dei vettori, a differenza di:
   - Ogni cella $A_{i,j}$ è data dal prodotto scalare tra il vettore riga $i$ di $A$ con il vettore colonna $j$ di $B$.
 
 ## Numpy
-Permette di gestire array n-dimensionali e l'applicazione di concetti di algebra lineare. Moltissime operazioni usano la sintassi python standard, ma con la differenza che spesso sono 10+ volte più veloci.
+Permette di gestire array n-dimensionali e l'applicazione di concetti di algebra lineare. Moltissime operazioni usano la sintassi python standard, ma con la differenza che spesso sono 10+ volte più veloci. Funzionie e operatori agiscono su inter vettori.
 
 ### Reference
 #### `ndarray`
@@ -68,10 +68,11 @@ np.array([ [1, 2, 3, 4],
 ```
 
 Ogni ndarray ha una serie di attributi, di cui si ricordano:
-- `ndim`: numero di dimensioni.
-- `shape`: tupla che indica la forma (nell'esempio sopra, vettore=`(4, )`, matrice=`(2, 4)`)
-- `size`: numero totale di valori
+- `ndim`: numero di dimensioni, chiamati anche assi.
+- `shape`: tupla che indica la forma (nell'esempio sopra, vettore=`(4, )`, matrice=`(2, 4)`). Una tupla di interi che indica il numero di elemento lungo ciascuna dimensione.
+- `size`: numero totale di valori all'interno dell'array.
 - `dtype`: tipo di dato dei valori contenuti.
+- `itemsize`: La dimensione in byte di ogni elemento.
 
 #### Creazione di `ndarray`
 È possibile creare e inizializzare un array in savriati modi, per esempio:
@@ -96,14 +97,19 @@ Gli `ndarray` contengono valori mutabili, perciò `y[0, 2] = 100`, provocherà i
 È possibile l'accesso degli elementi per intervalli (**slicing**) come segue:
 ```python
 x = np.array([10, 20, 30, 40, 50])
+blob = np.zeros((3,4,2,1,5,6))
 y = [2:4] # y = array([30, 40])
 
 x[:3]   # primi 3 elementi
 x[-3:]  # ultimi 3 elementi
 x[1::2] # dal secondo ogni 2 elementi
+blob[...,2:2] # equivale a blob[:,:,:,:,:,2:2],
+# metto tutti i valori delle precedenti dimensioni a ":"
 ```
 È imporante notare come effettuando slicing di x, si ottiene una vista dell'array, che condivide con esso la stessa memoria.
 È possibile stabilire se un array è nato da uno slice di un altro array è possibile usare il campo `base`, per esempio nell'esempio sopra `y.base is x`  restituisce `True`. Se si trattadi una copia invece, l'attributo `base` è `None`.
+
+Nel caso in cui si volesse copiare un'intera matrice in una nuova variabile è necessario utilizzare il metodo built in di ogni ndarray `copy()` il quale permette di creare una copia esatta di tutto ndarray.
 
 È possiible utilizzare slicing anche su matrici, dove è imporante ricodare che l'operatore `:` indica "tutti gli indici lungo quella dimensione".
 ```python
@@ -117,6 +123,27 @@ y = x[-1]   # seleziona solo l'ultima riga ma tutte le colonne
 Per i vettori riga e colonna estratti da una matrice, è sufficiente specificare un singolo indice di una dimensione, e questa dimensione viene rimossa dall'array risultante.
 
 Si possono specificare **liste di indici** per specificare gli indici degli elementi da prendere (e.g. `x[:, [0, 2]]` tutte le righe e prima colonna e terza). È imporante notare che al contrario dello slicing, questo metodo ritorna **sempre una copia** degli elementi.
+
+E' inoltre possibile specificare **matrici di indici**
+```python
+a = (np.arange(12)**2).reshape(3,4)
+# [[0, 1, 2, 3, 4]
+#  [16, 25, 36, 49]
+#  [64, 81, 100 ,121]]
+
+idx_r = np.array([[0,0,0], [1,1,1]])
+idx_c = np.array([[2,3,2], [0,0,0]])
+a[idx_r, idx_c]
+#[[4, 9, 4]
+# [16, 16, 16]]
+
+#Come è stato ottenuto il primo 4?
+# a[idx_r=0, idx_c=2] = 4
+#Il 9?
+# a[idx_r=0, idx_c = 3] = 9
+#Il 4
+# a[idx_r=0, idx_c=2] = 4
+```
 
 #### Cambiamento di forma
 È possibile specificare una nuova forma per l'array in una che preveda lo stesso numero complessivo di elementi tramite il metodo `reshape((a, b))` dove la tupla `(a,b)` rappresenta la nuova dimensione di vettore 1D ad una matrice 2D. 
