@@ -243,7 +243,6 @@ b_2 \\
 b_m
 \end{bmatrix}
 \qquad
-
 \textbf{A}= \begin{bmatrix}
 a_{11} & a_{12} & \dots & a_{1n} \\
 a_{21} & a_{22} & \dots & a_{2n} \\
@@ -302,13 +301,14 @@ $$
 \end{align*}
 $$
 È possibile tracciare in un grafico le aree ammissibili per ogni vincolo, in particolare è consigliato il seguente approccio:
-- Trovare il valore di $x_1$ mettendo $x_2 = 0$ e risolvere l'equazione per entrambi i membri, ovvero i punti di intersezione con gli assi
-- Tracciare la retta passante per i due punti trovati
+- Trovare il valore di $x_1$ mettendo $x_2 = 0$ e risolvere l'equazione per entrambi i membri, ovvero i punti di intersezione con gli assi.
+- Tracciare la retta passante per i due punti trovati.
 - Individuare se l'origne è compreso nell'intervallo considerato risolvendo la disquazione del vincolo.
-- Tracciare l'area ammissibile.
+- Ripetere per tutti i vincoli del problema.
+- Infine tracciare l'area ammissibile nell'interesezione che risulta tra le diverse aree.
 
-Fatto questo per tutti i vincoli, è possibile determinare la zona ammissibile del problema.
-Ora è possibile utilizzare il valore del gradiente della funzione obiettivo per individuare l'insieme delle curve di livello che, intersecandosi col poliedro della zona ammissibile, ci permetterà di determinare l'insieme delle soluzioni e soprattutto la soluzione ottima.
+Fatto questo, è possibile determinare la zona ammissibile del problema.
+Ora è possibile utilizzare il valore del **gradiente** della funzione obiettivo per individuare l'insieme delle *curve di livello* che, intersecandosi col poliedro della zona ammissibile, ci permetterà di determinare l'insieme delle soluzioni e soprattutto la soluzione ottima.
 
 Quindi:
 
@@ -322,4 +322,32 @@ $$\nabla z = \begin{bmatrix}
 \end{bmatrix}
 $$
 
+Il quale ci indica le coordinate della direzione del vettore gradiente di $z$.
+In base alla richiesta del problema, dobbiamo decidere se seguire la direzione del gradiente, oppure procedere in direzione opposta ad esso, poiché il gradiente indica dove la funzione cresce maggiormente. Quindi:
+- Se il problema PL è di **Massimo**, allora bisogna seguire la direzione del gradiente.
+- Se il problema PL è di **Minimo**, bisogna seguire la direzione **opposta** del gradiente.
+
+Nel nostro caso quindi, seguiamo l'inverso del gradiente, ovvero $\begin{bmatrix} 1 \\ 3\end{bmatrix}$. 
+Ora è possibile tracciare le rette tangenti alla direzione del gradiente (ovvero le rette perpendicolari), in modo tale da poter individuare quel punto del poliedro che massimizza/minimizza la funzione obiettivo.
+
+La soluzione ottima del problema, corrisponde ad un **vertice** (o **punto estremo**) della regione ammissibile, come mostrato nella figura sotto.
+
 ![Grafico Soluzione Ottima](./img/intro_pl/es1_sol.png)
+
+#### Esempio: Soluzioni Ottime Equivalenti
+$$
+\begin{align*}
+    & \text{max} \quad z = 2x_1 + 3x_2\\
+    & s.t. \\
+    & \quad x_1 + 3x_2 \leq9 \\
+    & \quad 4x_1 +6x_2 \leq 24 \\
+    & \quad x_1, x_2 \geq 0
+\end{align*}
+$$
+Se ragioniamo come prima per la definizione delle regioni ammissibili, possiamo ottenere il poliedro che definisce l'insieme delle soluzioni del problema. A questo punto calcoliamo il gradiente della funzione $z$, ma a differenza di prima, seguiamo il suo verso poiché si tratta di un problema di masimo. Tracciando le curve di livello però, si può notare come la l'ultima curva che interseca la regione ammissibile ha la stessa inclinazione della retta passante per i punti B e C in figura più sotto. Questo accade perché uno dei vincoli è proporzionale alla funzione obietivo (il secondo dei vincoli), provocando quindi un'insieme di soluzioni ottime in corrispondenza del segmento tra B e C, ovvero dove la funzione obiettivo assume il valore $z^*=12$.
+Appartengono alla soluzione ottima quindi i punti $A=(3,2)$ e $C=(6,0)$.
+![Grafico Soluzione Ottima](./img/intro_pl/es2_sol.png)
+
+#### Esempio: Soluzione Illimitata
+
+![Grafico Soluzione Ottima](./img/intro_pl/es3_sol.png)
