@@ -261,3 +261,164 @@ $$
     & x_j intera \qquad j = 1, ...., n
 \end{align*}
 $$
+
+## Programmazione Lineare
+La programmazione lineare mira a minimizzare o minimizzare una *funzione obiettivo* lineare in presenza di *vincli* lineari.
+
+Per esempio:
+$$
+\begin{align*}
+& \text{min} \quad z = \sum_{j-1}^n c_jx_j \\
+& \qquad s.t. \\
+& \qquad\qquad \sum_{j-1}^n a_{ij}x_j \geq b)i & i=1,...,m \\
+& \qquad\qquad x_j \geq 0 & j=1,...,n
+\end{align*}
+$$
+
+dove:
+- $x_j$ variabile decisionale
+- $c_j$ coefficiente di costo della variaible $x_j$
+- $b_i$ termine noto del vincolo $i$
+- $a_{ij}$ coefficiente della variaible $x_j$ nel vincolo $i$
+- $z$ valore della funzione obiettivo.
+
+È possibile rappresentare il sistema lineare mediante le matrici, ottenendo così:
+$$
+\begin{align*}
+& \text{min} \quad z = \textbf{cx} \\
+& \qquad s.t. \\
+& \qquad\qquad \textbf{Ax} \geq \textbf{b} \\
+	& \qquad\qquad \textbf{x} \geq 0
+\end{align*}
+$$
+Dove le matrici coinvolte sono:
+$$
+\textbf{c} = \begin{bmatrix}
+c_1\\
+c_2\\
+\vdots \\
+c_n
+\end{bmatrix}
+\qquad
+\textbf{x}= \begin{bmatrix}
+x_1 \\
+x_2 \\
+\vdots \\
+x_n
+\end{bmatrix}
+\qquad
+\textbf{b}= \begin{bmatrix}
+b_1 \\
+b_2 \\
+\vdots \\
+b_m
+\end{bmatrix}
+\qquad
+\textbf{A}= \begin{bmatrix}
+a_{11} & a_{12} & \dots & a_{1n} \\
+a_{21} & a_{22} & \dots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{m1} & a_{m2} & \dots & a_{mn} \\
+\end{bmatrix}
+$$
+
+e in particolare:
+- nell'equazione $\textbf{Ax} \geq \textbf{b} \\$ la soluzione del prodotto matrice vettore della disequazione ha la seguente forma lineare:
+$$
+\begin{cases}
+a_{11}x_1 + a_{12}x_2 + \dots + a_{1n}x_n \geq b_1 \\
+a_{21}x_1 + a_{22}x_2 + \dots + a_{2n}x_n \geq b_2 \\
+\vdots \\
+a_{m1}x_1 + a_{m2}x_2 + \dots + a_{mn}x_n \geq b_m \\
+\end{cases}
+$$
+- Nel prodotto $z = \textbf{cx}$, è sottointeso che il vettore colonna $\textbf{c}$ venga trasposto affinche possa avvenire il prodotto scalare, quindi in realtà $z =\textbf{c}^T\textbf{x}$, ma si usa la forma semplificata quando è facilmente deducibile come in questo caso.
+- La matrice $\textbf{A}$ è anche detta **matrice dei vincoli**, contenente i coefficienti delle variabili decisionali, escludendo i termini noti.
+
+### Assunzioni implicite per LP
+Nella formulazione di un problema di PL, sono implicite le assunzioni di:
+- **Proporzionalità**: ogni variabile $x_j$ contribuisce con la quantità:
+	- $c_jx_j$ al valore della funzione obiettivo.
+	- $a_{ij}x_j$ al vincolo $i$.
+- **Addittività**: ogni componente deve dare il suo contributo, in particolare:
+	- Il valore della funzione obiettivo è dato dalla **somma** dei contributi $c_jx_j$ forniti da ciascuna variabile $j$.
+	- Il contributo totale ad ogni vincolo $i$ è dato dalla somma dei contributi $a_{ij}x_j$ forniti da ciascuna variaible $j$.
+- **Dati Deterministici**: tutti i coefficienti e parametri di un problema di PL, $c_j$, $a_{ij}$ e $b_i$ devono essere **noti**.
+	- Nel caso che alcuni dati fossero non noti o di natura stocastica, essi devono essere approssimati con dati deterministici, per esempio estrapolati da numeri medi o dalla creazione di diversi scenari per varie configurazioni del problema.
+	- Non ci addentreremo nella programmazione stocastica.
+- **Continuità delle Variabili**: le variabili possono asumere **tutti i valori** reali che soddisfano i vincoli.
+	- La programmazione lineare nel continuo, di norma, risolve problemi facili.
+
+### Soluzione di un problema LP
+Per ogni problema di programmazione lineare, la sua soluzione può essere di uno (o più) dei seguenti tipi:
+- **Soluzione Ammissibile**: Una istanza particolare del vettore $\textbf{x}$ che soddisfa i vincoli $\textbf{Ax}\geq\textbf{b}$ e i vincoli di *non negatività* $\textbf{x} \geq 0$ è detta *soluzione ammissibile*.
+- **Regione Ammissibile**:  è l'insieme di tutte le soluzioni ammissibili. Nella PL, assume la forma di un poliedro convesso delimitato o illimitato nella regione del problema.
+- **Soluzione Ottima**: La soluzione ammissibile $\textbf{x}^*$ che minimizza/massimizza il valore della funzione obiettivo è detta *soluzione ottima*. In particolare essa può essere:
+	- *Nessuna*: quando la soluzione è illimitata, e quindi nessuna è migliore di tutte le altre (vedi esempio sotto).
+	- *Unica*
+	- *Molteplice*: (ancora esempio sotto magari fare link) sono soluzioni che hanno caratteristiche particolari.
+- **Problema senza soluzione**: Se la regione ammissibile è *vuota*, allora diremo che il problema non ha soluzione o che il problema non è ammissibile.
+
+#### Esempio: Soluzione Ottima Unica
+Sia il problema di programmazione lineare:
+$$
+\begin{align*}
+    & \text{min} \quad z = -x_1 -3x_2 \\
+    & s.t. \\
+    & -x_1 -x_2 \geq-6 \\
+    & \quad x_1 -2x_2 \geq -8 \\
+    & \quad x_1 +x_2 \geq 2 \\
+    & \quad x_1, x_2 \geq 0
+\end{align*}
+$$
+È possibile tracciare in un grafico le aree ammissibili per ogni vincolo, in particolare è consigliato il seguente approccio:
+- Trovare il valore di $x_1$ mettendo $x_2 = 0$ e risolvere l'equazione per entrambi i membri, ovvero i punti di intersezione con gli assi.
+- Tracciare la retta passante per i due punti trovati.
+- Individuare se l'origne è compreso nell'intervallo considerato risolvendo la disquazione del vincolo.
+- Ripetere per tutti i vincoli del problema.
+- Infine tracciare l'area ammissibile nell'interesezione che risulta tra le diverse aree.
+
+Fatto questo, è possibile determinare la zona ammissibile del problema.
+Ora è possibile utilizzare il valore del **gradiente** della funzione obiettivo per individuare l'insieme delle *curve di livello* che, intersecandosi col poliedro della zona ammissibile, ci permetterà di determinare l'insieme delle soluzioni e soprattutto la soluzione ottima.
+
+Quindi:
+
+$$\nabla z = \begin{bmatrix}
+        \dfrac{\partial z}{\partial x_1} \\
+        \dfrac{\partial z}{\partial x_2}
+\end{bmatrix}
+=\begin{bmatrix}
+    -1 \\
+    -3
+\end{bmatrix}
+$$
+
+Il quale ci indica le coordinate della direzione del vettore gradiente di $z$.
+In base alla richiesta del problema, dobbiamo decidere se seguire la direzione del gradiente, oppure procedere in direzione opposta ad esso, poiché il gradiente indica dove la funzione cresce maggiormente. Quindi:
+- Se il problema PL è di **Massimo**, allora bisogna seguire la direzione del gradiente.
+- Se il problema PL è di **Minimo**, bisogna seguire la direzione **opposta** del gradiente.
+
+Nel nostro caso quindi, seguiamo l'inverso del gradiente, ovvero $\begin{bmatrix} 1 \\ 3\end{bmatrix}$. 
+Ora è possibile tracciare le rette tangenti alla direzione del gradiente (ovvero le rette perpendicolari), in modo tale da poter individuare quel punto del poliedro che massimizza/minimizza la funzione obiettivo.
+
+La soluzione ottima del problema, corrisponde ad un **vertice** (o **punto estremo**) della regione ammissibile, come mostrato nella figura sotto.
+
+![Grafico Soluzione Ottima](./img/intro_pl/es1_sol.png)
+
+#### Esempio: Soluzioni Ottime Equivalenti
+$$
+\begin{align*}
+    & \text{max} \quad z = 2x_1 + 3x_2\\
+    & s.t. \\
+    & \quad x_1 + 3x_2 \leq9 \\
+    & \quad 4x_1 +6x_2 \leq 24 \\
+    & \quad x_1, x_2 \geq 0
+\end{align*}
+$$
+Se ragioniamo come prima per la definizione delle regioni ammissibili, possiamo ottenere il poliedro che definisce l'insieme delle soluzioni del problema. A questo punto calcoliamo il gradiente della funzione $z$, ma a differenza di prima, seguiamo il suo verso poiché si tratta di un problema di masimo. Tracciando le curve di livello però, si può notare come la l'ultima curva che interseca la regione ammissibile ha la stessa inclinazione della retta passante per i punti B e C in figura più sotto. Questo accade perché uno dei vincoli è proporzionale alla funzione obietivo (il secondo dei vincoli), provocando quindi un'insieme di soluzioni ottime in corrispondenza del segmento tra B e C, ovvero dove la funzione obiettivo assume il valore $z^*=12$.
+Appartengono alla soluzione ottima quindi i punti $A=(3,2)$ e $C=(6,0)$.
+![Grafico Soluzione Ottima](./img/intro_pl/es2_sol.png)
+
+#### Esempio: Soluzione Illimitata
+
+![Grafico Soluzione Ottima](./img/intro_pl/es3_sol.png)
