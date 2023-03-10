@@ -190,3 +190,74 @@ Nel caso $w\geq w_j$, la funzione di massimo è da interpretare come segue:
 L'algoritmo così implementato ha complessità $O(nW)$, la quale ci suggerisce come sia possibile preferire questo approccio ad un approccio [Branch \& Bound](#kp-branch--bound):
 - La complessità della programmazione dinamica dipende fortemente dall'aumento della capacità dello zaino $W$.
 - La complessità di B&B esplode all'aumento di $n$ esponenzialmente.
+
+### Programmazione Lineare
+La *programmazione lineare* cosiste nel minimizzare o massimizzare una funzione obbiettivo lineare in presenza di vincoli lineari.
+
+$$
+\begin{align*}
+    & min \quad z_j(w) = \sum_{j=1}^n c_jx_j \\
+    & \qquad\qquad s.t. \\
+    & \qquad\qquad\qquad \sum_{j=1}^n{a_{ij}x_{ij}} \geq {b_i} \quad i = 1, .., m \\
+    & \qquad\qquad\qquad x_j \geq 0, \qquad j=1,...,n
+\end{align*}
+$$
+
+Una rappresentazione più compatta può essere rappresentata come:
+
+$$
+\begin{align*}
+    & min \quad z_j(w) =  cx \\
+    &  s.t. \quad Ax \geq b \\
+    & \qquad x \geq 0
+\end{align*}
+$$
+Dove :
+- *c*: è un vettore colonna con N righe
+- *x*: è un vettore colonna con N righe e reppresenta le nostre variabili decisionali
+- *b*: è un vettore colonna con N righe in cui abbiamo tutti i termini 
+- *A*: è una matrice e contiene tutti i coefficienti dei nostri vincoli
+  
+Nella formulazione di un problema di programmazione lineare sono implicite alcune assunzioni:
+* **Proporzionalità**: Ogni variabile $x_j$ constribuisce con la quantità:
+  - $c_jx_j$ al valore della funzione obiettivo;
+  - $a_{ij}x_j$ al vincolo i, il fenomeno si ripercuote nei vincoli
+*  **Addittività**: 
+   - Il valore della funzione obiettivo è dato dalla somma dei contributi $c_jx_j$,
+   - Il contributo totale ad ogni vincolo i è dato dalla somma dei contributi $a_{ij}x_j$
+* **Dati deterministici**:
+  - I coefficienti $c_j$, $a_{ij}$ e $b_i$ devono essere noti, se non lo fossero debo portare il modello stocastico in un modello deterministico andando ad individuare degli scenari
+  - Nel caso in cui alcuni dati fosser di natura stocastica essi devono essere approssimati con dati deterministici attraverso l'individuazione di *stadi*
+* **Continuità delle variabili**: Le variabili possono assumere tutti i valori reali che soddisfano i vincoli
+* **Soluzione Ammissibile**: Una soluzione $x$ che soddisfa i vincoli $Ax \geq b$ e i vincoli di *non negatività* $x \geq 0$ è della *soluzione ammissibile*.
+* **Regione ammissibile**: L'insieme di tutte le soluzioni ammissibili di un problema è detta *regione ammissibile*.
+* **Soluzione Ottima**: La soluzione ammissibile $x^*$ che minimizza (o massimizza) il valore della funzione obbiettivo è detta *soluzione ottima*.
+* **Problema senza soluzione**: Se la regione ammissibile è *vuota* diremo che il problema non ha soluzione.
+
+
+#### Esempio
+$$
+\begin{align*}
+    & \text{min} z = -x_1 - 3x_2 \\
+    & -x_1 - x_2 \geq -6 \quad (a) \\
+    & x_1 - 2x_2 \geq -8 \quad (b) \\
+    & x_1 + x_2 \geq 2 \quad (c) \\
+    & x_1 \text{,} \quad x_2 \geq 0 
+\end{align*}
+$$
+
+In questo caso si può procedere attraverso il modello grafico. La prima operazione che si deve effettuare è quella di andare ad individuare tutte le zone in cui i nostri valori possono esistere, trasformando la nostra disequazione in una semplice equazione. Una volta trovate tutte le rette delle nostre equazioni si andrà a definire quindi la *regione ammissibile* dei nostri valori. Per minimizzare la funzione obbiettivo basta effettuare la derivata prima, il gradiente avrà valori : $[-1, -3]$, se ci muoviamo nel verso opposto alla direzione del nostro gradiente in quanto noi vogliamo *minimizzare* la funzione obbiettivo otterremo il valore che risolverà il nostro modello.
+
+
+### Programmazione Lineare Intera (MIP)
+Un problema di programmazione lineare intera prevede il vincolo aggiuntivo che le variabili decisionali devono assumere valori interi
+
+$$
+\begin{align*}
+    & min \quad z_j(w) = \sum_{j=1}^n c_jx_j \\
+    & \qquad\qquad s.t. \\
+    & \qquad\qquad\qquad \sum_{j=1}^n{a_{ij}x_{ij}} \geq {b_i} \quad i = 1, .., m \\
+    & \qquad\qquad\qquad x_j \geq 0, \qquad j=1,...,n \\
+    & x_j intera \qquad j = 1, ...., n
+\end{align*}
+$$
