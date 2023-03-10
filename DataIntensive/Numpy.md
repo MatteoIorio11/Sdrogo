@@ -1,5 +1,22 @@
 # Numpy
 
+- [Numpy](#numpy)
+  - [Richiami di algebra lineare](#richiami-di-algebra-lineare)
+    - [Vettori](#vettori)
+      - [Operazioni](#operazioni)
+    - [Matrici](#matrici)
+  - [Numpy](#numpy-1)
+    - [Reference](#reference)
+      - [`ndarray`](#ndarray)
+      - [Creazione di `ndarray`](#creazione-di-ndarray)
+      - [Valori Casuali](#valori-casuali)
+      - [Accesso agli Elementi di un Array](#accesso-agli-elementi-di-un-array)
+      - [Cambiamento di forma](#cambiamento-di-forma)
+      - [Conversione da Array a Oggetti Python](#conversione-da-array-a-oggetti-python)
+      - [Operazioni tra componenti di Array](#operazioni-tra-componenti-di-array)
+      - [Array binari e Booleani](#array-binari-e-booleani)
+
+
 ## Richiami di algebra lineare
 L'algebra lineare studia vettori, matrici, spazi vettoraili, sistemi di equazioni lineari e trasformazioni lineari.
 ### Vettori
@@ -56,7 +73,7 @@ Ogni ndarray ha una serie di attributi, di cui si ricordano:
 - `size`: numero totale di valori
 - `dtype`: tipo di dato dei valori contenuti.
 
-#### Creazioen di `ndarray`
+#### Creazione di `ndarray`
 È possibile creare e inizializzare un array in savriati modi, per esempio:
 - `np.zeors((2,3))`: inizializza una matrice 2x3 con tutti zeri ( di tipo `np.float64` solitamente).
 - `np.full((3, ), 7)`: inizializza un vettore di 3 valori tutti a 7.
