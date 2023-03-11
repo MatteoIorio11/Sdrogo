@@ -15,6 +15,7 @@
       - [Conversione da Array a Oggetti Python](#conversione-da-array-a-oggetti-python)
       - [Operazioni tra componenti di Array](#operazioni-tra-componenti-di-array)
       - [Array binari e Booleani](#array-binari-e-booleani)
+    - [Concatenazione di array](#concatenazione-di-array)
 
 
 ## Richiami di algebra lineare
@@ -205,3 +206,16 @@ x[x > 0] # estraggo da x i valori positivi
 
 x[(x >= 10) & (x <= 20)] # elementi tra 10 e 20
 ```
+
+`np.where(predicate<>, x, y)` attraverso questo metodo è possibile verificare delle condizioni all'interno del nostro ndarray. 
+```python
+
+B = np.fromfunction(lambda i,j: (i+1)*(j+1))
+a = np.fromfunction(lambda i,j: np.where(i%2== 0 & j%3==0, -1, B))
+```
+In questo caso andiamo a mettere a -1 tutti i valori che sono multipli di 2 e di 3.
+
+### Concatenazione di array
+All'interno della libreria di *numpy* abbiamo a dispozione diversi metodi con la quale concaterare due ndarray:
+* **np.vstack((a,b))**: permette di concatenare due ndarray verticalmente
+* **np.hastack((a,b))**: permette di concatenare due ndarray orizzontalmente
