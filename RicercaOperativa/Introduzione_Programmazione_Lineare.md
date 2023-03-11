@@ -1,5 +1,4 @@
 # Introduzione alla Programmazione Lineare
-
 ## Algoritmi di Ottimizzazione
 ### Modelli
 Per poter definire un algoritmo di ottimizzazione, è necessario definire il modello matematico, rappresentato come:
@@ -359,6 +358,7 @@ Per ogni problema di programmazione lineare, la sua soluzione può essere di uno
 	- *Molteplice*: (ancora esempio sotto magari fare link) sono soluzioni che hanno caratteristiche particolari.
 - **Problema senza soluzione**: Se la regione ammissibile è *vuota*, allora diremo che il problema non ha soluzione o che il problema non è ammissibile.
 
+[Link per fare i grafici e calcolare la soluzione ammissibile](https://www.pmcalculators.com/graphical-method-calculator/)
 #### Esempio: Soluzione Ottima Unica
 Sia il problema di programmazione lineare:
 $$
@@ -420,5 +420,74 @@ Appartengono alla soluzione ottima quindi i punti $A=(3,2)$ e $C=(6,0)$.
 ![Grafico Soluzione Ottima](./img/intro_pl/es2_sol.png)
 
 #### Esempio: Soluzione Illimitata
+Consideriamo il seguente problema di minimo:
+$$
+\begin{align*}
+    & \text{min} \quad z = -2x_1 - 5x_2\\
+    & s.t. \\
+    & \quad -3x_1 + 2x_2 \leq6 \\
+    & \quad x_1 +2x_2 \geq 2 \\
+    & \quad x_1, x_2 \geq 0
+\end{align*}
+$$
+Operando come di consueto, troviamo una **regione ammissibile illimitata**. In particolare, possiamo notare che nella regione amissibile sono contenuti i punti per cui $x_1 = x_2$ dove $x_1 \geq \frac{2}{3}$, perché risolvendo il sistema lineare:
+$$
+\begin{cases}
+    x_1=x_2 \\
+    -3x_1 + 2x_1 \leq 6  & \implies x_1 \leq 6\\
+    x_1 + 2x_1 \geq 2    & \implies x_1 \geq \frac{2}{3}
+\end{cases}
+$$
+
+otteniamo il valore minimo di $x_1$. Da questo, possiamo notare che il valore della funzione obiettivo $z = -2x_1 -5x_2$ considerando la condizione $x_1=x_2$ diviene $z = -7x_1$, da cui $z\rightarrow -\infty$ per $x_1 \rightarrow \infty$.
 
 ![Grafico Soluzione Ottima](./img/intro_pl/es3_sol.png)
+A parte i dati numerici, era possibile capire che la soluzione era illimitata se, come prima, calcolavamo il gradiente della funzione obiettivo $\nabla z = \begin{bmatrix}-2 \\ -5\end{bmatrix}$, e considerando che il problema PL era il minimo di minimo, seguiamo la direzione opposta del gradiente dove la funzione si minimizza. È evidente a quel punto che le curve di livello non toccheranno mai un punto critico della regione ammissibile che sia maggiore di tutti gli altri, potendo constatare al volo che la soluzione era illimitata.
+
+
+#### Esempio: Regione Illimitata ma soluzione Illimitata
+Consideriamo il seguente problema di minimo:
+$$
+\begin{align*}
+    & \text{min} \quad z = 2x_1 + x_2\\
+    & s.t. \\
+    & \quad -3x_1 + 2x_2 \leq6 \\
+    & \quad x_1 +2x_2 \geq 2 \\
+    & \quad x_1, x_2 \geq 0
+\end{align*}
+$$
+
+Similmente a prima tracciamo le regioni ammissibili, e notiamo che la regione ammissibile è illimitata, esattamente come prima. 
+Calcoliamo però il gradiente della funzione obiettivo $\nabla z = \begin{bmatrix}2 \\ 1\end{bmatrix}$, e cercando un minimo, ci muoviamo verso la direzione opposta del gradiente, ovvero verso $\begin{bmatrix}-2 \\ -1\end{bmatrix}$ cioè in direzione del terzo quadrante. Il punto critico della regione ammissibile risulta l'ultimo punto che le curve di livello possono intersecare nel poliedro, ovvero il punto $B=(0,1)$.
+![Grafico Soluzione Ottima](./img/intro_pl/es4_sol.png)
+
+#### Esempio: Problema senza soluzione
+Consideriamo il seguente problema di minimo:
+$$
+\begin{align*}
+    & \text{min} \quad z = 2x_1 + 5x_2\\
+    & s.t. \\
+    & \quad 2x_1 + 3x_2 \geq12 \\
+    & \quad 3x_1 + 4x_2 \leq 12 \\
+    & \quad x_1, x_2 \geq 0
+\end{align*}
+$$
+
+E procedendo come di consueto, se si tracciano le regioni ammissibili si nota come esse siano divergenti senza mai incontrarsi: non esiste una regione ammissibile, perciò non esiste una soluzione ammissibile!
+
+![Grafico Soluzione Ottima](./img/intro_pl/es5_sol.png)
+
+## Programmazione Lineare Intera (MIP)
+Un problema di programmazione lineare intera prevede il vincolo aggiuntivo che le **variabili decisionali** devono assumere **valori interi**.
+
+$$
+\begin{align*}
+    & \text{min}\quad z = \sum_{j=1}^n c_jx_j \\
+    & s.t. \\
+    & \qquad \sum_{j=1}^n a_{ij}x_j  \geq b_i   & i=1,\dots,m \\
+    & \qquad x_j \geq 0                                & j=1,\dots,n \\
+    & \qquad x_j \text{intera}                         & j=1,\dots,m
+\end{align*}
+$$
+
+Dove l'ottimo della programmazione lineare intera può distare molto dall'ottimo della programmazione lineare nel continuo.
