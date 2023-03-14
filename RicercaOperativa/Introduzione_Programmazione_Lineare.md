@@ -543,3 +543,33 @@ $$
     \end{matrix} = b \rightarrow Bx_B + Nx_N = b
 $$
 e poichè **B** è invertibile si ha: $$x_B = B^{-1}b-B^{-1}Nx_N$$. Se fissiamo $x_N = 0$ la soluzione $x = [x_B, x_N] = [B^{-1}, 0]$ rappresentano una *Soluzione Base*.
+Nel caso in cui $x_B \geq 0$ , ovvero soddisfa i vnncoli di non nefatività, diremo che *x* è una *Soluzione Base Ammissibile*.
+
+
+### Insieme Poliedrico Convesso
+Un *Insieme Poliedrico Convesso* è definito dall'intersezione di un numero finito di sottospazi chiusi, in sostanza l'insieme di tutte le rette nei nostri vincoli definito una regione del piano in cui si ha un *poliedro convesso*, che definisce la nostra *regione ammissibile*. Si definisce come:
+$$
+X = {x: Ax \geq b, x \geq 0}
+$$
+oppure 
+$$
+X = {x: Ax = b, x \geq 0}
+$$
+Ogni punto **x** di un insieme poliedrico convesso $X$, che non èuò essere espresso, cme comibiazione di due punti $x^1, x^2 \in X$ tali che $x^1 \neq x$ e $x^2 \new x$ è detto *Punto Estremo* di $X$.
+
+
+#### Teoremi
+**Teorema**: L'insieme dei punti estremi dell'insieme poliedrico convesso $X = {x: Ax \geq b, x \geq 0}$ corrisponde all'insieme delle soluzioni base ammissibili. 
+
+**Teorema**: Un insieme poliedrico convesso $X = {x: Ax \geq b, x \geq 0}$ ha un numero finito di punti estremi.
+**Dimostrazione**: Se la mastrice **A** di ordine $(m x n)$ è di rango pieno, allora il numero massimo di basi è pari al numero di possibili scelte di $m$ delle $n$ colonne di **A**; ossia :
+$$
+ (N M) = N! / (M!(N-M)!)
+ NON SO FARLO HEEEEEEELPPPPPPPPORCODIO
+$$
+
+**Teorema** Se la soluzione ottima di un problema di programmazione lineare è finita, allora il pinto di minimo si ottiene in corrispondenza di alemno uno dei punti estremi. Un vettore non nullo **d** è detto *direzione* dell'insieme convesso $X$, se dato un qualsiasi punto $x_0 \in X$ ogni altro punto $x=x_0 + Ld, L \geq 0$ appartiene a $X$ (L mi rappresenta di quanto è il mio spostamento). 
+
+**Teorema**: Dato un insieme poliedrico convesso $X = {x: Ax = b, x \geq 0}$, il vettore **d** è direzione di $X$ se e solo se: $Ad=0, d\geq0, d \neq 0$. 
+* Due vettori $d_1$ e $d_2$ sono distinti se $d_1 \neq \beta d_2$ per ogni $\beta$.
+* Un vettore **d** è detto *direzione estrema* di $X$ se non può essere rappresentato come combinazione lineare di altre due direzioni distinte $d_1$ e $d_2$. 
