@@ -262,7 +262,7 @@ $$
 $$
 
 ## Programmazione Lineare
-La programmazione lineare mira a minimizzare o minimizzare una *funzione obiettivo* lineare in presenza di *vincli* lineari.
+La programmazione lineare mira a minimizzare o minimizzare una *funzione obiettivo* lineare in presenza di *vincoli* lineari.
 
 Per esempio:
 $$
@@ -491,3 +491,55 @@ $$
 $$
 
 Dove l'ottimo della programmazione lineare intera può distare molto dall'ottimo della programmazione lineare nel continuo.
+
+**LO SO DOVREI AGGIUNGERE QUALCHE ESEMOPIO CHE DICE ALCUNE COSE PERO DIO CANE SOLO LE 21:28 E NON HO VOGLIA PORCA LA SUA MADONNA**
+
+#### Manipolazioni di un problema 
+* *Minimizzazione e Massimizzazione*: un problema di massimo può essere convertito in un problema di minimo e viceversa: $$ \text{max}\sum_{j=1}^n c_jx_j = -\text{min} \sum_{j=1}^n -c_jx_j $$
+* *Inversione di una disequazione*: Una disequazione del tipo "$\geq$" si converte in una disequazione del tipo "$\leq$" moltiplicando entrambe i membri per -1 (ASSURDO DIO CANE): $$ \sum_{j=1}^n a_{ij}x_j \geq b_i \rightrightarrows  \sum_{j=1}^n -a_{ij}x_j \leq -b_i $$
+* *Equazioni in disequazioni*: Ad una equazione corrispondono 2 disequazioni: 
+$$ 
+   \sum_{j=1}^n -a_{ij}x_j = b_i \rightarrow \begin{cases}
+    \sum_{j=1}^n -a_{ij}x_j \geq b_i \\
+    \sum_{j=1}^n -a_{ij}x_j \leq b_i \\
+\end{cases}
+$$
+* *Disequazioni in equazioni*: Una disequazione può essere trasformata in una equazione utilizzando ima variabile di scarto non negativa: 
+$$
+    \sum_{j=1}^n -a_{ij}x_j \geq b_i \rightarrow \sum_{j=1}^n -a_{ij}x_j - x_{n+i}= b_i \\
+    \sum_{j=1}^n -a_{ij}x_j \leq b_i \rightarrow \sum_{j=1}^n -a_{ij}x_j + x_{n+i}= b_i
+$$
+* *Non negatività deòòe variabili*: Se nel modello del problema una variabile $x_j$ può assumere qualsiasi valore, allore può essere sostituita con 2 variabili : $x_j^+$ e $x_j^-$ non negative. Si vede una variabile semplice costituita da una parte positiva e da una negativa.
+### Forma Canonica e Forma Standard
+* *Forma "canonica"*: I vincoli sono tutte disequazioni
+$$ 
+   z = \text{min } \sum_{j=1}^n c_jx_j \\
+    \text{s.t} \sum_{j=1}^n a_{ij}x_j \geq b_i, \qquad i = 1,...,m \\
+    x_j \geq 0 \qquad j = 1,...,n
+$$
+* *Forma "standard"*: I vincoli sono tutte equazioni
+$$ 
+   z = \text{min } \sum_{j=1}^n c_jx_j \\
+    \text{s.t} \sum_{j=1}^n a_{ij}x_j = b_i, \qquad i = 1,...,m \\
+    x_j \geq 0 \qquad j = 1,...,n
+$$
+
+### Definizione di Soluzione Base Ammissibile
+Si consideri il seguente problema:
+$$ 
+   \text{min } z = cx \\
+    \qquad \text{s.t} Ax = b \\
+    \qquad x\geq 0
+$$
+dove $A \in R^{m,n}, c,x \in R^n \text{ e } b \in R^m$.
+Il problema deve essere definito **necessariamente in forma standard**. Per cui se eventualemtne alcuni vincoli sono disequazioni devono essere trasformati in equazioni. 
+Si suppone per semplicità che: $Rango(A,b) = Rango(A) = m$
+La matrice **A** può essere riscritta per comodità nella forma **A = [B,N]**. Dove $B \in R^{m,n}$ corrisponde a $m$ colonne linearmente indipendenti ed $N \in R^{m, n-m} solo le rimanenti $n-m$ colonne di **A**.
+Ponendo $x^T = [x_B, x_N]$ il sistema dei vincoli può essere riscritto come:
+$$
+    [B, N] \begin{matrix}
+        x_B \\
+        x_N
+    \end{matrix} = b \rightarrow Bx_B + Nx_N = b
+$$
+e poichè **B** è invertibile si ha: $$x_B = B^{-1}b-B^{-1}Nx_N$$. Se fissiamo $x_N = 0$ la soluzione $x = [x_B, x_N] = [B^{-1}, 0]$ rappresentano una *Soluzione Base*.
