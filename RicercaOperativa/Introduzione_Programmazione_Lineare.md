@@ -553,20 +553,20 @@ oppure
 $$
 X = {x: Ax = b, x \geq 0}
 $$
-Ogni punto **x** di un insieme poliedrico convesso $X$, che non èuò essere espresso, cme comibiazione di due punti $x^1, x^2 \in X$ tali che $x^1 \neq x$ e $x^2 \new x$ è detto *Punto Estremo* di $X$.
+Ogni punto **x** di un insieme poliedrico convesso $X$, che non può essere espresso, come comibiazione di due punti $x^1, x^2 \in X$ tali che $x^1 \neq x$ e $x^2 \neq x$ è detto *Punto Estremo* di $X$.
 
 
 #### Teoremi
 **Teorema**: L'insieme dei punti estremi dell'insieme poliedrico convesso $X = {x: Ax \geq b, x \geq 0}$ corrisponde all'insieme delle soluzioni base ammissibili. 
 
 **Teorema**: Un insieme poliedrico convesso $X = {x: Ax \geq b, x \geq 0}$ ha un numero finito di punti estremi.
-**Dimostrazione**: Se la mastrice **A** di ordine $(m x n)$ è di rango pieno, allora il numero massimo di basi è pari al numero di possibili scelte di $m$ delle $n$ colonne di **A**; ossia :
+**Dimostrazione**: Se la mastrice **A** di ordine $(m, n)$ è di rango pieno, allora il numero massimo di basi è pari al numero di possibili scelte di $m$ delle $n$ colonne di **A**; ossia :
 $$
  (N M) = N! / (M!(N-M)!)
  HELP NON SO FARLO
 $$
 
-**Teorema** Se la soluzione ottima di un problema di programmazione lineare è finita, allora il pinto di minimo si ottiene in corrispondenza di alemno uno dei punti estremi. Un vettore non nullo **d** è detto *direzione* dell'insieme convesso $X$, se dato un qualsiasi punto $x_0 \in X$ ogni altro punto $x=x_0 + Ld, L \geq 0$ appartiene a $X$ (L mi rappresenta di quanto è il mio spostamento). 
+**Teorema** Se la soluzione ottima di un problema di programmazione lineare è finita, allora il punto di minimo si ottiene in corrispondenza di alemno uno dei punti estremi. Un vettore non nullo **d** è detto *direzione* dell'insieme convesso $X$, se dato un qualsiasi punto $x_0 \in X$ ogni altro punto $x=x_0 + \lambda d, \lambda \geq 0$ appartiene a $X$ ($\lambda$ mi rappresenta di quanto è il mio spostamento). 
 
 **Teorema**: Dato un insieme poliedrico convesso $X = {x: Ax = b, x \geq 0}$, il vettore **d** è direzione di $X$ se e solo se: $Ad=0, d\geq0, d \neq 0$. 
 * Due vettori $d_1$ e $d_2$ sono distinti se $d_1 \neq \beta d_2$ per ogni $\beta$.
