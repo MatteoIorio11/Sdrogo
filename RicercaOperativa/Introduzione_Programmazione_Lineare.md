@@ -563,7 +563,7 @@ Ogni punto **x** di un insieme poliedrico convesso $X$, che non èuò essere esp
 **Dimostrazione**: Se la mastrice **A** di ordine $(m x n)$ è di rango pieno, allora il numero massimo di basi è pari al numero di possibili scelte di $m$ delle $n$ colonne di **A**; ossia :
 $$
  (N M) = N! / (M!(N-M)!)
- NON SO FARLO HEEEEEEELPPPPPPPPORCODIO
+ HELP NON SO FARLO
 $$
 
 **Teorema** Se la soluzione ottima di un problema di programmazione lineare è finita, allora il pinto di minimo si ottiene in corrispondenza di alemno uno dei punti estremi. Un vettore non nullo **d** è detto *direzione* dell'insieme convesso $X$, se dato un qualsiasi punto $x_0 \in X$ ogni altro punto $x=x_0 + Ld, L \geq 0$ appartiene a $X$ (L mi rappresenta di quanto è il mio spostamento). 
