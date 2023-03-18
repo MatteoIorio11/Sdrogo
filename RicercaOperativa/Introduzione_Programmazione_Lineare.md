@@ -507,31 +507,39 @@ $$
     \sum_{j=1}^n a_{ij}x_j \geq b_i \rightarrow \sum_{j=1}^n a_{ij}x_j - x_{n+i}= b_i \\
     \sum_{j=1}^n a_{ij}x_j \leq b_i \rightarrow \sum_{j=1}^n a_{ij}x_j + x_{n+i}= b_i
 $$
-* *Non negatività deòòe variabili*: Se nel modello del problema una variabile $x_j$ può assumere qualsiasi valore, allore può essere sostituita con 2 variabili : $x_j^+$ e $x_j^-$ non negative. Si vede una variabile semplice costituita da una parte positiva e da una negativa.
+* *Non negatività delle variabili*: Se nel modello del problema una variabile $x_j$ può assumere qualsiasi valore, allore può essere sostituita con 2 variabili : $x_j^+$ e $x_j^-$ non negative. Si vede una variabile semplice costituita da una parte positiva e da una negativa.
 ### Forma Canonica e Forma Standard
 * *Forma "canonica"*: I vincoli sono tutte disequazioni
 $$ 
-   z = \text{min } \sum_{j=1}^n c_jx_j \\
-    \text{s.t} \sum_{j=1}^n a_{ij}x_j \geq b_i, \qquad i = 1,...,m \\
-    x_j \geq 0 \qquad j = 1,...,n
+\begin{align*}
+    &z = \text{min } \sum_{j=1}^n c_jx_j \\
+    & \qquad \text{s.t}  \\
+    & \qquad\qquad \sum_{j=1}^n a_{ij}x_j \geq b_i, \qquad i = 1,...,m \\
+    & \qquad\qquad x_j \geq 0 \qquad j = 1,...,n 
+\end{align*}
 $$
 * *Forma "standard"*: I vincoli sono tutte equazioni
 $$ 
-   z = \text{min } \sum_{j=1}^n c_jx_j \\
-    \text{s.t} \sum_{j=1}^n a_{ij}x_j = b_i, \qquad i = 1,...,m \\
-    x_j \geq 0 \qquad j = 1,...,n
+\begin{align*}
+    & z = \text{min } \sum_{j=1}^n c_jx_j \\
+    & \qquad \text{s.t} \\
+    & \qquad\qquad \sum_{j=1}^n a_{ij}x_j = b_i, \qquad i = 1,...,m \\
+    & \qquad\qquad x_j \geq 0 \qquad j = 1,...,n
+\end{align*}
 $$
 
 ### Definizione di Soluzione Base Ammissibile
 Si consideri il seguente problema:
 $$ 
-   \text{min } z = cx \\
-    \qquad \text{s.t} Ax = b \\
-    \qquad x\geq 0
+\begin{align*}
+   \text{min } z = \textbf{ cx } \\
+    \text{s.t} \qquad \textbf{Ax} = \textbf{b} \\
+    \qquad \textbf{x}\geq 0
+\end{align*}
 $$
-dove $A \in R^{m,n}, c,x \in R^n \text{ e } b \in R^m$.
+dove $\textbf{A} \in R^{m,n}, \textbf{c}, \textbf{x} \in R^n \text{ e } \textbf{b} \in R^m$.
 Il problema deve essere definito **necessariamente in forma standard**. Per cui se eventualemtne alcuni vincoli sono disequazioni devono essere trasformati in equazioni. 
-Si suppone per semplicità che: $Rango(A,b) = Rango(A) = m$
+Si suppone per semplicità che: $\text{Rango}(A,b) = \text{Rango}(A) = m$
 La matrice **A** può essere riscritta per comodità nella forma **A = [B,N]**. Dove $B \in R^{m,n}$ corrisponde a $m$ colonne linearmente indipendenti ed $N \in R^{m, n-m}$ solo le rimanenti $n-m$ colonne di **A**.
 Ponendo $x^T = [x_B, x_N]$ il sistema dei vincoli può essere riscritto come:
 $$
@@ -540,34 +548,36 @@ $$
         x_N
     \end{bmatrix} = b \rightarrow Bx_B + Nx_N = b
 $$
-e poichè **B** è invertibile si ha: $$x_B = B^{-1}b-B^{-1}Nx_N$$. Se fissiamo $x_N = 0$ la soluzione $x = [x_B, x_N] = [B^{-1}, 0]$ rappresentano una *Soluzione Base*.
-Nel caso in cui $x_B \geq 0$ , ovvero soddisfa i vnncoli di non nefatività, diremo che *x* è una *Soluzione Base Ammissibile*.
+e poichè **B** è invertibile (è quadrata e ha rango massimo) si ha:
+$$x_B = B^{-1}b-B^{-1}Nx_N$$
+Se fissiamo $x_N = 0$ la soluzione $x = [x_B, x_N] = [B^{-1}, 0]$ rappresentano una **Soluzione Base**.
+Nel caso in cui $x_B \geq 0$ , ovvero soddisfa i vincoli di non negatività, diremo che *x* è una **Soluzione Base Ammissibile**.
 
 
 ### Insieme Poliedrico Convesso
 Un *Insieme Poliedrico Convesso* è definito dall'intersezione di un numero finito di sottospazi chiusi, in sostanza l'insieme di tutte le rette nei nostri vincoli definito una regione del piano in cui si ha un *poliedro convesso*, che definisce la nostra *regione ammissibile*. Si definisce come:
 $$
-X = {x: Ax \geq b, x \geq 0}
+X = \{x: Ax \geq b, x \geq 0\}
 $$
 oppure 
 $$
-X = {x: Ax = b, x \geq 0}
+X = \{x: Ax = b, x \geq 0\}
 $$
-Ogni punto **x** di un insieme poliedrico convesso $X$, che non può essere espresso, come comibiazione di due punti $x^1, x^2 \in X$ tali che $x^1 \neq x$ e $x^2 \neq x$ è detto *Punto Estremo* di $X$.
+
+Ogni punto **x** di un insieme poliedrico convesso $X$, che non può essere espresso, come comibiazione di due punti $x^1, x^2 \in X$ tali che $x^1 \neq x$ e $x^2 \neq x$ è detto **Punto Estremo** di $X$.
 
 
 #### Teoremi
-**Teorema**: L'insieme dei punti estremi dell'insieme poliedrico convesso $X = {x: Ax \geq b, x \geq 0}$ corrisponde all'insieme delle soluzioni base ammissibili. 
+**Teorema**: L'insieme dei punti estremi dell'insieme poliedrico convesso $X = \{x: Ax \geq b, x \geq 0\}$ corrisponde all'insieme delle soluzioni base ammissibili. 
 
-**Teorema**: Un insieme poliedrico convesso $X = {x: Ax \geq b, x \geq 0}$ ha un numero finito di punti estremi.
-**Dimostrazione**: Se la mastrice **A** di ordine $(m, n)$ è di rango pieno, allora il numero massimo di basi è pari al numero di possibili scelte di $m$ delle $n$ colonne di **A**; ossia :
+**Teorema**: Un insieme poliedrico convesso $X = \{x: Ax = b, x \geq 0\}$ ha un numero finito di punti estremi.
+**Dimostrazione**: Se la matrice **A** di ordine $(m, n)$ è di rango pieno, allora il numero massimo di basi è pari al numero di possibili scelte di $m$ delle $n$ colonne di **A**; ossia :
 $$
- (N M) = N! / (M!(N-M)!)
- HELP NON SO FARLO
+{n \choose m} = \frac{n!}{m!(n-m)!}
 $$
 
 **Teorema** Se la soluzione ottima di un problema di programmazione lineare è finita, allora il punto di minimo si ottiene in corrispondenza di alemno uno dei punti estremi. Un vettore non nullo **d** è detto *direzione* dell'insieme convesso $X$, se dato un qualsiasi punto $x_0 \in X$ ogni altro punto $x=x_0 + \lambda d, \lambda \geq 0$ appartiene a $X$ ($\lambda$ mi rappresenta di quanto è il mio spostamento). 
 
-**Teorema**: Dato un insieme poliedrico convesso $X = {x: Ax = b, x \geq 0}$, il vettore **d** è direzione di $X$ se e solo se: $Ad=0, d\geq0, d \neq 0$. 
+**Teorema**: Dato un insieme poliedrico convesso $X = \{x: Ax = b, x \geq 0\}$, il vettore **d** è direzione di $X$ se e solo se: $Ad=0, d\geq0, d \neq 0$. 
 * Due vettori $d_1$ e $d_2$ sono distinti se $d_1 \neq \beta d_2$ per ogni $\beta$.
 * Un vettore **d** è detto *direzione estrema* di $X$ se non può essere rappresentato come combinazione lineare di altre due direzioni distinte $d_1$ e $d_2$. 
