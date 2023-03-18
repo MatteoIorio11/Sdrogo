@@ -715,3 +715,166 @@ Si dice quindi che la variabile $x_r$ esce dalla base e $x_k$ entra al posto suo
 
 1. Aggiorna $\textbf{B}$, $\textbf{N}$ e la soluzione base $\textbf{x} = [\textbf{x}_B, \textbf{x}_N] = [\textbf{B}^{-1}\textbf{b}, 0] = [\bar{\textbf{b}}, 0]$.
 2. Ritorna allo [Step 2](#step-2-pricing).
+
+### Problema Duale
+Si consideri il problma LP in forma canonica, chiamato problema **primale**:
+$$
+\begin{align*}
+    z_P = & \min \textbf{cx} \\
+    & s.t.  \\
+    & \qquad \textbf{Ax} \geq \textbf{b} \\
+    & \qquad \textbf{x}\geq 0
+\end{align*}
+$$
+
+dove l'insieme dei suoi punti ammissibili è $X = \{\textbf{x}: \textbf{Ax}\geq \textbf{b}, \textbf{x} \geq 0 \}$.
+
+Si definisce il suo **problema duale** nel seguente modo:
+$$
+\begin{align*}
+    z_D = & \max \textbf{wb} \\
+    & s.t.  \\
+    & \qquad \textbf{wA} \leq \textbf{c} \\
+    & \qquad \textbf{w}\geq 0
+\end{align*}
+$$
+
+dove l'insieme dei suoi punti ammissibili è $W = \{ \textbf{w}: \textbf{wA} \leq \textbf{c}, \textbf{w} \geq 0 \}$.
+
+Chiameremo quindi:
+- $\textbf{x}$ variabili primali.
+- $\textbf{w}$ variabili duali.
+
+Osservazioni:
+- Ciò che era un costo nel primale, diventa un vincolo nel duale.
+- Ciò che è un vincolo nel duale, è un costo nel primale.
+- Per ogni $\textbf{w}$ corrisponde un termine noto nel primale
+  - $\textbf{w}$ mi dice il **costo** di ogni vincolo $\textbf{b}$ nel primale.
+
+#### Come ottenere il duale
+Partendo dal problema in forma canonica:
+$$
+\begin{align*}
+    z_p = & \min \textbf{cx} \\
+    & s.t.  \\
+    & \qquad \textbf{Ax} \geq \textbf{b} \\
+    & \qquad \textbf{x}\geq 0
+\end{align*}
+$$
+
+È possibile aggiungere $m$ variabili di **slack** alle $n$ variabili originarie: il primale equivale al problema in forma standard:
+$$
+\begin{align*}
+    z_p = & \min \textbf{cx} \\
+    & s.t.  \\
+    & \qquad \textbf{Ax} - \textbf{Ix}_s = \textbf{b} \\
+    & \qquad \textbf{x}, \textbf{x}_s\geq 0
+\end{align*}
+$$
+
+Dove $\textbf{I} = [\textbf{a}_{n+1}, \dots, \textbf{a}_{n+m}] = [\textbf{e}_1, \dots, \textbf{e}_m]$ è la matrice identià di ordine $m$.
+
+In corrispondenza di una soluzione ottima del primale, deve esistere una base $\textbf{B}$ per cui:
+$$\textbf{w}\textbf{a}_j - c_j \leq 0, \qquad j=1,\dots, n+m$$
+
+Dove si ricorda che $\textbf{w} = \textbf{c}_B\textbf{B}_{-1}$ (vedi [Pricing](#step-2-pricing)).
+
+Si può ora riscrivere la disequazione $\textbf{w}\textbf{a}_j \leq 0$ per le variabili originarie e quelle di slack, ottenendo:
+$$
+\begin{align*}
+   \textbf{w}\textbf{a}_j \leq c_j,  \qquad & j=1,\dots,n  \\
+   -\textbf{w}\textbf{e}_i \leq c_j, \qquad & i=1,\dots,m  \\
+\end{align*}$$
+
+Queste sono quindi le $\textbf{w}$ che mi soddisfano le condizioni di ottimalità. È importante notare come le variabili di slack non abbiano un costo associato a cui mantenersi come soglia, poiché esse non sono presenti nella funzione obiettivo, ma solo nei vincoli.
+
+Le stesse equazioni di prima possono essere espresse molto più semplicemente in forma matriciale:
+$$
+\begin{align*}
+    \textbf{wA} & \leq c \\
+    \textbf{w} & \geq 0
+\end{align*}
+$$
+
+Quindi abbiamo dimostrato come l'insieme delle soluzioni ammissibili del duale siano definite come: $W  \{\textbf{w}: \textbf{wA} \leq \textbf{c}, \textbf{w} \geq 0 \}$.
+
+Il prossimo passo è quello di mostrare il perché la funzione obiettivo da massimizzare è rappresentata da $\textbf{wb}$.
+
+#### Dualità Debole
+**Lemma 1. (Dualità Debole)**: Se 
+- $\tilde{\textbf{x}} \in X = \{ \textbf{x}: \textbf{Ax} \geq \textbf{b}, \textbf{x} \geq 0 \}$ 
+- $\tilde{\textbf{w}} \in W = \{ \textbf{w}: \textbf{wA} \leq \textbf{c}, \textbf{w} \geq 0 \}$
+
+Allora $\tilde{\textbf{w}}\textbf{b} \leq \textbf{c}\tilde{\textbf{x}}$
+**Dimostrazione**: Siccome $\tilde{\textbf{x}} \in X$, allora $\textbf{A}\tilde{\textbf{x}}\geq b$. Poiché $\tilde{\textbf{w}} \geq 0$ (quindi posso premoltiplicare senza modificare il segno della disequazione), si ha:
+
+$$
+\begin{equation}
+    \tilde{\textbf{w}}A\tilde{\textbf{x}} \geq \tilde{\textbf{w}}\textbf{b}
+\end{equation}$$
+
+E siccome $\tilde{\textbf{w}} \in W$ allora $\tilde{\textbf{w}}\textbf{A} \leq \textbf{c}$. Poiché $\tilde{\textbf{x}} \geq 0$, si ha:
+$$
+\begin{equation}
+    \tilde{\textbf{w}}A\tilde{\textbf{x}} \leq \textbf{c}\tilde{\textbf{x}}
+\end{equation}$$
+
+Dalla (1) e (2) si ricava:
+$$\tilde{\textbf{w}}\textbf{b} \leq \textbf{c}\tilde{\textbf{x}}$$ 
+
+Dalla Dualità debole, si deduce che il valore di $\textbf{w}\textbf{b}$ di qualsiasi soluzione $\textbf{w} \in W$ è una stima per difetto (un **lower bound**) alla soluzione ottima del primale.
+Il miglior Lower Bound $\textbf{w}^*\textbf{b}$ alla soluzione ottima del primale lo si può ottenere risolvendo il seguente problema duale:
+$$
+\begin{align*}
+    & z = \max \textbf{w}\textbf{b} \\
+    & s.t. \\
+    & \qquad \textbf{wA} \leq \textbf{c} \\
+    & \qquad \textbf{w} \geq 0
+\end{align*}$$
+
+**Corollario 1**: Se $\textbf{x}^* \in X$ e $\textbf{w}^* \in W$ soddisfano $\textbf{w}^*\textbf{b} = \textbf{cx}^*$ allora $\textbf{x}^*$ è **soluzione ottima** del primale e $\textbf{w}^*$ è soluzione ottima del duale.
+
+**Dimostrazione**: Per il lemma della *dualità debole* si ha $\textbf{wb} \leq \textbf{cx},$ $\forall \textbf{w} \in W$ e $\forall \textbf{x} \in X$.
+Quindi, $\textbf{cx} \geq \textbf{w}^*\textbf{b}$, $\forall \textbf{x} \in X$, ma poiché per ipotesi $\textbf{w}^*\textbf{b} = \textbf{cx}^*$ si ha:
+$$\textbf{cx} \geq \textbf{w}^*\textbf{b} = \textbf{cx}^*, \quad \forall\textbf{x} \in X$$
+Per cui si deduce che $\textbf{x}^*$ è la soluzione ottima del problema **primale**.
+
+Analogamente, $\textbf{cx}^* \geq \textbf{wb}$, $\forall \textbf{w} \in W$, ma poiché per ipotesi $\textbf{w}^*\textbf{b} = \textbf{cx}^*$ si ha: 
+$$\textbf{w}^*\textbf{b} = \textbf{cx}^* \geq \textbf{wb}, \quad \forall \textbf{w} \in W$$
+Per cui $\textbf{w}^* \in W$ è soluzione ottima del **duale**.
+
+#### Dualità Forte
+Il teorema della dualità forte stabilisce che se esistno **soluzioni ammissibili**, sia per il primale sia per il duale, allora esistono due soluzioni ottime i cui valori coincidono.
+
+**Teorema 1. (Dualità Forte)**: Se $X \neq \empty$ e $W \neq \empty$, allora esiste una soluzione $\textbf{x}^*$ ottima per il primale e una soluzione $\textbf{w}^*$ ottima per il duale. Inoltre $\textbf{w}^*\textbf{b} = \textbf{cx}^*$.
+
+**Dimostrazione**: Per il corollario 1 è sufficiente dimostrare l'esistenza di $\textbf{x}^* \in X$ e $\textbf{w}^* \in W$.
+
+- Siccome $W \neq \empty$, per il lemma della dualità debole, il valore $\textbf{cx}$ è limitato inferiormente (Poiché ogni valore di $\textbf{wb}$ di qualsiasi soluzione $\textbf{w} \in W$ è un Lower Bound).
+- Siccome $X \neq \empty$ e $\textbf{cx}$ è limitata, implica che il primale ha soluzione ottima limitata.
+
+Scriviamo il primale in forma standard:
+$$
+\begin{align*}
+    z_P = & \min \textbf{cx} \\
+    & s.t.  \\
+    & \qquad \textbf{Ax} - \textbf{Ix}_s = \textbf{b} \\
+    & \qquad \textbf{x}, \textbf{x}_s\geq 0
+\end{align*}
+$$
+
+Indichiamo con $(\textbf{x}^*, \textbf{x}^*_s)$ la soluzione ottima del primale e con $\textbf{B}$  la corrispondente base ottima.
+- Per le condizioni di ottimalità si ha:
+$$\textbf{c}_B\textbf{B}^{-1}\textbf{a}_j-c_j \leq 0, \quad j=1,\dots,n+m$$
+Dove ponendo $\textbf{w}^*=\textbf{c}_B\textbf{B}^{-1}$, equivale a:
+$$
+\begin{align*}
+    \qquad \textbf{w}^*\textbf{A}   & \leq \textbf{c} \\
+    \qquad \textbf{w}^*             & \geq 0
+\end{align*}
+$$
+
+Per cui la soluzione $\textbf{w}^* = \textbf{c}_B \textbf{B}^{-1}$ è duale ammissibile (cioè è nel rispetto dei vincoli del duale).
+Infine, siccome $\textbf{w}^* = \textbf{c}_B \textbf{B}^{-1}$ e $\textbf{x}^* = (\textbf{B}^{-1}\textbf{b}, 0)$, si ha:
+$$\textbf{w}^*\textbf{b} = \textbf{c}_B\textbf{B}^{-1}\textbf{b} = \textbf{cx}^*$$
+Per cui il teorema è dimostrato.
