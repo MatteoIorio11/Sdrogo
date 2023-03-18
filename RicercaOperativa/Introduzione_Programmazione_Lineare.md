@@ -581,3 +581,137 @@ $$
 **Teorema**: Dato un insieme poliedrico convesso $X = \{x: Ax = b, x \geq 0\}$, il vettore **d** è direzione di $X$ se e solo se: $Ad=0, d\geq0, d \neq 0$. 
 * Due vettori $d_1$ e $d_2$ sono distinti se $d_1 \neq \beta d_2$ per ogni $\beta$.
 * Un vettore **d** è detto *direzione estrema* di $X$ se non può essere rappresentato come combinazione lineare di altre due direzioni distinte $d_1$ e $d_2$. 
+
+
+##### Teorema della Rappresentazione
+Sia dato:
+- Un insieme poliedrico convesso $X = \{\textbf{x}: \textbf{Ax} = \textbf{b}, \textbf{x} \geq 0\}$
+- Un insieme $P$ di tutti i punti estremi di $X$, tale che $P=\{\textbf{x}_i: i=1,\dots,np\}$
+- Un insieme $D$ di tutte le direzioni estreme di $X$, tale che $D=\{\textbf{d}_j:j=1,\dots, nd\}$
+
+Allora ogni punto di $X$ può essere rappresentato come:
+$$
+\begin{align*}
+    & \textbf{x} = \sum_{i=1}^{np}\lambda_i \textbf{x}_i + \sum_{j-1}^{nd}\mu_j\textbf{d}_j \\
+    & s.t. \\
+    & \qquad \sum_{i=1}^{np} \lambda_i = 1 \\
+    & \qquad \lambda_i \geq 0 & i=1,\dots,np \\
+    & \qquad \mu_j\geq 0 & j=1,\dots,nd \\
+\end{align*}
+$$
+
+Dove:
+- $\sum_{i=1}^{np}\lambda_i \textbf{x}_i$  rappresenta l'insieme delle **combinazioni convesse dei punti estremi**
+  - Dove la definizione di combinazione convessa è la somma di un insime di punti del piano per un certo $\lambda_i$ tale che $\sum_{i=1}^{np} \lambda_i = 1$
+- $\sum_{j-1}^{nd}\mu_j\textbf{d}_j$ è l'insieme delle combinazioni lineari delle direzioni estreme
+- Solo grazie alla combinazione delle direzioni e dei punti estremi posso arrivare a definire ogni singolo punto della regione ammissibile.
+- Se il poliedro è **limitato**, allora $D=\empty$.
+
+**Teorema**: la soluzione ottima è **finita**, se e solo se $\textbf{cx} \geq 0, j=1,\dots,nd$. In questo caso il **minimo** si ottiene in corrispondeza di almeno uno dei punti estremi.
+
+**Dimostrazione**: dal teorema della rappresentazione, si può riscivere la funzione obiettivo come:
+$$\text{min} z = \textbf{cx} = \sum_{i=1}^{np}(\textbf{cx}_i)\lambda_i + \sum_{j=1}^{nd}(\textbf{cd}_j)\mu_j$$
+Dove abbiamo semplicemente moltiplicato i termini del teorema della rappresentazione al vettore di costo $\textbf{c}$.
+È evidente ora che per minimizzare la funzione obiettivo, è necessario minimizzare al massimo la seconda sommatoria. Possiamo quindi:
+- Se per almeno una direzione estrema $\textbf{d}_j$ si ha $\textbf{cd}_j < 0$, allora possiamo aumentare arbitrariamente $\mu_j$ e la funzione obiettivo risulterà **illimitata**.
+- Se $\textbf{cd}_j \geq 0$ per ogni direzione, allora consideriamo il vincolo $\mu_j \geq 0$, quindi il valore più piccolo che possiamo scegliere per minimizzare la funzione obiettivo è proprio $\mu_j = 0$. In questo caso la funzione obiettivo si riduce a:
+$$\text{min} z = \textbf{cx} = \sum_{i=1}^{np}(\textbf{cx}_i)\lambda_i$$
+Siccome $\sum_{i=1}^{np} \lambda_i = 1$ e $\lambda_i \geq 0$ allora la soluzione è sicuramente **finita**.
+
+Sia $x_p$ un punto estremo tale che $\textbf{cx}_p \leq \textbf{cx}_i$, per ogni $i=1,\dots,np$.
+Se ora consideriamo un qualsiasi punto $\textbf{x} \in X$, avremo:
+$$\textbf{cx}=\sum_{i=1}^{np}(\textbf{cx}_i)\lambda_i \geq \sum_{i=1}^{np}(\textbf{cx}_p)\lambda_i = (\textbf{cx}_p)\sum_{i=1}^{np}\lambda_i = \textbf{cx}_p$$
+quindi:
+$$\textbf{cx} \geq \textbf{cx}_p$$
+Recap: preso un qualsiasi punto di $X$, esprimibile come combinazione convessa di punti e come combinazione linare di direzioni, allora la soluzione sarà in corrispondenza dei punti estremi.
+
+### Miglioramento di una Soluzione Base
+Il valore della funzione obiettivo corrispondente alla soluzione base $\textbf{x} = [\textbf{x}_B, \textbf{x}_N] = [\textbf{B}^{-1}\textbf{b}, 0]$, corrisponde a:
+$$z = \textbf{cx} = [\textbf{c}_B, \textbf{c}_N] \begin{bmatrix}\textbf{x}_B \\ \textbf{x}_N\end{bmatrix} = [\textbf{c}_B, \textbf{c}_N] \begin{bmatrix}\textbf{B}^{-1}\textbf{b} \\ 0\end{bmatrix} \textbf{c}_B\textbf{B}^{-1}\textbf{b}$$
+
+Per determinare come varia la funzione obiettivo per **vincoli non nulli** delle variabili non base $\textbf{x}_N$, dato che (mi sono rotto il cazzo di fare le lettere in grassetto con \textbf d'ora in avanti tutte le x miniscole, b miniscole e maiuscole sono matrici e vettori :) ) $x_b = B^{-1}b - B^{-1}Nx_N$ avremo:
+$$
+\begin{align*}
+    z = & c_B x_B + c_Nx_N \\
+      = & c_B(B^{-1}b - B^{-1}Nx_N) + c_Nx_N \\
+      = & c_BB^{-1}b - (c_BB^{-1}Nx - c_N)x_N \\
+\end{align*}
+$$
+
+Definiendo $w = c_BB^{-1}$, possiamo scrivere:
+$$z = wb-(wN - c_N)x_N = wb - \sum_{k \in N}(wa_k - c_k)x_k$$
+Dove:
+- $N$ è l'insieme degli indici delle variabili/colonne della matrice non base.
+  - Quindi $a_k$ indica le colonne non in base
+
+Possiamo interpretare l'equazione come divisa in due:
+- La prima parte $wb$, rappresenta la soluzione corrente trovata (ovvero le $m$ colonne scelte all'inizio da mettere in base senza nessun criterio apparente).
+- La seconda parte invece $(wN-c_N)x_N$, rappresenta l'**aggiornamento** che sarebbe possibile effettuare se si scegliessero alcune colonne nella matrice non base ($N$).
+
+Da qui possono verificarsi due configuarazioni.
+- Se $(wN-c_N) \leq 0$, allora nessuna scelta di $x_k$ può aumentare la soluzione corrente. La soluzione base amissibile corrente $\textbf{x}$ è **ottima**.
+- Nel caso invece esistesse una colonna $k$ non base tale che:
+$$wa_k - c_k > 0$$
+Allora il valore della funzione obiettivo può decrescere dal valore attuale $z_0 = wb = c_BB^{-1}b$ al valore $z = z_0 - (wa_k-c_k)x_k$. Un'euristica è quella di scegliere la colonna $k$ per cui il valore $(wa_k - c_k)$ sia maggiore.
+
+L'entità del miglioramento della nuova funzione obiettivo, dipende dal valore massimo che può assumere la variaible $x_k$, **garantendo** che la nuova soluzione sia *sempre* soluzione base ammissibile.
+Per determinare quanto posso aumentare la variabile $x_k$ per avere una nuova soluzione base ammissibile, consideriamo ancora l'equazione che determina la soluzione $x_B$ in funzione di $x_N$, ovvero la solita:
+$$x_B = B^{-1}b - B^{-1}Nx_N$$
+Dove possiamo riscrivere i fattori come:
+- $\bar{b} = B^{-1}b$
+- $y^k = B^{-1}a_k$ ipotizzando che $x_j = 0, \forall j \in N \setminus \{k\}$, ovvero che scelgo solo una colonna $k$ tra le $n$ nella matrice non base $N$ (ha più senso leggere sta riga dopo aver visto l'equazione sotto)
+
+Ottenendo:
+$$\textbf{x}_B = \bar{\textbf{b}} - \textbf{y}^kx_k$$
+
+Fare alla notazione di matrici/vettori (si qui ho avuto voglia di mettere le matrici in grassetto così si capisce cosa è matrice/vettore e cosa no)
+Per ogni componente i-esima di $\textbf{x}_B = 1,\dots, m$ si ha che:
+$$x_i = \bar{b}_i - y_i^kx_k$$
+E se vogliamo che la soluzione base rimanga ammissibile, abbiamo bisogno di aumentare $x_k$ in modo tale che
+$$x_i = \bar{b}_i - y_i^kx_k \geq 0$$
+Ovvero per ogni variabile attualemente in base, vogliamo che il suo valore aggiornato sia sempre $\geq 0$. Quindi per opgni i, la variabgile $x_k$ deve rispettare la condizione:
+$$x_k \leq \frac{\bar{b}_i}{y_i^k}$$
+
+Il valore massimo che la variabile $x_k$ può assumere per trovare il maggior aumento, è dato dal **Rapporto Minimo**:
+$$x_k = \frac{\bar{b}_r}{y_r^k} = \min_{i=1,\dots, m} \left[ \frac{\bar{b}_i}{y_i^k} : y_k > 0\right]$$
+
+Da qui è possibile capire che:
+- Nel caso in cui $\textbf{y}^k \leq 0$ (ovvero quando tutti gli $y_i^k \leq 0$), la funzione obiettivo è **illimitata**, in quanto $(\textbf{wa}_k - c_k) > 0$ e $x_k$ può arbitrariamente crescere **garantendo l'ammissibilità** della soluzione.
+
+Una volta aggiornato il valore della variabile $x_k$, tutte le variabili $x_i$ in base sono aggiornate come segue:
+$$x_i = \bar{b}_i-y_i^k \frac{\bar{b}_r}{y^k_r}$$
+Mentre (come già detto sopra), tutte le altre variabili non base diverse da $k$, rimangono nulle.
+
+- È importante notare che la variabile $x_r$ ($x_r = \frac{\bar{b}_r}{y^k_r}$) dopo essere stata aggiornata, sarà nulla e la sua colonna $\textbf{a}_k$ sostituisce la colonna $\textbf{a}_r$ nella base $\textbf{B}$.
+  - Diremo che $x_k$ **entra** in base, mentre $x_r$ esce dalla base.
+
+## Alogritmo del Simplesso Primale
+
+##### Step 1: Inizializzazione
+È possibile definire una soluzione base ammissibile
+$\textbf{x} = [\textbf{x}_B, \textbf{x}_N] = [\textbf{B}^{-1}\textbf{b}, 0] = [\bar{\textbf{b}}, 0]$  di costo $z = \textbf{c}_B \textbf{x}_B = \textbf{c}_B\textbf{B}^{-1}\textbf{b}$
+Con $\textbf{c}_B$ che è il costo associato alle variabili in base $\textbf{x}_B$
+
+##### Step 2: Pricing
+1. Si può calcolare ora $\textbf{w} = \textbf{c}_B\textbf{B}^{-1}$, che equivale a risolvere il sistema lineare $\textbf{w}\textbf{B} = \textbf{c}_B$.
+2. Si calcolano i **costi ridotti** $\textbf{w}\textbf{a}_j - c_j$ per le variabili non base $j \in N$
+3. Si determina $\textbf{w}\textbf{a}_k - c_k = \max_{j \in N} \{\textbf{w}\textbf{a}_k - c_j\}$
+
+Quest'ultimo punto ci dice che, se trovo qualche valore positivo tale per cui $\textbf{w}\textbf{a}_j - c_j \geq 0$, allora prendo il massimo tra questi (l'euristica di cui si è parlato sopra), cioè prendo il massimo di quei fattori che potrebbero migliorare la funzione obiettivo $z$.
+
+##### Step 3: Condizioni di Ottimalità
+Se $\textbf{w}\textbf{a}_j - c_j  < 0$, allora mi fermo poiché siamo di fronte alla **soluzione ottima**!
+
+##### Step 4: La variabile $k$ è candidata a entrare in base
+1. Si può calcolare $\textbf{y}^k = \textbf{B}^{-1}\textbf{a}_k$, che quivale a risolvere il sistema lineare $\textbf{B}\textbf{y}^k = \textbf{a}_k$
+2. Se $\textbf{y}^k \leq 0$, allora la soluzione è **illimitata**
+
+##### Step 5: Rapporto Minimo
+1. Si calcola il valore da assegnare a $x_k$ tramite
+$$x_k = \frac{\bar{b}_r}{y_r^k} = \min \left\{ \frac{\bar{b}_i}{y_i^k} : y_i^k > 0 \quad i=1,\dots, m\right\}$$
+Che significa che prendo la colonna $\textbf{a}_r$ in $\textbf{x}_B$ e la sostituisco con la minima colonna $\textbf{a}_k$ in $\textbf{x}_N$.
+
+Si dice quindi che la variabile $x_r$ esce dalla base e $x_k$ entra al posto suo.
+
+1. Aggiorna $\textbf{B}$, $\textbf{N}$ e la soluzione base $\textbf{x} = [\textbf{x}_B, \textbf{x}_N] = [\textbf{B}^{-1}\textbf{b}, 0] = [\bar{\textbf{b}}, 0]$.
+2. Ritorna allo [Step 2](#step-2-pricing).
