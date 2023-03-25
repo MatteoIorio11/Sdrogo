@@ -88,8 +88,8 @@ x_B=\overline b=
     3
 \end{bmatrix}=
 \begin{bmatrix}
-1 \quad 2 \\
-0 \qquad  1
+1 \qquad 2 \\
+0 \qquad 1
 \end{bmatrix}
 \begin{bmatrix}
     4 \\
@@ -119,6 +119,26 @@ $$
 
 Una volta trovata la soluzione della funzione bisogna **controllare se tale soluzione è ottima**.
 ## Fase 3: Controllo della soluzione
+Per sapere se il valore della nostra soluzione è ottima dobbiamo verificare che: 
+$$ wa_j - c_j \leq 0$$ per ogni variabile non base $x_j$, dove $w=c_bB^{-1}$
+Si parte con il calcolare **w**:
+$$w=c_bB^{-1}=
+\begin{bmatrix}
+    0, -3    
+\end{bmatrix}
+\begin{bmatrix}
+1 \qquad 2 \\
+0 \qquad 1
+\end{bmatrix}=
+\begin{bmatrix}
+    0, -3    
+\end{bmatrix}
+$$
+Una volta ottenuto il valore del vettore *w*, si passa a controllare se il valore della disequazione esplicata in precedenza sia effettivamente negativa. Dobbiamo quindi controllare se: 
+$$
+wa_4 - c_4 \leq 0 \quad \\
+wa_3 - c_3 \leq 0 \quad
+$$ 
 
 
 
