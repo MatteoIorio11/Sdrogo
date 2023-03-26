@@ -716,7 +716,7 @@ Si dice quindi che la variabile $x_r$ esce dalla base e $x_k$ entra al posto suo
 1. Aggiorna $\textbf{B}$, $\textbf{N}$ e la soluzione base $\textbf{x} = [\textbf{x}_B, \textbf{x}_N] = [\textbf{B}^{-1}\textbf{b}, 0] = [\bar{\textbf{b}}, 0]$.
 2. Ritorna allo [Step 2](#step-2-pricing).
 
-### Problema Duale
+## Problema Duale
 Si consideri il problma LP in forma canonica, chiamato problema **primale**:
 $$
 \begin{align*}
@@ -751,7 +751,7 @@ Osservazioni:
 - Per ogni $\textbf{w}$ corrisponde un termine noto nel primale
   - $\textbf{w}$ mi dice il **costo** di ogni vincolo $\textbf{b}$ nel primale.
 
-#### Come ottenere il duale
+### Come ottenere il duale
 Partendo dal problema in forma canonica:
 $$
 \begin{align*}
@@ -800,7 +800,7 @@ Quindi abbiamo dimostrato come l'insieme delle soluzioni ammissibili del duale s
 
 Il prossimo passo è quello di mostrare il perché la funzione obiettivo da massimizzare è rappresentata da $\textbf{wb}$.
 
-#### Dualità Debole
+### Dualità Debole
 **Lemma 1. (Dualità Debole)**: Se 
 - $\tilde{\textbf{x}} \in X = \{ \textbf{x}: \textbf{Ax} \geq \textbf{b}, \textbf{x} \geq 0 \}$ 
 - $\tilde{\textbf{w}} \in W = \{ \textbf{w}: \textbf{wA} \leq \textbf{c}, \textbf{w} \geq 0 \}$
@@ -843,14 +843,14 @@ Analogamente, $\textbf{cx}^* \geq \textbf{wb}$, $\forall \textbf{w} \in W$, ma p
 $$\textbf{w}^*\textbf{b} = \textbf{cx}^* \geq \textbf{wb}, \quad \forall \textbf{w} \in W$$
 Per cui $\textbf{w}^* \in W$ è soluzione ottima del **duale**.
 
-#### Dualità Forte
+### Dualità Forte
 Il teorema della dualità forte stabilisce che se esistno **soluzioni ammissibili**, sia per il primale sia per il duale, allora esistono due soluzioni ottime i cui valori coincidono.
 
 **Teorema 1. (Dualità Forte)**: Se $X \neq \empty$ e $W \neq \empty$, allora esiste una soluzione $\textbf{x}^*$ ottima per il primale e una soluzione $\textbf{w}^*$ ottima per il duale. Inoltre $\textbf{w}^*\textbf{b} = \textbf{cx}^*$.
 
 **Dimostrazione**: Per il corollario 1 è sufficiente dimostrare l'esistenza di $\textbf{x}^* \in X$ e $\textbf{w}^* \in W$.
 
-- Siccome $W \neq \empty$, per il lemma della dualità debole, il valore $\textbf{cx}$ è limitato inferiormente (Poiché ogni valore di $\textbf{wb}$ di qualsiasi soluzione $\textbf{w} \in W$ è un Lower Bound).
+- Siccome $W \neq \empty$, per il lemma della dualità debole, il valore $\textbf{cx}$ è limitato inferiormente (Poiché ogni valore di $\textbf{wb}$ di qualsiasi soluzione $\textbf{w} \in W$ è un Lower Bound), per cui non è possibile che la soluzione sia illimitata.
 - Siccome $X \neq \empty$ e $\textbf{cx}$ è limitata, implica che il primale ha soluzione ottima limitata.
 
 Scriviamo il primale in forma standard:
@@ -864,8 +864,9 @@ $$
 $$
 
 Indichiamo con $(\textbf{x}^*, \textbf{x}^*_s)$ la soluzione ottima del primale e con $\textbf{B}$  la corrispondente base ottima.
-- Per le condizioni di ottimalità si ha:
+- Per le condizioni di ottimalità (cioè arriviamo a un punto dove ho solo soluzioni base $\leq 0$) si ha:
 $$\textbf{c}_B\textbf{B}^{-1}\textbf{a}_j-c_j \leq 0, \quad j=1,\dots,n+m$$
+
 Dove ponendo $\textbf{w}^*=\textbf{c}_B\textbf{B}^{-1}$, equivale a:
 $$
 \begin{align*}
@@ -873,8 +874,216 @@ $$
     \qquad \textbf{w}^*             & \geq 0
 \end{align*}
 $$
-
+Che rappresenta la *soluzione duale ammissibile*.
 Per cui la soluzione $\textbf{w}^* = \textbf{c}_B \textbf{B}^{-1}$ è duale ammissibile (cioè è nel rispetto dei vincoli del duale).
 Infine, siccome $\textbf{w}^* = \textbf{c}_B \textbf{B}^{-1}$ e $\textbf{x}^* = (\textbf{B}^{-1}\textbf{b}, 0)$, si ha:
 $$\textbf{w}^*\textbf{b} = \textbf{c}_B\textbf{B}^{-1}\textbf{b} = \textbf{cx}^*$$
 Per cui il teorema è dimostrato.
+
+Viene definita dualità forte perché ci basta sapere che $X, W\neq \empty$ per implicare che esiste ed è possibile calcolare una soluzione ottima.
+
+### Relazione tra Primale e Duale
+Dal teorema della dualità debole abbiamo che $\textbf{cx} \geq \textbf{wAx} \geq \textbf{wb}$.
+Se supponiamo che il primale ha **soluzione ottima non limitata** (illimitata), allora:
+$$\textbf{cx} \rightarrow -\infty \implies -\infty \geq \textbf{wb}, \forall \textbf{w}\in W$$
+Ovvero che anche il duale non ha soluzioni ammissibili, per esempio l'insieme dei punti ammissibili del duale è vuoto $W = \empty$.
+È vero anche il viceversa, ovvero che se il duale ha soluzione ottima non limitata, allora $\textbf{w} \rightarrow  + \infty \implies \textbf{cx}\geq + \infty, \forall\textbf{x} \in X$.
+
+Se il primale **non** ha soluzioni ammissibili, allora il duale:
+- O non ha soluzioni ammissibili
+- O ha una soluzione ottima non lmimitata
+
+Di seguito una tabella utile in culo
+|  |  Duale Ottimo | Duale Non amm. | Duale Illim. |
+|-------------|----------------|----------------|--------------|
+| **Primale Ottimo** | $$X$$ | | |
+| **Primale Non Amm.** | | $$X$$ | $$X$$ |
+| **Primale Illim.** | | $$X$$ | |
+
+Questa tabella vale sempre per ogni problema di cui riesco a definire primale e duale.
+
+#### Forme miste del Primale
+Dato il seguente problema PL:
+$$
+\begin{align*}
+    \min &z_P = \textbf{cx}& \\
+         & s.t. &\textbf{A}_1\textbf{x} &\geq \textbf{b}_1 \\
+               &&\textbf{A}_2\textbf{x} &=    \textbf{b}_2 \\
+               &&\textbf{A}_3\textbf{x} &\leq    \textbf{b}_2 \\
+               &&\textbf{x}& \geq0
+\end{align*}
+$$
+
+Per poter esprimere il suo duale (e anche per poter applicare il metodo del simplesso), lo riscriviamo in forma standard
+$$
+\begin{align*}
+    \min &z_P = \textbf{cx}& \\
+         & s.t. &\textbf{A}_1\textbf{x} & -\textbf{Ix}_S                &&= \textbf{b}_1 &:\textbf{w}_1\\ 
+               &&\textbf{A}_2\textbf{x}                                &&&= \textbf{b}_2 &:\textbf{w}_2\\
+               &&\textbf{A}_3\textbf{x}       &&+\textbf{Ix}_T           &= \textbf{b}_2 &:\textbf{w}_3\\
+               &&\textbf{x}& \geq0
+\end{align*}
+$$
+
+Dove nominiamo a piacere con $\textbf{w}_n$ rispettivamente:
+- $\textbf{w}_1$: l'insieme dei vincoli $\geq 0$ 
+- $\textbf{w}_2$: l'insieme dei vincoli  $=0$ 
+- $\textbf{w}_3$: l'insieme dei vincoli $\leq 0$ 
+
+I quali rappresenteranno il **vettore di variabili duali**. Quindi, dato il primale in questa forma standard, è possibile scrivere il duale in questo modo:
+
+$$
+\begin{align*}
+    \max &z_D = &\textbf{w}_1\textbf{b}_1 + &\textbf{w}_2\textbf{b}_2 + \textbf{w}_3\textbf{b}_3 \\
+         &s.t. &\textbf{w}_1\textbf{A}_1 + &\textbf{w}_2\textbf{A}_2 + \textbf{w}_3\textbf{A}_3  \leq \textbf{c}              \\
+         && \textbf{w}_1 &\geq 0 \\
+         && \textbf{w}_2 &\quad\text{qualsiasi} \\
+         && \textbf{w}_3 &\leq 0 \\
+\end{align*}
+$$
+
+È possibile riassumere tutti i possibili casi nella seguente tabella
+| Primale | Duale |
+|--------|--------|
+| min    |  max   |
+| Vincolo $i$ | Variabile $w_i$ |
+| $$\geq$$ | $$w_i\geq 0$$ |
+| $$=$$ | qualsiasi |
+| $$\leq$$ | $$w_i\leq 0$$ |
+| Variabile $x_j$ | Vincolo $j$ |
+| $$x_j \geq 0$$ | $$\leq$$ |
+| qualsiasi | $$=$$ |
+| $$x_j \leq 0$$ | $$\geq$$ |
+
+
+### Guida pratica alla costruzione del duale
+Prendiamo come esempio il problema PL:
+$$
+\begin{align*}
+    \min &z_P = & x_1 - 2x_2 + 3x_3 &\\
+         &s.t.  &x_1 + x_2 \geq 2           &&:\textbf{w}_1\\ 
+                &&-x_1 + x_2 - x_3 = 1      &&:\textbf{w}_2\\
+                &&+x_2 - 2x_3 \leq 3     &&:\textbf{w}_3\\
+                &&x_1 \quad \text{qualsiasi} \\
+                &&x_2 \geq0 \\
+                &&x_3 \leq0 \\
+\end{align*}
+$$
+
+1. Definiamo i **nomi** dei vincoli primali in modo tale da avere:
+   - $\textbf{w}_1$: insieme dei vincoli primali $\geq 0$
+   - $\textbf{w}_2$: insieme dei vincoli primali $= 0$
+   - $\textbf{w}_3$: insieme dei vincoli primali $\leq 0$
+2. Costruiamo il vettore $\textbf{c}$ prendendo i coefficienti che moltiplicano le $n$ variabili $\textbf{x}$ nel primale, ottentendo:
+$$
+\textbf{c} = 
+\begin{bmatrix}
+    1 & -2 & 3
+\end{bmatrix}
+$$
+3. Effettuiamo la stessa cosa con i termini noti degli $m$ vincoli del problema primale, calcolando:
+$$
+\textbf{b} = 
+\begin{bmatrix}
+    2 & 1 & 3
+\end{bmatrix}
+$$
+
+4. Costruiamo la matrice $\textbf{A} \in \mathbb{R}^{m\times n}$ composta da:
+   - $n$ colonne tante quante le variabili decisionali del problema
+   - $m$ righe tanti quanti i vincoli del problema
+$$
+\textbf{A} =
+\begin{bmatrix}
+    1   &1  &0 \\
+    -1  &1  &-1 \\
+    0   &1  &-2
+\end{bmatrix}
+$$
+
+È possibile ora costruire il problema duale in questo modo:
+1. Se il primale era di minimo, la f. obiettivo del duale sarà di massimo e viceversa
+2. Moltiplicare per ogni variabile $\textbf{w}$ individuata nel priamle, i termini noti di quest'ultimo, per cui: 
+$$
+\textbf{c}^T\textbf{b} = 
+\begin{bmatrix}
+    w_1 \\ w_2 \\ w_3
+\end{bmatrix}
+\times
+\begin{bmatrix}
+    2 & 1 & 3
+\end{bmatrix}
+= 2w_1 + w_2 + 3w_3
+$$
+Formando la funzione obiettivo: $\max z_D = 2w_1 + w_2 + 3w_3$.
+
+3. Tutti i coefficienti della funzione obiettivo del primale, diventano termini noti dei vincoli del duale.
+4. Per determinare i segni dei vincoli, riferirsi alla tabella sopra.
+5. Per ogni riga della matrice $\textbf{A}$ calcolata prima, corrisponde un vincolo duale, e per ogni colonna corrisponde il coefficiente da moltiplicare alla variabile $w_i$. Quindi si ottengono i seguenti vincoli:
+$$
+\begin{align*}
+    w_1 - w_2 = 1               \qquad&:x_1\\
+    w_1 + w_2 + w_3 \leq -2     \qquad&:x_2\\
+    -w_2 - 2w_3 \geq 3          \qquad&:x_3\\
+\end{align*}
+$$
+1. Infine, i vincoli da applicare alle variabili $w_i$, sono pari al segno $\leq, \geq o =$ che compaiono nel primale (segno del vincolo i-esimo è il segno della variabile i-esima che figura dopo i due punti). Quindi si arriva al problema PL duale pari a:
+$$
+\begin{align*}
+    \max &z_D = & 2w_1 + w_2 + 3w_3 &\\
+         &s.t.  &w_1 - w_2 = 1                  &&:\textbf{x}_1\\ 
+                &&w_1 + w_2 + w_3 \leq -2       &&:\textbf{x}_2\\
+                &&-w_2 - 2w_3 \geq 3            &&:\textbf{x}_3\\
+                &&w_1 \geq0 \\
+                &&w_2 \quad \text{qualsiasi} \\
+                &&w_3 \leq0 \\
+\end{align*}
+$$
+
+### Condizioni di Complementarietà
+Dai teoremi relativi alla dualità, è possibile derivare delle condizioni di ottimalità:
+#### Corollario 2 (Complementarietà)
+Le soluzioni $\tilde{\textbf{x}} \in X$ del primale e $\tilde{\textbf{w}} \in W$ del duale sono **ottime** se e solo se:
+$$
+\begin{cases}
+    \tilde{\textbf{w}}(\textbf{A}\tilde{\textbf{x}} - \textbf{b}) &= 0 &(a)\\
+    (\textbf{c} - \tilde{\textbf{w}}\textbf{A})\tilde{\textbf{x}} &= 0 &(b)\\
+\end{cases}
+$$
+**Dimostrazione**:
+Si vuole dimostrare che:
+1. Se $(a)$ e $(b)$ sono soddisfatte, allora le soluzioni $\tilde{\textbf{x}}$ e $\tilde{\textbf{w}}$ sono ottime.
+2. Se le soluzioni $(a)$ e $(b)$ sono ottime, allora le condizioni $(a)$ e $(b)$ devono essere soddisfatte. 
+
+
+- **1)** Dal lemma della **dualità debole** si ha che per ogni  $\tilde{\textbf{x}}$ e $\tilde{\textbf{w}}$:
+$$\tilde{\textbf{w}}\textbf{b} \leq \tilde{\textbf{w}} \textbf{A} \tilde{\textbf{x}} \leq \textbf{c} \tilde{\textbf{x}}$$
+Ma se le condizioni $(a)$ e $(b)$ sono soddisfatte, sostituendo otteniamo:
+$$
+\begin{cases}
+    \tilde{\textbf{w}}\textbf{A}\tilde{\textbf{x}} = \tilde{\textbf{w}}\textbf{b} \\
+    \textbf{c}\tilde{\textbf{x}} = \tilde{\textbf{w}}\textbf{A}\tilde{\textbf{x}} \\
+\end{cases}
+$$
+Per cui $\tilde{\textbf{w}}\textbf{b} = \textbf{c}\tilde{\textbf{x}}$ e per il corollario 1 si ha che $\tilde{\textbf{x}}$ e $\tilde{\textbf{w}}$ sono ottime.
+
+- **2)** Se una delle due condizioni di complementarietà non è soddisfatta, allora almeno una delle due soluzioni non è ottima: infatti se fosse per esempio $\tilde{\textbf{w}}(\textbf{A}\tilde{\textbf{x}} - \textbf{b}) > 0$, allora ne consegue che $\tilde{\textbf{w}}\textbf{b} < \textbf{c}\tilde{\textbf{x}}$.
+
+
+Questo corollario serve a capire che data una solzuzione qualsiasi $\tilde{\textbf{x}} \in X$, allora per **dimostrarne l'ottimalità**, è sufficiente trovare una soluzione duale $\tilde{\textbf{w}} \in W$ che soddisfi le condizioni di complementarietà (e viceversa).
+
+Le condizioni di complementarietà viste sopra, corrispondono alle equazioni:
+$$
+\begin{cases}
+    w_i(\textbf{a}^i\textbf{x} - b_i) & = 0, & i=1,\dots,m  &(a')\\
+    (c_j - \textbf{w}\textbf{a}_j) x_j & = 0, & j=1,\dots,n &(b')\\
+\end{cases}
+$$
+Dalle quali ne derivano le seguenti osservazioni:
+- $w_i > 0 \qquad$ &rarr; $ \qquad \textbf{a}^i\textbf{x} = b$ 
+- $\textbf{a}^i\textbf{x} > b \qquad $ &rarr; $\qquad w_i = 0$
+- $x_j > 0 \qquad $ &rarr; $\qquad \textbf{w}\textbf{a}_j = c_j$
+- $\textbf{w}\textbf{a}_j < c_j \qquad$ &rarr; $\qquad x_j = 0$
+
+### Interpretazione economica della dualità
+Il valore di ciascuna variabile duale corrisponde al valore della **risorsa** espressa del termine noto del corrispondente vincolo (**shadow price**). Questa indicazione ci può far capire se un vincolo possiede del potenziale miglioramento/peggioramento della soluzione ottima se venisse decrementato o aumentato di qualche unità.
