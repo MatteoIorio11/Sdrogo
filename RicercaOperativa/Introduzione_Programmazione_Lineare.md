@@ -1087,3 +1087,90 @@ Dalle quali ne derivano le seguenti osservazioni:
 
 ### Interpretazione economica della dualità
 Il valore di ciascuna variabile duale corrisponde al valore della **risorsa** espressa del termine noto del corrispondente vincolo (**shadow price**). Questa indicazione ci può far capire se un vincolo possiede del potenziale miglioramento/peggioramento della soluzione ottima se venisse decrementato o aumentato di qualche unità.
+
+
+#### Verificare la soluzione ottima di un problema
+Partendo dal problema primale:
+$$
+\begin{align*}
+    \text{min}z = -x_1 + 3x_2 \\
+    s.t \quad -x_1 + x_2 \geq 3 :w_1\\
+        \quad 3_x1 + x_2 \leq 6 :w_2 \\
+        \quad x_2 \leq 5 :w_3 \\
+        x_1, x_2 \geq 0
+\end{align*}
+$$
+Si definisce il suo problema duale:
+$$
+\begin{align*}
+    \text{max}z = 3w_1 + 6w_2 + 5w_3 \\
+    s.t \quad -w_1 + 3_w2 \leq -1 :x_1\\
+        \quad w_1 + w_2 + w_3 \leq 3 :x_2\\
+        w_1 \geq 0 \\
+        w_2 \leq 0 \\
+        w_3 \leq 0
+\end{align*}
+$$
+Si verifica la *saturazione dei vincoli* del problema primale per la soluzione $x=[x_1, x_2] = [0, 3]$:
+* $x_1 + x_2 \geq 3$ sostituendo i valori di $x_1$ e $x_2$ si ottiene $0 + 3 \geq 3$, siccome tale vincolo **è soddisfatto con uguaglianza**, è saturo,  si ha che $w_1 \geq 0$
+* $3x_1 + x_2 \leq 6$ sostituendo i valori di $x_1$ e $x_2$ si ottiene $0 + 3 \leq 6$, siccome tale vincolo **non è soddisfatto con uguaglianza** non è saturo $w_2 = 0$
+* $x_2 \leq 5$ sostituendo i valori di $x_1$ e $x_2$ si ottiene $3 \leq 5$, siccome tale vincolo **non è soddisfatto con uguaglianza** non è saturo $w_3=0$
+Mentre la soluzione $\textbf{x} = [x_1, x_2] = [0, 3]$ implica che il vincolo duale associato alla vairabile $x_2$ deve essere saturo, siccome precedentemente avendo sostituito i due valori non è venuta una uguaglianza dobbiamo verificare che:
+
+$$
+w_1 + w_2 + w_3 = 3 \rightarrow w_1=3 \\
+$$
+
+Per cui, *applicando le condizioni di complementarietà* si ha $w_1=3$, che rispetta tutti i vincoli del problema duale (compreso $w_1 \geq 0$). Quindi partendo dalla soluzione primale **x** si è ottenuta una *soluzione duale ammissibile* **w** che soddisfa le condizioni di complementarietà, per cui la soluzione $x=[x_1, x_2] = [0, 3]$ è ottima. 
+
+## Metodo del Simplesso Formato Tableau
+Il *simplesso primale in formato tableau* permette di semplificare le operazioni di aggiornamento della base, della corrispondente soluzione e dei costi ridotti $wa_j - c_j$ ad ogni iterazione:
+$$
+\begin{align*}
+    \text{min}z = c_Bx_B + c_Nx_N \\
+    Bx_B + Nx_N = b \\
+    x_B, x_N \geq 0
+\end{align*}
+$$
+che si può riscrivere come:
+$$
+\begin{align*}
+    \text{min}z \\
+    z -  c_Bx_B + c_Nx_N = 0 \\
+    x_B + B^{-1}Nx_N = B^{-1}b \\
+    x_B, x_N \geq 0
+\end{align*}
+$$
+Moltiplicando la seconda equazione per $c_B$ e sommandola per la prima si ottiene:
+$$
+\begin{align*}
+    \text{min}z \\
+    z +0x_B + (c_B^{-1}-x_N)x_N = c_BB^{-1}b \\
+    x_B + B^{-1}Nx_N = B^{-1}b \\
+    x_B, x_N \geq 0
+\end{align*}
+$$
+Il risultato può essere inserito in un *talbeau* come segue:
+|        | z      | $x_B$  |  $x_N$             | RHS    |
+|--------|--------|--------|--------            |--------|
+|z       | 1      |    0   |$c_BB^{-1}N-c_N$    | $c_BB^{-1}b$ |
+|$x_B$   | 0      |    I   |$B^{-1}N            | B^{-1}b$ |
+dove il *Right Hand Side* (RHS) contiene il valore della funzione obiettivo e delle variabili base.
+|        | z      | $x_B$  |  $x_N$            | RHS    |
+|--------|--------|--------|--------           |--------|
+|z       | 1      |    0   |$wa_{m+1} - c_{m+1}$ ... $wa_{m+j} - c_{m+j}$ ... $wa_{n} - c_{n}$ | c_BB^{-1} |
+|$x_B$   | 0      |    I   |$y^{m+1}_1$  ... $y^{j}_1$ ... $y^{n}_1$ | $\overline b_1 $ |
+|$x_B$   | ...    |    I   |...  ... ... ... ... | ... |
+|$x_B$   | 0      |    I   |$y^{m+1}_i$  ... $y^{j}_i$ ... $y^{n}_i$ | $\overline b_i $ |
+|$x_B$   | ...    |    I   |...  ... ... ... ... | ... |
+|$x_B$   | 0      |    I   |$y^{m+1}_m$  ... $y^{j}_m$ ... $y^{n}_m$ | $\overline b_m $ |
+
+Da come si può notare, il tableau contiene tutte le informazioni necessarie per l'esecuzione dell'algoritmo del simplesso.
+L'operazione di base è il *pivoting*. Che permette a una nuova varabile di entrare in base e di aggiornare correttamente tutte le informazioni nel tableau. 
+
+Ad ogni iterazione *si seleziona la variabile non base* candidata ad entrare in base e si definisce con il criterio del rapporto minimo la variabile che uscirà:
+* La variabile entrante si seleziona scegliendo la colonna che **massimizza** il *costo ridotto* $wa_k - c_k$ nella riga 0.
+* La variabile uscente si seleziona scegliendo la riga che minimizza il rapporto $\frac{\overline b_i}{y^{k}_i} \text{ con } y^{k}_i > 0$.
+* Si divide la riga *i* per $y^{k}_i$
+* Ad ogni riga $i^{'} \neq i$ si aggiunge la riga $i$ moltiplicata per $-y^{k}_i^'$
+* Alla riga 0 si aggiunge la riga *i* moltiplicata per $-(wa_k-c_k)$
