@@ -52,7 +52,7 @@ $$
 $$
 
 ## Trovare una Base (B) con la quale risolvere il sistema
-Spesso la base da cui partire viene evidenziata dalle colonne della nostra matrice A. Bisogna sempre scegliere 2 colonne dalla matrice A (per semplicità si possono prende4e le colonne che ci permettono di avere la matrice identità, **spesso la base ci viene fornita da input**).
+Spesso la base da cui partire viene evidenziata dalle colonne della nostra matrice A. Bisogna sempre scegliere 2 colonne (in $\mathbb{R}^2$) dalla matrice A (per semplicità si possono prendere le colonne che ci permettono di avere la matrice identità, **spesso la base ci viene fornita da input**).
 $$
 \text{B=}
 \begin{bmatrix}
