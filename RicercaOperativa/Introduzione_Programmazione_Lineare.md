@@ -1174,3 +1174,68 @@ Ad ogni iterazione *si seleziona la variabile non base* candidata ad entrare in 
 * Si divide la riga *i* per $y^{k}_i$
 * Ad ogni riga $i^{'} \neq i$ si aggiunge la riga $i$ moltiplicata per $-y^{k}_i^'$
 * Alla riga 0 si aggiunge la riga *i* moltiplicata per $-(wa_k-c_k)$
+
+### Come determinare una base iniziale: caso EZ
+Se il problema di *n* variabili e *m* vincoli ha la seguente forma:
+$$
+\begin{align*}
+    z_p = \text{min} cx \\
+    s.t \quad Ax \leq b \\
+    \quad x \geq 0
+\end{align*}
+$$
+Quando si aggiungono le *m* variabili $x_s$ di **slack** alle *n* variabili originarie, il rpimale in forma standard è il seguente:
+$$
+\begin{align*}
+    z_p = \text{min} cx \\
+    s.t \quad Ax + Ix_s= b \\
+    \quad x, x_s \geq 0
+\end{align*}
+$$
+Dove **I** è la matrice *identità*.
+### Come determinare una base iniziale: Metodo Big-Minchia
+Se il problema ha la seguente forma: 
+$$
+\begin{align*}
+    z_p = \text{min} cx \\
+    s.t \quad Ax = b \\
+    \quad x \geq 0
+\end{align*}
+$$
+non è detto che sia facile individuare una base **B** tra le colonne di **A**.
+Nell'ipotesi che $b\geq 0$, si possono aggiungere *m* variabili $x_A$, dette *artificiali*, alle *n* variabili originarie, e risolvere il seguente problema:
+$$
+\begin{align*}
+    z_p = \text{min} cx + Mx_A \\
+    s.t \quad Ax  + Ix_A = b \\
+    \quad x, x_A \geq 0
+\end{align*}
+$$
+dove *I* è la matrice identità di ordine *m* e $M=MI$, con $M > 0$ scelto *sufficentemente grande*.
+### Come determinare una base iniziale: Metodo 2-Fasi
+Sia dato un problema della seguente forma:
+$$
+\begin{align*}
+    (P) z_p = \text{min} cx \\
+    s.t \quad Ax = b \\
+    \quad x \geq 0
+\end{align*}
+$$
+Nell'ipotesi che $b\geq 0$, si possono aggiungere *m* variabili $x_A$, dette **artificiali**, alle *n* variabili originarie, e risolvere il seguente problema:
+$$
+\begin{align*}
+    (P^{'}) z_p = \text{min} 1x_A \\
+    s.t \quad Ax + Ix_A = b \\
+    \quad x, x_A \geq 0
+\end{align*}
+$$
+* In questo caso i problemi $P$ e $P^{'}$ non sono equivalenti.
+* Risolvere il problema $P^{'}$ serve solo a determinare una soluzione base ammissibile per il problema $P$.
+* Sia $(x^{\*}, x^{\*}_A)$ la soluzione ottima del problema $P^{'}$ di valore $z_p^{'}$. Si possono presentare tre casi:
+  - $z_p^{'} > 0 \rightarrow$ **il problema P non ha una base ammissibile**.
+  - $z_p^{'} = 0 \text{e nessuna variabile artificiale in base} \rightarrow $ **il problema P ha una base ammissibile**.
+  - $z_p^{'} > 0  \text{almeno una variabile artificiale in base} \rightarrow$ **il problema P ha una base ammissibile, ma bisogna estrarla**.
+Se $z_p^{'} > 0$ e una variabile artificiale è in base, per **generare una base senza variabili artificiali è necessario farla uscire**.
+Questo caso si verifica quando la soluzione è **degenere**, ossia una variabile in base ha valore nullo.
+* Se esiste un $y^{j}_i \neq 0$ allora possiamo *pivotare* su questo cieffucuebte e la variabile $x_j$ entra in base al posto della variabilee artificiale $x^{A}_h$. 
+* Se $y^{j}_i = 0$, per ogni $j=1, ..., n$, allora possiamo eliminare dal tableau ia la riga i che la colonna della variabile artificiale $x^{A}_h$.
