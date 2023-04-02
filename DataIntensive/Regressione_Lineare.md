@@ -75,3 +75,80 @@ $$
 $$
 
 Iterando questo procedimento, arrivamo ad avere due parametri $\alpha$ e $\beta$  in grado di poter costruire una retta che possa stimare i nuovi valori $\hat{y}$ dati nuovi valori $x$.
+
+### Regresione Lineare Multivariata
+In questo caso, si stima la variabile dipendente $y$ sulla base di più variabili indipendenti $x_1, \dots, x_n$.
+Il nostro modello quindi assumerà la forma:
+$$h_\theta(x_1,\dots, x_n) = \theta_0 + \theta_1x_1, \dots \theta_n x_n$$
+(occhio alla notazione, qui sopra le $\theta$ sono miniuscole, la theta maiuscola è $\Theta$ e denota il **vettore** dei parametri incogniti).
+
+Dove 
+- Ogni coefficiente angolare $\theta_i$ denota il "peso" della variabile $x_i$ nella previsione.
+- L'intercetta è rapprensetata dal valore di $\theta_0$, ovvero quando $x=0$.
+
+N.B. Le variabili categoriche in questo tipo di modelli vengono "Binarizzate" (**One Hot Encoding**) ovvero vengono mappate nell'insieme $\{0,1\}$.
+
+Se per esempio stiamo considerando la vendita di appartamenti in base ai parametri:
+- $s$: metri quadri
+- $n_b$: stanze da letto
+- $q$: quartiere $\in \{0,1\}$
+
+Otteniamo la funzione di prezzo $P$ pari a:
+$$P(n_b, s, q) = \theta_0 + \theta_1 n_b + \theta_2 s + \sum_{i\in q} \theta_i \delta(q)$$
+Dove la funzione $\delta(q)$ rappresenta il one hot encoding della categoria q per l'instanza i-esima considerata.
+
+Considerando il **modello generale** per la regressione lineare multivariata  $h_\theta(x_1,\dots, x_n) = \theta_0 + \theta_1x_1, \dots \theta_n x_n$, possiamo riscriverlo in forma matriciale, considerando che poniamo $x_0 = 0$ per compattezza di notazione:
+$$h_\theta(\textbf{x}) = \Theta\textbf{x}$$
+
+#### Stima dell'errore
+Se prendiamo la formula citata per la regressione univariata per l'errore:
+$$E(\Theta) = \frac{1}{m} \sum_{i=1}^m(h_\theta(x_i) - y_i)^2$$
+
+Dove si ricorda che:
+- $m$ è il numero di dati.
+- $x$ è la variabile indipendente.
+- $y$ è la variabile dipendente.
+
+Nel modello multivariato a $n$ dimensioni otteniamo:
+$$E(\theta_0, \theta_1, \dots, \theta_n) = \frac{1}{m}\sum_{i=1}^m
+\left(
+    \theta_0 + \sum_{j=1}^n (\theta_j \cdot x_{ij}) - y_i
+\right)^2$$
+
+Dove nella sommatoria più interna, $x_{ij}$ indica la **feature** j-esima, nell'**istanza** i-esima.
+Come sempre, il tutto può essere semplificato con la notazione matriciale:
+$$E(\Theta) = \frac{1}{m}\sum_{i=1}^m(\Theta \textbf{x}_i - y_i)^2$$
+
+#### Discesa del gradiente Multivariata
+Non cambia molto, bisogna come sempre calcoalre il gradiente, ma in questo caso è un pelo più complesso avendo $n$ features. (piccola nota, $p=1,\dots, n$)
+$$\nabla E(\Theta) = \frac{\partial E(\Theta)}{\partial \theta_p} 
+= \frac{2}{m}\left(
+    \sum_{i=1}^m \theta_0 + \sum_{j=1}^n(\theta_0 \cdot x_{ij} - y_i)x_{ip}
+\right)$$
+
+Potendo così facilemte ricavare la formula iterativa per la discesa del gradiente per ciascuna feature $\theta_p$:
+$$\theta_{p,k+1} \leftarrow \theta_{p, k} - \frac{2\eta}{m}
+\left(
+    \sum_{i=1}^m \theta_{0, k} + \sum_{j=1}^n(\theta_{j, k} \cdot x_{ij}) - y_i
+\right)x_{ip}$$
+
+##### Momento speculazione matematica di cui non ne conosco il significato
+Finora abbiamo rappresentato ciascuna delle $m$ osservazioni su cui calcolare l'errore con un vettore $\textbf{x}_i$ e un valore atteso $y_i$.
+
+L'intero insieme delle osservazione può essere raccolto in una matrice $\textbf{X}$ degli input e un vettore $\textbf{y}$ degli output. In particolare;
+- $\textbf{X}$ ha una riga per ogni osservazione (o istanza) e un acolonna per ogni variabile (o feature), più una colonna relativa all'intercetta con tutti valori a uno.
+- $\textbf{y}$ ha un elemento per ogni osservazione (corrispondenti alle righe).
+
+In questo modo possiamo scrivere il gradiente non più in termini di singole derivate parziali, ma in forma vettoriale:
+$$\nabla E(\Theta) = \frac{2}{m} \textbf{X}^T(\textbf{X}\Theta - \textbf{y})$$
+
+Non so come sia cicciata fuori la trasposta.
+
+Perciò si può scrivere la discesa del gradiente come:
+$$
+\Theta_{k+1} =
+\Theta_k - 
+\frac{2\eta}{m}
+\textbf{X}^T(\textbf{X}\Theta_k - \textbf{y})$$
+
+Ed eccoci qua, senza aver capito nulla. Buonanotte.
