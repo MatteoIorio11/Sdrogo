@@ -1127,7 +1127,7 @@ Per cui, *applicando le condizioni di complementarietà* si ha $w_1=3$, che risp
 Il *simplesso primale in formato tableau* permette di semplificare le operazioni di aggiornamento della base, della corrispondente soluzione e dei costi ridotti $wa_j - c_j$ ad ogni iterazione:
 $$
 \begin{align*}
-    \text{min}z = c_Bx_B + c_Nx_N \\
+    \text{min} \quad z = c_Bx_B + c_Nx_N \\
     Bx_B + Nx_N = b \\
     x_B, x_N \geq 0
 \end{align*}
@@ -1135,7 +1135,7 @@ $$
 che si può riscrivere come:
 $$
 \begin{align*}
-    \text{min}z \\
+    \text{min} \quad z \\
     z -  c_Bx_B + c_Nx_N = 0 \\
     x_B + B^{-1}Nx_N = B^{-1}b \\
     x_B, x_N \geq 0
@@ -1144,7 +1144,7 @@ $$
 Moltiplicando la seconda equazione per $c_B$ e sommandola per la prima si ottiene:
 $$
 \begin{align*}
-    \text{min}z \\
+    \text{min} \quad z \\
     z +0x_B + (c_B^{-1}-x_N)x_N = c_BB^{-1}b \\
     x_B + B^{-1}Nx_N = B^{-1}b \\
     x_B, x_N \geq 0
@@ -1155,7 +1155,7 @@ Il risultato può essere inserito in un *talbeau* come segue:
 |--------|--------|--------|--------            |--------|
 |z       | 1      |    0   |$c_BB^{-1}N-c_N$    | $c_BB^{-1}b$ |
 |$x_B$   | 0      |    I   |$B^{-1}N            | B^{-1}b$ |
-dove il *Right Hand Side* (RHS) contiene il valore della funzione obiettivo e delle variabili base.
+dove il *Right Hand Side* (RHS) contiene il valore della funzione obiettivo e dei termini noti delle variabili  in base.
 |        | z      | $x_B$  |  $x_N$            | RHS    |
 |--------|--------|--------|--------           |--------|
 |z       | 1      |    0   |$wa_{m+1} - c_{m+1}$ ... $wa_{m+j} - c_{m+j}$ ... $wa_{n} - c_{n}$ | c_BB^{-1} |
@@ -1166,28 +1166,28 @@ dove il *Right Hand Side* (RHS) contiene il valore della funzione obiettivo e de
 |$x_B$   | 0      |    I   |$y^{m+1}_m$  ... $y^{j}_m$ ... $y^{n}_m$ | $\overline b_m $ |
 
 Da come si può notare, il tableau contiene tutte le informazioni necessarie per l'esecuzione dell'algoritmo del simplesso.
-L'operazione di base è il *pivoting*. Che permette a una nuova varabile di entrare in base e di aggiornare correttamente tutte le informazioni nel tableau. 
+L'operazione di base è il *pivoting*, che permette a una nuova varabile di entrare in base e di aggiornare correttamente tutte le informazioni nel tableau. 
 
 Ad ogni iterazione *si seleziona la variabile non base* candidata ad entrare in base e si definisce con il criterio del rapporto minimo la variabile che uscirà:
 * La variabile entrante si seleziona scegliendo la colonna che **massimizza** il *costo ridotto* $wa_k - c_k$ nella riga 0.
 * La variabile uscente si seleziona scegliendo la riga che minimizza il rapporto $\frac{\overline b_i}{y^{k}_i} \text{ con } y^{k}_i > 0$.
 * Si divide la riga *i* per $y^{k}_i$
-* Ad ogni riga $i^{'} \neq i$ si aggiunge la riga $i$ moltiplicata per $-y^{k}_i^'$
+* Ad ogni riga $i^{'} \neq i$ si aggiunge la riga $i$ moltiplicata per $-y^{k}_{i^{'}}$
 * Alla riga 0 si aggiunge la riga *i* moltiplicata per $-(wa_k-c_k)$
 
 ### Come determinare una base iniziale: caso EZ
 Se il problema di *n* variabili e *m* vincoli ha la seguente forma:
 $$
 \begin{align*}
-    z_p = \text{min} cx \\
+    z_p = \text{min}\quad cx \\
     s.t \quad Ax \leq b \\
     \quad x \geq 0
 \end{align*}
 $$
-Quando si aggiungono le *m* variabili $x_s$ di **slack** alle *n* variabili originarie, il rpimale in forma standard è il seguente:
+Quando si aggiungono le *m* variabili $x_s$ di **slack** alle *n* variabili originarie, il primale in forma standard è il seguente:
 $$
 \begin{align*}
-    z_p = \text{min} cx \\
+    z_p = \text{min} \quad cx \\
     s.t \quad Ax + Ix_s= b \\
     \quad x, x_s \geq 0
 \end{align*}
@@ -1197,7 +1197,7 @@ Dove **I** è la matrice *identità*.
 Se il problema ha la seguente forma: 
 $$
 \begin{align*}
-    z_p = \text{min} cx \\
+    z_p = \text{min} \quad  cx \\
     s.t \quad Ax = b \\
     \quad x \geq 0
 \end{align*}
@@ -1206,7 +1206,7 @@ non è detto che sia facile individuare una base **B** tra le colonne di **A**.
 Nell'ipotesi che $b\geq 0$, si possono aggiungere *m* variabili $x_A$, dette *artificiali*, alle *n* variabili originarie, e risolvere il seguente problema:
 $$
 \begin{align*}
-    z_p = \text{min} cx + Mx_A \\
+    z_p = \text{min} \quad cx + Mx_A \\
     s.t \quad Ax  + Ix_A = b \\
     \quad x, x_A \geq 0
 \end{align*}
@@ -1216,7 +1216,7 @@ dove *I* è la matrice identità di ordine *m* e $M=MI$, con $M > 0$ scelto *suf
 Sia dato un problema della seguente forma:
 $$
 \begin{align*}
-    (P) z_p = \text{min} cx \\
+    (P) \quad  z_p = \text{min} \quad cx \\
     s.t \quad Ax = b \\
     \quad x \geq 0
 \end{align*}
@@ -1224,18 +1224,19 @@ $$
 Nell'ipotesi che $b\geq 0$, si possono aggiungere *m* variabili $x_A$, dette **artificiali**, alle *n* variabili originarie, e risolvere il seguente problema:
 $$
 \begin{align*}
-    (P^{'}) z_p = \text{min} 1x_A \\
+    (P^{'}) \quad z_p = \text{min} \quad 1x_A \\
     s.t \quad Ax + Ix_A = b \\
     \quad x, x_A \geq 0
 \end{align*}
 $$
 * In questo caso i problemi $P$ e $P^{'}$ non sono equivalenti.
-* Risolvere il problema $P^{'}$ serve solo a determinare una soluzione base ammissibile per il problema $P$.
-* Sia $(x^{\*}, x^{\*}_A)$ la soluzione ottima del problema $P^{'}$ di valore $z_p^{'}$. Si possono presentare tre casi:
-  - $z_p^{'} > 0 \rightarrow$ **il problema P non ha una base ammissibile**.
-  - $z_p^{'} = 0 \text{e nessuna variabile artificiale in base} \rightarrow $ **il problema P ha una base ammissibile**.
-  - $z_p^{'} > 0  \text{almeno una variabile artificiale in base} \rightarrow$ **il problema P ha una base ammissibile, ma bisogna estrarla**.
-Se $z_p^{'} > 0$ e una variabile artificiale è in base, per **generare una base senza variabili artificiali è necessario farla uscire**.
+* Risolvere il problema $P^{'}$ serve solo a **determinare una soluzione base ammissibile** per il problema $P$.
+* Sia $(x^*, x^*_A)$ la soluzione ottima del problema $P^{'}$ di valore $z_p'$. Si possono presentare tre casi:
+  - $z_p' > 0 \rightarrow$ **il problema P non ha una base ammissibile**.
+  - $z_p' = 0 \quad \text{e nessuna variabile artificiale in base} \rightarrow $ **il problema P ha una base ammissibile**.
+  - $z_p' > 0 \quad  \text{almeno una variabile artificiale in base} \rightarrow$ **il problema P ha una base ammissibile, ma bisogna estrarla**.
+
+Se $z_p' > 0$ e una variabile artificiale è in base, per **generare una base senza variabili artificiali è necessario farla uscire**.
 Questo caso si verifica quando la soluzione è **degenere**, ossia una variabile in base ha valore nullo.
-* Se esiste un $y^{j}_i \neq 0$ allora possiamo *pivotare* su questo cieffucuebte e la variabile $x_j$ entra in base al posto della variabilee artificiale $x^{A}_h$. 
+* Se esiste un $y^{j}_i \neq 0$ allora possiamo *pivotare* su questo coefficiente e la variabile $x_j$ entra in base al posto della variabilee artificiale $x^{A}_h$. 
 * Se $y^{j}_i = 0$, per ogni $j=1, ..., n$, allora possiamo eliminare dal tableau ia la riga i che la colonna della variabile artificiale $x^{A}_h$.
