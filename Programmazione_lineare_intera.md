@@ -130,3 +130,227 @@ $$
 
 #### Esempio
 ??? non so se farlo
+
+### Introduzione ai Metodi di Decomposizione
+Quando i problemi di programmazione linaere presentano un *elevato* numero di variabili e/o vincoli, il problema potrebbe essere di difficile soluzione.
+
+In alcuni casi la struttura della matrice dei vincoli permette di **decomporre** il problema originale in sottoproblemi di più facile risolzuione.
+
+Esistono vari metodi che permettono di effettuare la decomposizione, tra cui la classe di metodi  di *Column Generation* (generazione dinamica delle colonne), e metodi più sofisticati come il **Rilassamento Lagrangiano**.
+
+Tutti questa classe di metodi di decomposizione pososno essere applicati a problemi di programmazione lineare continua, intera e mista intera.
+
+Partiamo da un problema P della forma:
+$$
+\begin{align}
+    z_p = &\min &\mathbf{c}_1\mathbf{x} + &\mathbf{c}_2\mathbf{y}\\
+    &\text{s.t.}&\mathbf{Ax} + &\mathbf{By} \geq \mathbf{b}\\
+    &&&(\mathbf{x}, \mathbf{y}) \in D
+\end{align}
+$$
+
+Dove l'insieme dei punti ammissibili $D$ può essere definito per esempio come:
+$$
+D = \{(\mathbf{x}, \mathbf{y}): \mathbf{D}_1\mathbf{x} \geq \mathbf{d}_1, \mathbf{D}_2\mathbf{y}\geq \mathbf{d}_2, \mathbf{x} \geq 0,\mathbf{y} \geq 0 \quad \text{and integer}\}
+$$
+
+Oppure:
+
+$$
+D = \{(\mathbf{x}, \mathbf{y}): \mathbf{D}_1\mathbf{x} + \mathbf{D}_2\mathbf{y}\geq \mathbf{d}, \mathbf{x} \geq 0,\mathbf{y} \geq 0 \quad \text{and integer}\}
+$$
+
+Se consideriamo il primo esempio, il problema P diventa:
+$$
+\begin{align}
+    z_p = &\min &\mathbf{c}_1\mathbf{x} + &\mathbf{c}_2\mathbf{y}\\
+    &\text{s.t.}&\mathbf{Ax} + &\mathbf{By} &\geq \mathbf{b}\\
+    && \mathbf{D}_1 \mathbf{x} &&\geq \mathbf{d}_1 \\ 
+    &&& \mathbf{D}_2 \mathbf{y} &\geq \mathbf{d}_2 \\ 
+    && \mathbf{x} &\geq 0 \\
+    && \mathbf{c} &\geq 0 \quad \text{and integer}
+\end{align}
+$$
+
+Se si rilassano i vincoli $(5)$ allora il problema P is decomopone in due **problemi indipendenti**, uno rispetto le variabili $\mathbf{x}$ e l'altro rispetto le variabili $\mathbf{y}$:
+
+Però è facile notare come la soluzione $(\mathbf{x}, \mathbf{y})$ calcolata risolvendo i due problemi separatamente potrebbe **non soddifare** i vincoli $(5)$ rilassati.
+
+
+Se invece consideriamo il secondo esempio, il problema P diventa:
+$$
+\begin{align}
+    z_p = &\min &\mathbf{c}_1\mathbf{x} + &\mathbf{c}_2\mathbf{y}\\
+    &\text{s.t.}&\mathbf{Ax} + &\mathbf{By} &\geq \mathbf{b}\\
+    && \mathbf{D}_1 \mathbf{x} + &\mathbf{D}_2 \mathbf{y} &\geq \mathbf{d} \\ 
+    && \mathbf{x} &\geq 0 \\
+    && \mathbf{c} &\geq 0 \quad \text{and integer}
+\end{align}
+$$
+
+Rilassando il vincolo $(11)$, il problema P **non** si decompone in due problemi indipendenti.
+
+Nonostante ciò, potrebbe convenire perché quei vincoli rendono il problema particolarmente difficile da risolvere.
+
+In ogni caso, la soluzione $(\mathbf{x}, \mathbf{y})$ calcolata risolvendo i due problemi separatamente potrebbe **non soddifare** i vincoli $(11)$ rilassati.
+
+Consideriamo adesso il seguente problema P:
+$$
+\begin{align}
+    z_p = &\min &\mathbf{cx} \\
+    &\text{s.t.}&\mathbf{Ax} &\geq \mathbf{b}\\
+    &&\mathbf{Bx} &\geq \mathbf{d}\\
+    && \mathbf{x} &\geq 0 \quad \text{and integer}\\
+\end{align}
+$$
+Dove consideriamo i vincoli $(16)$ come complicati.
+
+Denotiamo con **$LP$** il rilassamento lineare del problema P, ottenuto rilassando i vincoi di integrità $(18)$, e con $z_{LP}$ il valore della sua soluzione ottima.
+
+### Rilassamento Langrangiano
+Il rilassamento Lagrangiano permette di ottenere un *lower bound* per il problema P nel seguente modo:
+- alcuni vincoli considerati *difficili* sono rimosi dal problema P;
+- i vincoli rimossi sono inserti nella funzione obiettivo per mezzo delle **penalità Lagrangane**.
+
+Per esempio, se nel problema P i vincoli si rilassano i vincoli $(16)$ usando il vettore non negativo di pensalità Lagrangiane $\mathbf{\lambda
+}$, si ottiene la seguente formulazione LR:
+$$
+\begin{align}
+    z_{LR}(\lambda) = &\min &\mathbf{cx} + &\lambda(\mathbf{b} - \mathbf{Ax})\\
+    &\text{s.t.}&\mathbf{Bx} &\geq \mathbf{d}\\
+    &&\mathbf{x} &\geq 0 \quad \text{and integer}\\
+\end{align}
+$$
+
+Dove:
+- La funzione obiettivbo ha i costi penalizzati in base ai pesi dei coefficienti della matrice $\mathbf{A}$;
+- $\lambda$ è un parametro il quale fa scoraggiare le soluzioni del problema che violano il vincolo $\mathbf{b} - \mathbf{Ax} \leq 0$
+
+#### Teorema Dualità Lagrangiana Debole
+$z_{LR}(\lambda)$ è un *valido lower bound* al valore della soluzione ottima di $P$.
+
+**Dimostrazione**:
+
+- Sia $\mathbf{x}^*$ una soluzione ottima di $P$;
+- Siccome $\mathbf{x}^*$ è una soluzione ammissibile anche per $LR(\lambda), \forall \lambda \geq 0$, si ha che:
+
+$$
+z_{LR}(\lambda, \mathbf{x}^*) = \mathbf{cx}^* + \lambda(\mathbf{b} - \mathbf{Ax}^*) \geq z_P(\lambda)
+$$
+- Però $\lambda(\mathbf{b} - \mathbf{Ax}^*) \leq 0$, perché $\lambda > 0$ e $\mathbf{Ax}^* \geq \mathbf{b}$, quindi:
+
+$$
+z_P(\lambda) \leq z_{LR}(\lambda, \mathbf{x}^*) \leq z_P, \qquad \forall \lambda \geq 0.
+$$
+Dove con $\lambda > 0$ penalizziamo tutte le soluzioni $\mathbf{Ax} \leq b$, ovvero non ammissibili.
+
+---
+Il sottoproblema LR è detto **problema Lagrangiano**.
+Per identificare il vettore di penalità $\mathbf{\lambda}$ che massimizza il lower bound $z_{LR}(\lambda)$, si deve risolvere il cosiddetto **Lagrangiano Duale**, che può essere scritto come:
+$$
+z_{LR} = \max \{z_{LR}(\lambda): \lambda \geq 0\}
+$$
+
+Dove per ogni vettore di penalità fissato deve essere risolto il problema Lagrangiano LR:
+$$
+\begin{align}
+    z_{LR}(\lambda) = &\min &(\mathbf{c} - &\lambda\mathbf{A})\mathbf{x} + \lambda \mathbf{b}\\
+    &\text{s.t.}&\mathbf{Bx} &\geq \mathbf{d}\\
+    &&\mathbf{x} &\geq 0 \quad \text{and integer}\\
+\end{align}
+$$
+
+> Il lower bound $z_{LR}$ fornito dal Lagrangiano duale è maggiore o ugale a quello fornito dalla soluzione ottima $z_{LP}$ del rilassamento lineare del problema P, i.e. $z_{LR} \geq z_{LP}$.
+
+Se il lower bound $z_{LR}$ è **strettamente minore della soluzione ottima** del problema P, $z_{LR} < z_P$, allora si dice che c'è **_Duality Gap_** (se è molto alto potrebbe suggerirmi di non seguire questo approccio).
+
+Per risolvere il problema LR il metodo più e il **subgradiente**.
+
+### Rilassamento Lagrangiano: Esempio
+**Set covering Problem**: è il problema di *coprire* le righe di una matrice $A$ con coefficienti $a_{ij} \in \{0,1\}$ e di dimensione $m \times n$, con un sottoinsieme $S$ di colonne di *costo minimo*.
+
+Sia $x_j$ una variabile binaria 0-1 uguale a 1 se la colonna $j$ di costo $c_j$ è in soluzione, 0 altrimenti. Un modello del problema SC è:
+
+$$
+\begin{align}
+    z_{SC} = &\min &\sum_{j=1}^n c_j x_j \\
+    &\text{s.t.}&\sum_{j=1}^n a_{ij} x_j &\geq 1, &\quad i = 1, \dots, m\\
+    &&x_j &\in \{0,1\}, &\quad j = 1, \dots, n\\
+\end{align}
+$$
+
+Il Rilassamento Lagrangiano del problema SC, rispetto ai vincoli $(26)$ è:
+$$
+\begin{align*}
+    z_{LR}(\lambda) = &\min &\sum_{j=1}^n c_j x_j + &\sum_{i=1}^m \lambda_i (1 - \sum_{j=1}^n a_{ij} x_j)\\
+    &\text{s.t.}&x_j &\in \{0,1\}, \quad j = 1, \dots, n\\
+\end{align*}
+$$
+
+Dove $\lambda_i \geq 0, i = 1, \dots, m$.
+
+Possiamo riordinare i membri della funzione obiettivo, riottenendo il problema $LR(\lambda)$ come segue:
+$$
+\begin{align*}
+    z_{LR}(\lambda) = &\min \sum_{j=1}^n(c_j - \sum_{i=1}^m \lambda_i a_{ij})x_j +  \sum_{i=1}^m\lambda_i \\
+    &\text{s.t.}\quad x_j \in \{0,1\}, \qquad j = 1, \dots, n\\
+\end{align*}
+$$
+
+In questa configurazione, è possibile risolvere i problemi per ogni $j=1,\dots, n$ in modo indipendente e separato, senza violazione di alcun vincolo.
+
+Possiamo definire quindi il costo penalizzato $c_j'$ come:
+$$
+c_j' = c_j - \sum_{i=1}^m \lambda_i a_{ij}, \quad j=1,\dots,n
+$$
+E **infine** il problema $LR(\lambda)$ diventa:
+$$
+\begin{align*}
+    z_{LR}(\lambda) = &\min \sum_{j=1}^n c_j' x_j +  \sum_{i=1}^m\lambda_i \\
+    &\text{s.t.}\quad x_j \in \{0,1\}, \qquad j = 1, \dots, n\\
+\end{align*}
+$$
+
+La cui soluzione ottima $\mathbf{x}^*$ pu`o essere ottenuta ponendo, per ogni $j=1,\dots,n$:
+$$
+x_j^* = \begin{cases}
+1 & \text{se } c_j' \leq 0\\
+0 & \text{altrimenti}
+\end{cases}
+$$
+
+#### Esempio numerico
+Si consideri il seguente problema di set covering:
+$$
+\begin{align*}
+    z_{SC} = &\min          &2x_1 + &3x_2 + 4x_3 + 5x_4 \\
+             &\text{s.t.}   &x_1 + &x_2 + x_3 \geq 1\\
+                            &&x_1 + &x_4 \geq 1 \\
+                            &&x_2 + &x_3 + x_4 \geq 1 \\
+                            &&x_1,&x_2,x_3,x_4 \in \{0,1\}\\
+\end{align*}
+$$
+
+La soluzione ottima di costo $5$ è $x_1 = x_2 = 1$ e $x_3 = x_4 = 0$.
+
+Si rilassano mediante le penalità Lagrangiane $\lambda_1, \lambda_2, \lambda_3$ i vincoli di set covering.
+
+Otteniamo il seguente problema di rilassamento Lagrangiano LR, mediante i costi penalizzati:
+$$
+\begin{align*}
+    z_{LR}(\lambda)  = &\min&c'_1x_1 + &c'_2x_2 + c'_3x_3 + c'_4x_4 + \lambda_1 + \lambda_2 + \lambda_3\\
+    &\text{s.t.}&x_1,&x_2,x_3,x_4 \in \{0,1\}\\
+\end{align*}
+$$
+
+dove:
+$$
+\begin{align*}
+    c'_1 &= 2 - \lambda_1 - \lambda_2\\
+    c'_2 &= 3 - \lambda_3\\
+    c'_3 &= 4 - \lambda_1 - \lambda_3\\
+    c'_4 &= 5 - \lambda_2 - \lambda_3\\
+\end{align*}
+$$
+
+Ora possiamo sostituire ai $\lambda_i$ valori arbitrari per calcolare al solzione ottima $\mathbf{x}^*$ del problema corrispondente $LR(\lambda)$.
