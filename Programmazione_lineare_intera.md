@@ -354,3 +354,127 @@ $$
 $$
 
 Ora possiamo sostituire ai $\lambda_i$ valori arbitrari per calcolare al solzione ottima $\mathbf{x}^*$ del problema corrispondente $LR(\lambda)$.
+
+
+## Dualità Lagrangiana Forte
+**Teorema**:
+Dato il problema P, sia $x'$ la soluzione ottima di $z_{LR}(\lambda')$ per un dato $\lambda' \geq 0$. Se $x'$ e $\lambda'$ soddisfano le seguenti condizioni:
+* $x'$ è ammissibile per P ($Ax'\geq b)$
+* $\lambda'(b-Ax')=0$
+allora $x'$ è la soluzione ottima di P e $z_{LR} = z_{LR}(\lambda')$.
+**Dimostrazione**:
+La dimostrazione è suddivisa in:
+1. Si dimostra che la soluzione $x'$ è una soluzione ottima di P;
+2. Si dimostra che $z_{LR} = z_{LR}(\lambda')$.
+
+**Dimostrazione punto 1**
+Essendo $x'$ una soluzione ammisssibile di P si ha:
+$$
+    cx'\geq z_p
+$$
+Per il teorema della dualità Lagrangiana debole si ha:
+$$
+    z_p \geq z_{LR}(\lambda') = cx' + \lambda'(b-Ax'). \\
+    \text{Rircordo che: } \lambda'(b-Ax').
+$$
+Per cui si ottiene: 
+$$
+cx' \geq z_p \geq cx' \rightarrow z_p = cx' (=z_{LR}(\lambda'))
+$$
+**Dimostrazione punto 2**
+Dalla definizione di Lagrangiano Duale $z_{LR}$ si ha:
+$$
+z_{LR} \geq z_{LR}(\lambda')
+$$
+Mentre, dalla dualità Lagrangiana debole si ha:
+$$
+z_{p} \geq z_{LR}
+$$
+Si ottiene:
+$$
+z_p=z_{LR}(\lambda')
+$$
+## Rilassamento Lineare vs Rilassamento Lagrangiano
+Per comodita il problema: 
+$$
+\begin{align}
+    z_p = &\min &\mathbf{cx} \\
+    &\text{s.t.}&\mathbf{Ax} &\geq \mathbf{b}\\
+    &&\mathbf{Bx} &\geq \mathbf{d}\\
+    && \mathbf{x} &\geq 0 \quad \text{and integer}\\
+\end{align}
+$$
+Questo può essere riscritto come: 
+$$
+\begin{align}
+    z_p = &\min &\mathbf{cx} \\
+    &\text{s.t.}&\mathbf{Ax} &\geq \mathbf{b}\\
+    && \mathbf{x} \in X\\
+    & X = {x:Bx \geq d, x \geq 0 \text{ and integer}}
+\end{align}
+$$
+Il rilassamento del problema è ottenuto rilassando il vincolo di interezza in $X$. Si ricorda che il valore ottimo del problema $z_{LP}$ del rilassamento lineare di P è un valido *lower bound* al valore $z_p$ della soluzione ottima di P, $z_{LP} \leq z_p$. Si denota con **conv(X)** l'inviluppo convesso di *X*, che è dato dall'intersezione di tutti gli insieme convessi che contengono *X*. L'insieme convesso è un poligono al cui interno e lungo i suoi bordi vi sono un insieme di valori interi.
+### Teorema Caratterizzazione del Lagrangiano Duale
+**Teorema (Caratterizzazione del Lagrangiano Duale)**
+$z_p = min{cx: Ax \geq b, x \in conv(X)}$, se si rilassano in modo *Lagrangiano* i vincoli $Ax \geq b$, il costo della soluzione ottima $z_{LR}$ del *Lagrangiano Duale* è uguale al costo della soluzione ottima del seguente problema di programmazione lineare:
+$$
+\begin{align}
+    z_p = &\min &\mathbf{cx} \\
+    &\text{s.t.}&\mathbf{Ax} &\geq \mathbf{b}\\
+    && \mathbf{x} \in conv(X)\\
+\end{align}
+$$
+*Ricordo* che **conv(X)** è l'insieme in cui contenuti tutti i valori interi. 
+**Dimostrazione**
+$z_{LR}=max\{z_{LR}(\lambda:\lambda \geq 0\} = max_{\lambda \geq 0}\{min_{x \in X}\{cx + \lambda(b-Ax)\}\}$
+Se **T** è l'insieme dei punti estremi del poliedro $X$ allora:
+$z_{LR}=max_{\lambda \geq 0}\{min_{t \in T}\{cx^t + \lambda(b - Ax^t)\}\}$, si traduce nell'attraversare tutti i punti estremi del poliedro convesso in modo da trovare il valore migliore per la nostra *funzione obiettivo*, che equivale al seguente problema:
+$$
+\begin{align}
+    z_{LR} = &\max &\mathbf{z} \\
+    &\text{s.t.}&\mathbf{z} &\leq \mathbf{cx^t} + \lambda(b - Ax^t), t \in T\\
+    && \mathbf{\lambda} \geq 0\\
+\end{align}
+$$
+Ne ricavo il problema duale *(39)-(41)*:
+$$
+\begin{align}
+    z_{LR} = &\max \sum_{t \in T}  &\mathbf{cx^t}\alpha_{t} \\
+    &\text{s.t.}& \sum_{t \in T}  &\mathbf{b-Ax^t}\alpha_{t} \leq 0\\
+    &&  \sum_{t \in T}  &\mathbf{\lambda_{t}} = 1 \\
+    & \lambda_{t} \geq 0, && t \in T
+\end{align}
+$$
+**Dimostrazione**
+Definendo $x=\sum_{t \in T} x^t \alpha_{t}$ dal problema *(42)-(45)* si ottiene:
+$$
+\begin{align}
+    z_{LR} = &\max &\mathbf{cx} \\
+    &\text{s.t.}& &\mathbf{Ax} \geq 0\\
+    & x \in conv(X)
+\end{align}
+$$
+### Teorema Relazione tra Rilassamento Lagrangiano e LP
+**Teorema (Relazione tra Rilassamento Lagrangiano e LP)**
+Il *lower bound* ottenuto dal rilassamento Lagrangiano del problema P è **sempre maggiore o uguale** del *lowe bound* ottenuto dal Rilassamento lineare di P, $z_{LP} \leq z_{LR}$.
+**Dimostrazione**
+Siccome $conv(X) \mathsf{content} \{x: Bx \geq d, x \geq 0 \}$, l'insieme delle soluzioni *Lagrangiano Duale* dato da $\{x:Ax \geq b, x \in conv(X) \}$ è contenuto nell'insieme delle soluzioni di *LP* dato a $\{x:Ax \geq b, Bx \geq d, x \geq 0 \}$:
+$\{x:Ax \geq b, x \in conv(X)\} \mathsf{content} \{x: Ax \geq b, Bx \geq d, x \geq 0 \}$, da cui segue che $z_{LP} \leq z_{LR}$.
+### Teorema
+**Teorema**
+Si hanno le seguenti proprietà:
+* $z_p = z_{LR}$ se e solo se:
+$$
+\begin{align}
+    conv(X \cap \{x:Ax \geq b, x \geq 0 \}) \\
+    & = 
+    &conv(X) \cap conv(\{x: Ax \geq b, x \geq 0 \});  \\
+\end{align}
+$$
+* $z_{LP} = z_{LR} se (*Proprietà di Integralità*):
+$$
+\begin{align}
+    & conv(X) \cap conv(\{x: Bx \geq d, x \geq 0 \});  \\
+\end{align}
+$$
+Equivalente all'inviluppo convesso in cui ho rilassato il vincolo di interezza.
