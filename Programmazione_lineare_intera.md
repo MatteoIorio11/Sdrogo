@@ -471,7 +471,7 @@ $$
     &conv(X) \cap conv(\{x: Ax \geq b, x \geq 0 \});  \\
 \end{align}
 $$
-* $z_{LP} = z_{LR} se (*Proprietà di Integralità*):
+* $z_{LP} = z_{LR}$ se (*Proprietà di Integralità*):
 $$
 \begin{align}
     & conv(X) \cap conv(\{x: Bx \geq d, x \geq 0 \});  \\
