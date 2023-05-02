@@ -558,3 +558,80 @@ $$
     \theta^{k} = \beta^{k} &\mathbf{\frac{z - z_{LR}(\lambda^{k})}{||s^{k}||_2^2}} \\
 \end{align}
 $$
+Il valore nel denominatore mi permette di capire quanto veloce mi muovo verso l'ottimo, mentre $z$ è una semplice stima per difetto del lagrangiano duale. Ricordo che $s$ è il subgradiente. Se $0 \ge \beta^{k} \leq 2$ la convergenza di $z_{LR}(\lambda^k)$ a $z_{LR}$ è garantita, in alternativa si può usare: 
+$$
+\begin{align}
+    \theta^{k} = \beta^{k} &\mathbf{\frac{0.01 \times z_{LR}(\lambda^{k})}{||s^{k}||_2^2}} \\
+\end{align}
+$$
+Il parametro $\beta^{k}$ può essere diminuito se dopo in certo numero di iterazioni $z_{LR}(\lambda^k)$ a $z_{LR}$ non è migliorato.
+Quando la penalità Lagrangiana $\lambda_i$ è aggiornata si deve tenere conto di eventuali vincoli sul segno siccome calcolo dal duale la nostra lambda:
+* $a_i x = b_i$: La penalità $\lambda_i$ può essere qualsiasi,
+$$
+\begin{align}
+    \lambda_i^{k+1} = &\mathbf{\lambda_i^{k} + \theta^{k}s_i} \\
+\end{align}
+$$
+* $a_i x \geq b_i$: la penalità $\lambda_i$ deve essere non negativa, prendo una penalità se il valore è positivo,
+$$
+\begin{align}
+    \lambda_i^{k+1} = &\mathbf{max{0, \lambda_i^{k} + \theta^{k}s_i}} \\
+\end{align}
+$$
+* $a_i x \leq b_i$: la penalità $\lambda_i$ deve essere non positiva, prendo una penalità se il valore è negativo,
+$$
+\begin{align}
+    \lambda_i^{k+1} = &\mathbf{min{0, \lambda_i^{k} + \theta^{k}s_i}} \\
+\end{align}
+$$
+## Algoritmo del Subgradiente
+- step 1. Sia $z_p = min{cx:Ax \geq b, x \in X}$, dove $A \in \R^{mn}$, $c \in $R^{n}$ e $b \in \R^{m}$. Poniamo $z_{LB}=-\infity$, $z_{UB}=+\infity$ e $\lambda=0$.
+- step 2. Risolvi il problema Lagrangiano:
+$z_{LR}(\lambda) = (c - \lambda A)x' + \lambda b = min\{(c - \lambda A)x + \lambda b : x \in X \}$ e aggiorna il lower bound $z_{LB} = max\{z_{LB}, z_{LR}(\lambda)\}$. 
+- step 3. Se $x'$ è ammissibile $z_{UB} = min\{z_{LB}, z_{LR}(\lambda\} e se ottima STOP, ottima quando $\lambda (b - Ax) = 0$-
+- step 4. Aggiorna le penalità Lagrangiane: 
+$
+\lambda_i = max\{0, \lambda + \theta s_i\} &i = 1, ..., m,
+$
+dove $s_i = b_i - a_i x'$ e vai allo step 2.
+## Euristica Lagrangiana
+* Step 1. Calcola una soluzione euristica del problema P e inizializza il subgradiente;
+* Step 2. Calcola $z_{LR}(\lambda)$ ottenendo la soluzione **x**;
+* Step 3. Verifica l'ammissibilitò della soluzione **x**;
+* Step 4. Costruisci una soluzione ammissibile per il problema P utilizzando **x** e/o $\lambda$;
+* Step 5. Se si verificano le condizioni di arresto allosta STOP;
+* Step 6. Aggiorna le penalità Lagrangiane $\lambda$ e vai allo Step 2.
+## Generazione di Colonne
+### Introduzione
+I metodi di generazione di colonne risolvono il problema senza considerare esplicitamejte tutte le variabili. Si definine un *core* iniziale dopodiché si aggiungono dinamicamente le variabili mancanti "necessarie" durante il processo di soluzione. Dato il seguente problema: 
+$$
+\begin{align}
+    z_p = \text{min} cx \\
+    s.t & Ax = b \\
+    & x \geq 0
+\end{align}
+$$
+Il problema duale è il seguente: 
+$$
+\begin{align}
+    z_D = \text{max} wb \\
+    s.t & wA \leq c \\
+\end{align}
+$$
+Il simplesso primale esegue iterativamente le seguente operazioni:
+* Selezione di una colonna *s* di A
+* Selezione di una riga *r* di A
+* Esecuzione di un'operazione di pivoting sull'elemento pivot $a_{rs}$
+Data una base *B* di *A*, la corrispondente soluzione base può essere migliorata se esiste una colonna *h* tale che $c_{h}' \ge 0$ dove: 
+$
+\mathbf{c_{h}' = max\{c_{j}' = wa_j - c_j : j=1,....n\} \le 0}
+$
+detto anche **problema di pricing**.
+Ad ogni iterazione è necessario determinare se esiste una colonna $a_h$ di costo $c_h$ tale che $c_{h}' = max\{c_{j}' = wa_{j} - c_j : j=1,...,n\} \le 0 $. 
+In alcuni casi la struttura del problema di pricing, (quello precedente) è tale da consentire la soluzione senza considerare tutte le variabili. Il metodo della *generazione di colonne* perché nella soluzione del problema di pricing, le variabili (colonne) del problema vengono generate solo quando servono, individuo la colonna migliore che massimizza il mio problema.
+### Algoritmo Column Generation
+* Step 1. Definisci una base ammissibile iniziale *B*; 
+* Step 2. Calcola la soluzione base corrispondente a *B*,
+$ x = (x_B, 0) = (B^{-1}b, 0)$ corrisponde all'ultima colonna del tableau dove ho tutte le *b*
+* Step 3. Risolvi il *problema di pricing*, generando le variabili *h* di costo ridotto $c_{h}' = wa_h - c_h$ massimo;
+* Step 4. Se il costo ridotto $c_h' \leq 0$ allora STOP: la soluzione *x* è ottima e non è necessario generare altre colonne; altrimenti calcola la nuova base *B* e vai allo *Step 2*. 
