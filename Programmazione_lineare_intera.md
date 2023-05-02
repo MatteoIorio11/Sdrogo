@@ -478,3 +478,83 @@ $$
 \end{align}
 $$
 Equivalente all'inviluppo convesso in cui ho rilassato il vincolo di interezza.
+
+## Metodo del Subgradiente
+Il *Lagrangiano Duale* può essere risolto come problema di programmazione lineare. Per risolvere il lagrangiano duale si possono usare dei *metodi euristici*, come il **metodo del Subgradiente**. 
+### Definizione Subgradiente
+**Teorema**:
+La funzione *lagrangiana* $z_{LR}(\lambda') = cx' + \lambda'(b-Ax')$ è concava, di conseguenza derivabile potendo trovare un *massimo*.
+**Dimostrazione**:
+Siano $\lambda_1, \lambda_1 \geq 0$ e $\lambda'$ *una combinazione convessa* di $\lambda_1$ e $\lambda_2$, ovvero $\lambda' = \alpha \lambda_1 + (1 - \alpha)\lambda_2$ con $\alpha \in [0, 1]$. Sia $x'$ la soluzione ottima di $LR(\lambda')$:
+$$
+\begin{align}
+    z_{LR}(\lambda') = &\mathbf{cx' + \lambda'(b - Ax')} \\
+\end{align}
+$$
+$x'$ *è una soluzione ammissibile di* $LR(\lambda_1)$ e $LR(\lambda_2)$, quindi:
+$$
+\begin{align}
+    z_{LR}(\lambda_1) \leq &\mathbf{cx' + \lambda_1(b - Ax')} \\
+    z_{LR}(\lambda_2) \leq &\mathbf{cx' + \lambda_2(b - Ax')} \\
+\end{align}
+$$
+da cui si ottiene: 
+$\alpha z_{LR}(\lambda_1) + (1-\alpha)z_{LR}(\lambda_2) \leq cx' + (\alpha \lambda_1 + (1 - \alpha)\lambda_2)(b - Ax') = z_{LR}(\lambda')$
+$(\alpha \lambda_1 + (1 - \alpha)\lambda_2) = \lambda'$
+## Subgradiente
+Un vettore *s* è dettp *subgradiente* della funzione $f(\lambda)$ nel punto $\lambda'$ se soddisfa la seguente condizione:
+$$
+\begin{align}
+    f(\lambda) \leq &\mathbf{f(\lambda') + s(\lambda - \lambda')} \\
+\end{align}
+$$
+In modo da trovare una retta che rimane sempre sotto.
+Si vuole definire il subgradiente della funzione Lagrangiana:
+$$
+\begin{align}
+    z_{LR}(\lambda') = &\mathbf{cx' + \lambda'(b - Ax')} \\
+\end{align}
+$$
+Per ogni $\lambda \geq 0$ si ha che: 
+$$
+\begin{align}
+    z_{LR}(\lambda) \leq &\mathbf{cx' + \lambda(b - Ax')} \\
+\end{align}
+$$
+Sottraendo l'equazione e la disequazione precedente si ottiene:
+$$
+\begin{align}
+    z_{LR}(\lambda) - z_{LR}(\lambda') \leq &\mathbf{(\lambda - \lambda')(b - Ax')} \\
+\end{align}
+$$
+oppure
+$$
+\begin{align}
+    z_{LR}(\lambda) \leq  &\mathbf{z_{LR}(\lambda') + (\lambda - \lambda')(b - Ax')} \\
+\end{align}
+$$
+Per cui $s = (b - Ax')$ è un subgradiente della funzione Lagrangiana $z_{LR}(\lambda)$ calcolata nel punto $\lambda'$. 
+Affinché $z_{LR}(\lambda)$ sia maggiore di $z_{LR}(\lambda')$ è necessario muoversi nella direzione del sub gradiente:
+$$
+\begin{align}
+    \lambda = &\mathbf{\lambda' + \theta \textbf{s}} \\
+\end{align}
+$$
+dove $\theta$ è lo spostamento lungo il subgradiente, come si traduce questa cosa? 
+1. Prima di tutto bisogna scegliere il $\lambda$ iniziale, semplicemente si può partire con 0
+2. Una volta che si è calcolato il $z_{LR}(\lambda')$ si controlla se la soluzione sia ottima, in che modo lo so? Se $\lambda(b-Ax')=0$, ricordo che in questo modo si ottiene sempre un upper bound del nostro problema
+3. Se vogliamo continuare ad iterare con questo algoritmo troverò il nuovo lambda semplicemente calcolando la formula precedente
+4. Torno al punto 2.
+### Calcolare lo spostamento
+* Modo esatto
+$$
+\begin{align}
+    \theta = \text{argmax} &\mathbf{ \{z_{LR}(\lambda' + \theta s): \theta \ge 0 \} } \\
+\end{align}
+$$
+* Ad ogni iterazione *k* del subgradiente dello spostamento $\theta^{k}$ può essere calcolato con uno dei seguenti approcci euristici:
+$$
+\begin{align}
+    \theta^{k} = \beta^{k} &\mathbf{\frac{z - z_{LR}(\lambda^{k})}{||s^{k}||_2^2}} \\
+\end{align}
+$$
