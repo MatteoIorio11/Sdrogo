@@ -13,7 +13,7 @@ $$
 Il **Rilassamento Lineare LP** del problema è dato da:
 $$
 \begin{align*}
-z_{IP} = &\min \mathbf{cx}\\
+z_{LP} = &\min \mathbf{cx}\\
 & \text{s.t.} &\mathbf{Ax} \geq \mathbf{b}\\
 && \mathbf{x} \geq 0
 \end{align*}
@@ -21,7 +21,7 @@ $$
 
 Si deduce che se la soluzione ottima $\mathbf{x}^*$ del problema LP è intera, allora è la soluzione ottima anche per il problema intero IP.
 
-Se invece la soluzione ottima $\mathbf{x}^*$  del problema LP è frazionaria, allora una possiamo applicare il metodo **Branch and Bound**.
+Se invece la soluzione ottima $\mathbf{x}^*$  del problema LP è frazionaria, allora possiamo applicare il metodo **Branch and Bound**.
 
 ### Funzionamento del metodo Branch and Bound
 In generale, potremmo avere diverse variabili frazionare. È necessario quindi stabilire un **criterio** per selezionare **una variabile frazionaria** per fare un branch.
@@ -30,7 +30,7 @@ Una volta selezionata la variabile $x_j$ della soluzione ottima del problema LP,
 - $P(x_j \leq \lfloor x_j \rfloor)$: ottenuto da LP aggiungendo il vincolo: $x_j \leq \lfloor x_j \rfloor$
 - $P(x_j \geq \lceil x_j \rceil)$: ottenuto da LP aggiungendo il vincolo: $x_j \geq \lceil x_j \rceil$
 
-Il processo di branching così ddescritto per il nodo radice, è ripetuto sui nodi figli, per cui la regola di branching è applicata ad ogni nodo k dell'albero di ricerca.
+Il processo di branching così descritto per il nodo radice, è ripetuto sui nodi figli, per cui la regola di branching è applicata ad ogni nodo k dell'albero di ricerca.
 
 ### Lower e Upper Bound
 Per ogni nodo k dell'albero di ricerca, si calcola il valore della soluzione ottima $\mathbf{x}_k$ del problema LP, di costo $z_k$.
@@ -44,14 +44,14 @@ In generale, l'inizializzazione di $z_{UB}$ può essere fatta con un valore arbi
 
 In generale il metodo dovrebbe migliorare la qualità dell'upperbound più velocemente possibile, in modo da limitare l'uso eccessivo di risorse per effettuare tutti i branching. Questo può essere effettuato con delle euristiche.
 
-In generale quindi, l'upperbound ci permette di **eliminare in anticipo** quei nodi che non possono portare ad una soluzione migliore di quella che abbiamo già trovato.
+Riassumendo quindi, l'upperbound ci permette di **eliminare in anticipo** quei nodi che non possono portare ad una soluzione migliore di quella che abbiamo già trovato.
 
 Quindi se per un nodo $k$ la soluzione $P_k$ ha costo $z_k \geq z_{UP}$ allora il nodo non deve essere **esplorato**, perché non consente di ottenre una soluzione inferiore al miglior upperbound.
 
 ### Metodi di visita dell'Albero
 Ad ogni esplorazione del nodo k, i nodi figli vengono inseriti in un **heap**. A questo punto, l'ordine di visita può essere:
 - **Depth First**: si estrae il nodo con il costo più basso dall'heap e si esplora il suo sottoalbero. Questo metodo è molto veloce, ma non garantisce di trovare la soluzione ottima.
-- **Breadth-First**: Esplora l'alberod i ricerca un livello alla volta. Questo metodo è molto lento, ma garantisce di trovare la soluzione ottima.
+- **Breadth-First**: Esplora l'albero di ricerca un livello alla volta. Questo metodo è molto lento, ma garantisce di trovare la soluzione ottima.
 - **Best-First**: ad ogni iterazione estrae dalla heap il nodo con il *lower bound* più basso.
 
 ### Algoritmo Branch and Bound
@@ -63,7 +63,7 @@ L'algoritmo è il seguente:
 5. Seleziona una variabile $x_j$ frazionaria nella soluzione ottima $\mathbf{x}_k$ e genera i due problemi $P(x_j \leq \lfloor x_j \rfloor)$ e $P(x_j \geq \lceil x_j \lceil)$. Torna allo step 2.
 
 ### Osservazioni e Varianti
-Per ogni problema risolto $P_k$, risolta per esempio mediante il metodo del Simplesso, sarebbe utile memorizzare la base ottima $\mathbf{B}_k$ e il vettore dei costi ridotti $\mathbf{c}_B$ del problema prcedente.
+Per ogni problema risolto $P_k$, risolta per esempio mediante il metodo del Simplesso, sarebbe utile memorizzare la base ottima $\mathbf{B}_k$ e il vettore dei costi ridotti $\mathbf{c}_B$ del problema precedente.
 
 L'algoritmo può essere migliorato includendo per esempio:
 - Algoritmi euristici di "repair" per generare upper bound di buona qualità.
@@ -71,23 +71,24 @@ L'algoritmo può essere migliorato includendo per esempio:
   - I vincoli che eliminano le soluzioni frazionarie, ma non compromettono l'ammissibilità delle soluzioni intere sono detti **valid inequalities**.
 
 ## Introduzione alle Valid Inequalities
-Considerando un problema di programmazione lineare intera P: $z_P = min \{\mathbf{cx}:\mathbf{Ax}\geq\mathbf{b}, \mathbf{x} \geq 0 \text{ and integer}\}$. Ipotizziamo di risolverlo mediante il metodo del simplesso, e che la variabile in corrispondenza della riga $i$ abbia un valore $\bar{b}_i$ frazionario. È possibile costruire un vincolo da aggiungere per poter  **escludere** quella soluzione frazionaria, senza però escludere le soluzioni intere.
+Considerando un problema di programmazione lineare intera $P: z_P = min \{\mathbf{cx}:\mathbf{Ax}\geq\mathbf{b}, \mathbf{x} \geq 0 \text{ and integer}\}$. Ipotizziamo di risolverlo mediante il metodo del simplesso, e che la variabile in corrispondenza della riga $i$ abbia un valore $\bar{b}_i$ frazionario. È possibile costruire un vincolo da aggiungere per poter  **escludere** quella soluzione frazionaria, senza però escludere le soluzioni intere.
 
 ### Tagli di Gomory
-Costuiamo delle disuguaglianza note come i **tagli di Gomory**.
+Costruiamo delle disuguaglianza note come i **tagli di Gomory**.
 
 Consideriamo il tableau ottimo, l'equazione corrispondente alla riga $i$ è:
 $$
-x_i + \sum_{j=m_1}^n y^j_ix_j = \bar{b}_i
+x_i + \sum_{j=m+1}^n y^j_ix_j = \bar{b}_i
 $$
+Dove indichiamo nella sommatoria tutte le variabili da $m$ a $n$ che *non* sono presenti nella base.
 
 Ora **decomponiamo** le quantità $y^j_j$ e $\bar{b}_i$ nelle componenti intere e frazionarie:
 $$
 y^j_i = I^j_i + F^j_i \quad \text{e} \quad \bar{b}_i = I_i + F_i
 $$
 dove:
-- $I^j_i = \lfloor y_i^j\rfloor\quad$ e $\quad F_i^j = y_i^j - I^j_i \quad (0 \leq F^j_i < i)$
-- $I_i = \lfloor \bar{b}_i\rfloor\quad$ e $\quad F_i = \bar{b}_i - I_i \quad (0 \leq F_i < i)$
+- $I^j_i = \lfloor y_i^j\rfloor\quad$ e $\quad F_i^j = y_i^j - I^j_i \quad (0 \leq F^j_i < 1)$
+- $I_i = \lfloor \bar{b}_i\rfloor\quad$ e $\quad F_i = \bar{b}_i - I_i \quad (0 \leq F_i < 1)$
 
 Perciò possiamo riscrivere l'equazione per la riga $i$ come:
 $$
@@ -123,22 +124,18 @@ Con questi risultati, possiamo capire a cosa servono.
 
 Se risolviamo il problema con il Simplesso, quando aggiungiamo il nuovo vincolo al problema, non è necessario ripetere l'algoritmo dall'inizio, ma possiamo riaprtire dalla base corrente!
 
-Quindi, se le variaibli attualmente in base include sono $n$, il taglio di Gomory corrisponde ad una $nuova riga$ da aggiungere al tableau della forma:
+Quindi, se le variaibli attualmente in base incluse sono $n$, il **taglio di Gomory** corrisponde ad una **nuova riga** da aggiungere al tableau della forma:
 $$
 -\sum_{j\in N} F_i^jx_j + x_{n+1} = - F_i
 $$
-
-#### Esempio
-??? non so se farlo
-
 ### Introduzione ai Metodi di Decomposizione
 Quando i problemi di programmazione linaere presentano un *elevato* numero di variabili e/o vincoli, il problema potrebbe essere di difficile soluzione.
 
-In alcuni casi la struttura della matrice dei vincoli permette di **decomporre** il problema originale in sottoproblemi di più facile risolzuione.
+In alcuni casi la struttura della matrice dei vincoli permette di **decomporre** il problema originale in sottoproblemi di più facile risoluzione.
 
 Esistono vari metodi che permettono di effettuare la decomposizione, tra cui la classe di metodi  di *Column Generation* (generazione dinamica delle colonne), e metodi più sofisticati come il **Rilassamento Lagrangiano**.
 
-Tutti questa classe di metodi di decomposizione pososno essere applicati a problemi di programmazione lineare continua, intera e mista intera.
+Tutti questa classe di metodi di decomposizione possono essere applicati a problemi di programmazione lineare continua, intera e mista intera.
 
 Partiamo da un problema P della forma:
 $$
@@ -212,7 +209,7 @@ Il rilassamento Lagrangiano permette di ottenere un *lower bound* per il problem
 - alcuni vincoli considerati *difficili* sono rimosi dal problema P;
 - i vincoli rimossi sono inserti nella funzione obiettivo per mezzo delle **penalità Lagrangane**.
 
-Per esempio, se nel problema P i vincoli si rilassano i vincoli $(16)$ usando il vettore non negativo di pensalità Lagrangiane $\mathbf{\lambda
+Per esempio, se nel problema P si rilassano i vincoli $(16)$ usando il vettore non negativo di pensalità Lagrangiane $\mathbf{\lambda
 }$, si ottiene la seguente formulazione LR:
 $$
 \begin{align}
@@ -223,8 +220,8 @@ $$
 $$
 
 Dove:
-- La funzione obiettivbo ha i costi penalizzati in base ai pesi dei coefficienti della matrice $\mathbf{A}$;
-- $\lambda$ è un parametro il quale fa scoraggiare le soluzioni del problema che violano il vincolo $\mathbf{b} - \mathbf{Ax} \leq 0$
+- La funzione obiettivbo ha i costi penalizzati in base ai pesi dei coefficienti della matrice $\mathbf{A}$ (coefficienti del vincolo rilassato);
+- $\lambda$ è un parametro il quale fa scoraggiare le soluzioni del problema che violano il vincolo $\mathbf{b} - \mathbf{Ax} \leq 0$ (poichè il vincolo originario era $\mathbf{Ax} \geq \mathbf{b}$).
 
 #### Teorema Dualità Lagrangiana Debole
 $z_{LR}(\lambda)$ è un *valido lower bound* al valore della soluzione ottima di $P$.
@@ -240,7 +237,7 @@ $$
 - Però $\lambda(\mathbf{b} - \mathbf{Ax}^*) \leq 0$, perché $\lambda > 0$ e $\mathbf{Ax}^* \geq \mathbf{b}$, quindi:
 
 $$
-z_P(\lambda) \leq z_{LR}(\lambda, \mathbf{x}^*) \leq z_P, \qquad \forall \lambda \geq 0.
+z_{LR}(\lambda) \leq z_{LR}(\lambda, \mathbf{x}^*) \leq z_P, \qquad \forall \lambda \geq 0.
 $$
 Dove con $\lambda > 0$ penalizziamo tutte le soluzioni $\mathbf{Ax} \leq b$, ovvero non ammissibili.
 
@@ -264,7 +261,7 @@ $$
 
 Se il lower bound $z_{LR}$ è **strettamente minore della soluzione ottima** del problema P, $z_{LR} < z_P$, allora si dice che c'è **_Duality Gap_** (se è molto alto potrebbe suggerirmi di non seguire questo approccio).
 
-Per risolvere il problema LR il metodo più e il **subgradiente**.
+Per risolvere il problema LR il metodo più swag e il **subgradiente**.
 
 ### Rilassamento Lagrangiano: Esempio
 **Set covering Problem**: è il problema di *coprire* le righe di una matrice $A$ con coefficienti $a_{ij} \in \{0,1\}$ e di dimensione $m \times n$, con un sottoinsieme $S$ di colonne di *costo minimo*.
@@ -311,7 +308,7 @@ $$
 \end{align*}
 $$
 
-La cui soluzione ottima $\mathbf{x}^*$ pu`o essere ottenuta ponendo, per ogni $j=1,\dots,n$:
+La cui soluzione ottima $\mathbf{x}^*$ può essere ottenuta ponendo, per ogni $j=1,\dots,n$:
 $$
 x_j^* = \begin{cases}
 1 & \text{se } c_j' \leq 0\\
@@ -361,7 +358,9 @@ Ora possiamo sostituire ai $\lambda_i$ valori arbitrari per calcolare al solzion
 Dato il problema P, sia $x'$ la soluzione ottima di $z_{LR}(\lambda')$ per un dato $\lambda' \geq 0$. Se $x'$ e $\lambda'$ soddisfano le seguenti condizioni:
 * $x'$ è ammissibile per P ($Ax'\geq b)$
 * $\lambda'(b-Ax')=0$
+
 allora $x'$ è la soluzione ottima di P e $z_{LR} = z_{LR}(\lambda')$.
+
 **Dimostrazione**:
 La dimostrazione è suddivisa in:
 1. Si dimostra che la soluzione $x'$ è una soluzione ottima di P;
@@ -408,9 +407,9 @@ Questo può essere riscritto come:
 $$
 \begin{align}
     z_p = &\min &\mathbf{cx} \\
-    &\text{s.t.}&\mathbf{Ax} &\geq \mathbf{b}\\
+    &\text{s.t.}&\mathbf{Ax} \geq \mathbf{b}\\
     && \mathbf{x} \in X\\
-    & X = {x:Bx \geq d, x \geq 0 \text{ and integer}}
+    &&X = &\{x:Bx \geq d, x \geq 0 \text{ and integer}\}\\
 \end{align}
 $$
 Il rilassamento del problema è ottenuto rilassando il vincolo di interezza in $X$. Si ricorda che il valore ottimo del problema $z_{LP}$ del rilassamento lineare di P è un valido *lower bound* al valore $z_p$ della soluzione ottima di P, $z_{LP} \leq z_p$. Si denota con **conv(X)** l'inviluppo convesso di *X*, che è dato dall'intersezione di tutti gli insieme convessi che contengono *X*. L'insieme convesso è un poligono al cui interno e lungo i suoi bordi vi sono un insieme di valori interi.
@@ -426,7 +425,7 @@ $$
 $$
 *Ricordo* che **conv(X)** è l'insieme in cui contenuti tutti i valori interi. 
 **Dimostrazione**
-$z_{LR}=max\{z_{LR}(\lambda:\lambda \geq 0\} = max_{\lambda \geq 0}\{min_{x \in X}\{cx + \lambda(b-Ax)\}\}$
+$$z_{LR}=\max\{z_{LR}(\lambda:\lambda \geq 0\} = \max_{\lambda \geq 0}\{\min_{x \in X}\{cx + \lambda(b-Ax)\}\}$$
 Se **T** è l'insieme dei punti estremi del poliedro $X$ allora:
 $z_{LR}=max_{\lambda \geq 0}\{min_{t \in T}\{cx^t + \lambda(b - Ax^t)\}\}$, si traduce nell'attraversare tutti i punti estremi del poliedro convesso in modo da trovare il valore migliore per la nostra *funzione obiettivo*, che equivale al seguente problema:
 $$
@@ -456,10 +455,14 @@ $$
 $$
 ### Teorema Relazione tra Rilassamento Lagrangiano e LP
 **Teorema (Relazione tra Rilassamento Lagrangiano e LP)**
-Il *lower bound* ottenuto dal rilassamento Lagrangiano del problema P è **sempre maggiore o uguale** del *lowe bound* ottenuto dal Rilassamento lineare di P, $z_{LP} \leq z_{LR}$.
+Il *lower bound* ottenuto dal rilassamento Lagrangiano del problema P è **sempre maggiore o uguale** del *lower bound* ottenuto dal Rilassamento lineare di P, $z_{LP} \leq z_{LR}$.
+
 **Dimostrazione**
-Siccome $conv(X) \mathsf{content} \{x: Bx \geq d, x \geq 0 \}$, l'insieme delle soluzioni *Lagrangiano Duale* dato da $\{x:Ax \geq b, x \in conv(X) \}$ è contenuto nell'insieme delle soluzioni di *LP* dato a $\{x:Ax \geq b, Bx \geq d, x \geq 0 \}$:
-$\{x:Ax \geq b, x \in conv(X)\} \mathsf{content} \{x: Ax \geq b, Bx \geq d, x \geq 0 \}$, da cui segue che $z_{LP} \leq z_{LR}$.
+Siccome $conv(X) \subseteq \{x: Bx \geq d, x \geq 0 \}$, l'insieme delle soluzioni *Lagrangiano Duale* dato da $\{x:Ax \geq b, x \in conv(X) \}$ è contenuto nell'insieme delle soluzioni di *LP* dato a $\{x:Ax \geq b, Bx \geq d, x \geq 0 \}$:
+
+$$\{x:Ax \geq b, x \in conv(X)\} \subseteq \{x: Ax \geq b, Bx \geq d, x \geq 0 \}$$
+
+da cui segue che $z_{LP} \leq z_{LR}$.
 ### Teorema
 **Teorema**
 Si hanno le seguenti proprietà:
