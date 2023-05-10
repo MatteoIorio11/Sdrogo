@@ -588,22 +588,21 @@ $$
 \end{align}
 $$
 ## Algoritmo del Subgradiente
-- step 1. Sia $z_p = min{cx:Ax \geq b, x \in X}$, dove $A \in \R^{mn}$, $c \in $R^{n}$ e $b \in \R^{m}$. Poniamo $z_{LB}=-\infity$, $z_{UB}=+\infity$ e $\lambda=0$.
-- step 2. Risolvi il problema Lagrangiano:
-$z_{LR}(\lambda) = (c - \lambda A)x' + \lambda b = min\{(c - \lambda A)x + \lambda b : x \in X \}$ e aggiorna il lower bound $z_{LB} = max\{z_{LB}, z_{LR}(\lambda)\}$. 
-- step 3. Se $x'$ è ammissibile $z_{UB} = min\{z_{LB}, z_{LR}(\lambda\} e se ottima STOP, ottima quando $\lambda (b - Ax) = 0$-
-- step 4. Aggiorna le penalità Lagrangiane: 
-$
-\lambda_i = max\{0, \lambda + \theta s_i\} &i = 1, ..., m,
-$
+- **Step 1**. Sia $z_p = \min\{cx:Ax \geq b, x \in X\}$, dove $A \in \R^{mn}$, $c \in \R^{n}$ e $b \in \R^{m}$. Poniamo $z_{LB}=-\infty$, $z_{UB}=+\infty$ e $\lambda=0$.
+- **Step 2**. Risolvi il problema Lagrangiano:
+$$z_{LR}(\lambda) = (c - \lambda A)x' + \lambda b = \min\{(c - \lambda A)x + \lambda b : x \in X \}$$
+e aggiorna il lower bound $z_{LB} = \max\{z_{LB}, z_{LR}(\lambda)\}$. 
+- **Step 3**. Se $x'$ è ammissibile $z_{UB} = \min\{z_{LB}, z_{LR}(\lambda)\}$ e se ottima STOP, ottima quando $\lambda (b - Ax) = 0$
+- **Step 4.** Aggiorna le penalità Lagrangiane: 
+$$ \lambda_i = max\{0, \lambda + \theta s_i\}, \quad i = 1, ..., m, $$
 dove $s_i = b_i - a_i x'$ e vai allo step 2.
 ## Euristica Lagrangiana
-* Step 1. Calcola una soluzione euristica del problema P e inizializza il subgradiente;
-* Step 2. Calcola $z_{LR}(\lambda)$ ottenendo la soluzione **x**;
-* Step 3. Verifica l'ammissibilitò della soluzione **x**;
-* Step 4. Costruisci una soluzione ammissibile per il problema P utilizzando **x** e/o $\lambda$;
-* Step 5. Se si verificano le condizioni di arresto allosta STOP;
-* Step 6. Aggiorna le penalità Lagrangiane $\lambda$ e vai allo Step 2.
+* **Step 1**. Calcola una soluzione euristica del problema P e inizializza il subgradiente;
+* **Step 2**. Calcola $z_{LR}(\lambda)$ ottenendo la soluzione **x**;
+* **Step 3**. Verifica l'ammissibilitò della soluzione **x**;
+* **Step 4**. Costruisci una soluzione ammissibile per il problema P utilizzando **x** e/o $\lambda$;
+* **Step 5**. Se si verificano le condizioni di arresto allosta STOP;
+* **Step 6**. Aggiorna le penalità Lagrangiane $\lambda$ e vai allo Step 2.
 ## Generazione di Colonne
 ### Introduzione
 I metodi di generazione di colonne risolvono il problema senza considerare esplicitamejte tutte le variabili. Si definine un *core* iniziale dopodiché si aggiungono dinamicamente le variabili mancanti "necessarie" durante il processo di soluzione. Dato il seguente problema: 
