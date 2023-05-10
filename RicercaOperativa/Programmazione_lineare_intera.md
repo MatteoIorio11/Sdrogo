@@ -608,7 +608,7 @@ dove $s_i = b_i - a_i x'$ e vai allo step 2.
 I metodi di generazione di colonne risolvono il problema senza considerare esplicitamejte tutte le variabili. Si definine un *core* iniziale dopodiché si aggiungono dinamicamente le variabili mancanti "necessarie" durante il processo di soluzione. Dato il seguente problema: 
 $$
 \begin{align}
-    z_p = \text{min} cx \\
+    z_p = \min cx \\
     s.t & Ax = b \\
     & x \geq 0
 \end{align}
@@ -616,7 +616,7 @@ $$
 Il problema duale è il seguente: 
 $$
 \begin{align}
-    z_D = \text{max} wb \\
+    z_D = \max wb \\
     s.t & wA \leq c \\
 \end{align}
 $$
@@ -626,10 +626,10 @@ Il simplesso primale esegue iterativamente le seguente operazioni:
 * Esecuzione di un'operazione di pivoting sull'elemento pivot $a_{rs}$
 Data una base *B* di *A*, la corrispondente soluzione base può essere migliorata se esiste una colonna *h* tale che $c_{h}' \ge 0$ dove: 
 $
-\mathbf{c_{h}' = max\{c_{j}' = wa_j - c_j : j=1,....n\} \le 0}
+\mathbf{c_{h}' = \max\{c_{j}' = wa_j - c_j : j=1,....n\} \le 0}
 $
 detto anche **problema di pricing**.
-Ad ogni iterazione è necessario determinare se esiste una colonna $a_h$ di costo $c_h$ tale che $c_{h}' = max\{c_{j}' = wa_{j} - c_j : j=1,...,n\} \le 0 $. 
+Ad ogni iterazione è necessario determinare se esiste una colonna $a_h$ di costo $c_h$ tale che $c_{h}' = \max\{c_{j}' = wa_{j} - c_j : j=1,...,n\} \le 0 $. 
 In alcuni casi la struttura del problema di pricing, (quello precedente) è tale da consentire la soluzione senza considerare tutte le variabili. Il metodo della *generazione di colonne* perché nella soluzione del problema di pricing, le variabili (colonne) del problema vengono generate solo quando servono, individuo la colonna migliore che massimizza il mio problema.
 ### Algoritmo Column Generation
 * Step 1. Definisci una base ammissibile iniziale *B*; 
