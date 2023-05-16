@@ -1,5 +1,184 @@
 # Graph Theory
 
+## Introduzione Matematica
+Consideriamo un grafo *direzionato* $G = (N, A)$, in cui:
+- Per ogni **arco** $(i,j) \in A$  è associato un costo $c_{ij}$ e una capacità $u_{ij}$.
+- Per ogni **vertice** $i \in N$ è associata una *disponibilità* $b_i \geq 0$ oppure una *richiesta* $b_i < 0$, oppure $b_i = 0$ (ciò che entra è uguale a ciò che esce).
+
+Il problema del **flusso a costo minimo** può essere formulato come segue:
+$$
+\begin{align*}
+    \min z(P) &= \sum_{(i,j) \in A} c_{ij} x_{ij} \\
+    &s.t. \sum_{j\in\Gamma_i} x_{ij} - \sum_{j\in \Gamma^{-1}_i} x_{ji} = b_i, \quad i \in N& \\
+    &\qquad0 \leq x_{ij} \leq u_{ij},  \quad\quad\qquad (i,j) \in A&
+\end{align*}
+$$
+
+dove:
+- La variabile decisionale $x_{ij}$ determina quante unità di flusso passano attraverso l'arco $(i,j)$
+- $\Gamma_i$ sono gli archi *uscenti* da un vertice $i$, mentre $\Gamma^{-1}_i$ sono gli archi *entranti* in $i$.
+- Il primo vincolo ci assicura la **conservazione** del flusso.
+- Se le capacità e le richieste/eccessi sono *interi*, allora la soluzione del flusso a costo mininimo sarà intera.
+
+### Problema Duale
+Associamo le seguenti variabili duali:
+1. Per il primo vincolo (vincolo di conservazione del flusso), al nodo $i \in N$ associamo $\pi_i$.
+2. Al vincolo di capacità relativo all'arco $(i,j) \in A$ associamo $\alpha_{ij}$.
+
+In questo modo, definiamo il duale del problema $P$:
+$$
+\begin{align*}
+    \max z(D) &= \sum_{i \in N} b_i\pi_i - \sum_{(i,j) \in A} u_{ij} \alpha_{ij}\\
+    &s.t. \quad\pi_i - \pi_j - \alpha_{ij} \leq c_{ij},  &(i,j)\in A\\
+    &\quad\quad\pi_i \quad \text{qualsiasi}, &i \in N \\
+    &\quad\quad\alpha_{i,j}\geq 0, &i \in N
+\end{align*}
+$$
+
+### Assunzioni
+- Tutti i dati sono valori interi.
+- Il grafo è **direzionato**.
+- Le richieste e le disponibilità dei diversi nodi soddisfano la condizione $\sum_{i\in N} b_i = 0$ (non ci sono perdite di flusso).
+- Il problema di flusso a costo minimo **ha una soluzione ammissibile**.
+- Il grafo contiene un cammino diretto di capacità infinita per ogni coppia di nodi (utile per garantire di ottenere una soluzione ammissibile durante l'esecuzione degli algoritmi).
+- Tutti i **costi** sono **non negativi**, e le **capacità** sono **positive**.
+
+
+### Definizioni
+Useremo le seguenti notazioni per i **parametri** all'interno di questo documento:
+- $n = |N|$ è il numero di **nodi** del grafo $G$.
+- $m = |A|$ è il numero di **archi** del grafo $G$.
+- $U = \max\{u_{ij}: (i,j) \in A\}$, *capacità massima*.
+- $C = \max\{c_{ij}: (i,j) \in A\}$, *costo massimo*.
+
+#### Grafo residuo
+Il grafo residuo $G(x)$ corrispondente al flusso $x$ è ottenuto sostituendo ogni arco $(i,j)\in A$ con due archi:
+- $(i,j)$ con **costo** pari a $c_{ij} = c_{ij}$ e **capacità residua** $r_{ij} = u_{ij} - x_{ij}$
+- $(j,i)$ con **costo** pari a $c_{ji} = -c_{ij}$ e **capacità residua** $r_{ji} = x_{ij}$
+
+#### Potenziale
+Denotiamo con $\pi_i \in \mathbb{R}$ il **potenziale** associato ad ogni *nodo* $i \in N$.
+Il suo corrispondente **costo ridotto** $c_{ij}^\pi$ verrà calcolato come:
+$$c_{ij}^\pi = c_{ij} - \pi_i + \pi_j$$
+Il quale corrisponde tra l'altro anche alla variabile duale associata al vincolo di conservazione del flusso relativo al nodo $i \in N$.
+##### Proprietà dei Potenziali
+Per ogni **cammino diretto** $P$ dal nodo $k$ al nodo $l$ si ha:
+$$
+\sum_{(i,j)\in P} c_{ij}^\pi = \sum_{(i,j) \in P} c_{ij} - \pi_k + pi_l
+$$
+Ovvero che costo del flusso all'interno del cammino $P$ è pari al costo di tutti i nodi intermedi e i costi ridotti di sorgente e destinazione.
+
+Inoltre, per ogni **ciclo diretto** $W$ si ha:
+$$
+\sum_{(i,j) \in W} c_{ij}^\pi = \sum_{(i,j) \in W} c_{ij}
+$$
+E questo invece non so che cazzo signifihi, l'unica cosa che so è che all'interno di un ciclo, posso capire il suo costo sia usando i costi normali, che i costi ridotti.
+
+### Condizioni di Ottimalità
+Consideriamo una soluzione ammisibile $x^*$ del problema del *flusso di costo minimo*.
+- **Assenza di Cicli di Costo Negativo**: la soluzione $x^*$ è ottima se e solo se il **grafo residuo** $G(x)$ *non* contiene cicli di costo negativo.
+- **Costi Ridotti Positivi**: La soluzione $x^*$ è ottima se e solo se è possibile trovare dei potenziali $\pi$ tali che per ogni arco $(i,j)$ di $G(x^*)$ soddisfano la condizione: $c_{ij}^\pi = c_{ij} - \pi_i + \pi_j \geq 0$.
+- **Relazione degli Scarti Complementari**: La soluzione $x^*$ è ottima se e solo se è possibile trovare dei potenziali $\pi$ tali che per ogni arco $(i,j) \in A$ il *costo ridotto* $c_{ij}^\pi$ soddisfa le seguenti condizioni degli scarti complementari:
+$$
+\begin{align*}
+    \text{If} \quad &c_{ij}^\pi > 0, &\text{then} \quad &x_{ij}^* = 0 \\
+    \text{If} \quad &c_{ij}^\pi = 0, &\text{then} \quad &0 \leq x_{ij}^* \leq u_{ij}\\
+    \text{If} \quad &c_{ij}^\pi < 0, &\text{then} \quad &x_{ij}^* = u_{ij} 
+\end{align*}
+$$
+Dove il loro significato in ordine:
+1. Sarebbero le variabili non in base con valore 0, non le prendo.
+2. Variabili inbase, devono rispettare i vincoli (nel nostro caso la soglia minima è zero).
+3. Le variabili posso essere non in base e diverse da 0, in particolare il loro valore è pari all'upperbound (variante del simplesso con upperbound).
+
+---
+# Algoritmi
+## Cycle Cancelling Algorithm
+Permette di cancellare cicli di costo negativo all'interno del grafo, e si basa sulla seguente osservazione: Se nel grafo $G(x)$ identifico un ciclo $W$ di **costo negativo**, allora posso *aumentare* il flusso in $W$ diminuendo il costo complessivo della soluzione.
+
+### Pseudocodice
+$$
+\begin{align*}
+    & \textbf{algorithm } \text{cycle cancelling} \\
+    & \textbf{begin} \\
+    & \quad\text{Stabilisci un flusso ammissibile }x\text{ nel grafo }G& ;\\
+    & \quad\textbf{while }G(x)\text{ contiene un ciclo di costo negativo }\textbf{do}& \\
+    & \quad\textbf{begin} \\
+    & \quad\quad\text{Applica un algoritmo per identificare un ciclo di costo negativo }W \\
+    & \quad\quad\text{Calcola } \delta = \min\{r_{ij}: (i,j)\in W\}; \\
+    & \quad\quad\text{Aumenta di }\delta \text{ unità il flusso nel ciclo } W\\
+    & \quad\quad\text{Aggiorna }G(x); \\
+    & \quad\textbf{end} \\
+    & \textbf{end} \\
+\end{align*}
+$$
+
+### Osservazioni
+- Se esiste un ciclo di costo negativo all'interno del grafo mediante la soluzioen $x$, allora la soluzione **non** è ottima.
+- L'algoritmo mantiene ad ogni passo **l'ammissibilità della solzione** e cerca di ottenere un soddisfacimento delle condizioni di ottimalità.
+- **Calcolo di un Flusso ammissibile**: può essere calcolato risolvendo un problema di *flusso massimo* di un grafo $G'$ costruito come segue:
+  - Aggiungiamo due nodi $s$ e $t$.
+  - Per ogni nodo $i \in N$ con $b_i > 0$ aggiungiamo un arco $(s,i)$ con **capacità** $u_{si} = b_i$.
+  - Per ogni nodo $i \in N$ con $b_i < 0$ aggiungiamo un arco $(i,t)$ con **capacità** $u_{si} = -b_i$.
+  - A questo punto, se il flusso massimo da $s$ a $t$ calcolato, **satura tutti gli archi sorgente e destinazione**, allora il flusso trovato è ammissbile per $G$.
+- **Identificazione di un Ciclo di Costo Negativo**: si può usare un algoritmo di tipo "label-correcting" per il calcolo del cammino di costo minimo (**Bellman-Ford**).
+
+### Complessità Computazionale
+1. Vengono eseguite nel caso peggiore $O(mCU)$ iterazioni.
+2. Per ogni iterazione l'algoritmo risolve il problema del cammino di costo minimo per identificare il ciclo di costo negativo. Con Bellman-Ford, la complessità è pari a $O(nm)$.
+3. In totale, Cycle Cancelling Algorithm ha complessita computazionale pari a $O(nm^2CU)$.
+
+## Successive Shortest Path
+- Ad ogni passo **mantiene** soddisfatte le **condizioni** di non negatività dei **costi ridotti** e i **vincoli di capacità**.
+- Rilassa (cerca di soddisfare ma ammette violazioni) i vincoli di conservazione di flusso
+$$
+\sum_{j\in \Gamma_i}x_{ij} - \sum_{\Gamma_i^{-1}}x_{ji} = b_ij
+$$
+Il flusso sarà ammissibile **solo al termine** dell'algoritmo. Nelle fasi intermedie il flusso $x$ viene anche chiamato *pseudoflusso*.
+- Per ogni nodo $i$ definiamo:
+$$
+e_i = b_i - \sum_{j\in\Gamma_i}x_{ij} + \sum_{\Gamma_i^{-1}}x_{ji}
+$$
+
+Il primo lemma mi sembra un po' inutile. Il secondo invece dice:
+> Sia $x$ uno *pseudoflusso* che soddisfa le condizioni di non negatività dei costi ridotti per un qualche potenziale $\pi$.
+> Se $x'$ è il pseudoflusso ottenuto da $x$ aumentando il flusso lungo il cammino di costo minimo da $s$ ad un altro nodo $k$, allora anche $x'$ soddisfa le condizioni di non negatività dei costi ridotti per un qualche $\pi'$, e.g. $\pi' = \pi - d$.
+
+Qualsiasi cosa voglia dire, io so che la seguente strategia viene applicata:
+
+Ad ogni iterazione, l'algoritmo deve selezionare un nodo $s$ con un *eccesso* di flusso ($e_s > 0$), e un nodo $t$ con un *deficit* di flusso ($e_t < 0$), e aumentare il flusso lungo il cammino di costo minimo da $s$ a $t$ nel grafo residuo $G(x)$.
+
+È figo perché si può usare Dijkstra perché nel calcolo del cammino a costo minimo si utilizzano i costi ridotti $c_{ij}^\pi$ che sono positivi.
+
+### Pseudocodice
+$$
+\begin{align*}
+    & \textbf{algorithm } \text{successive shortest path} \\
+    & \textbf{begin} \\
+    & \quad x=0, \pi=0 \text{ e }e_i=b_i \text{ per ogni }i \in N& ;\\
+    & \quad E = \{i\in N: e_i > 0\} \text{ e }D=\{i\in N: e_i < 0\}; \\
+    & \quad\textbf{while }E \neq \empty \textbf{ do} \\
+    & \quad\textbf{begin} \\
+    & \quad\quad\text{Seleziona un nodo }k \in E \text{ e un nodo }l\in D\\
+    & \quad\quad\text{Calcola in }G(x) \text{ le distanze minime }d \text{ da } k \\
+    & \quad\quad\quad\text{ a tutti gli altri nodi rispetto ai costi ridotti }c_{ij}^\pi ;\\
+    & \quad\quad\text{Sia }P\text{ il cammino di costo minimo da } k \text{ a }l;\\
+    & \quad\quad\text{Aggiorna }\pi = \pi - d; \\
+    & \quad\quad\text{Calcola }\delta = \min\{e_k, -e_l, \min\{r_{ij}: (i,j) \in P\}\};\\
+    & \quad\quad\text{Aumenta di }\delta \text{ untià il flusso nel cammino }P;\\
+    & \quad\quad\text{Aggiorna }G(x);\\
+    & \quad\textbf{end} \\
+    & \textbf{end} \\
+\end{align*}
+$$
+
+Dove ricordiamo a i gentili telespettattori che $d$ sono le etichette prodotte applicando Dijkstra.
+
+### Complessità Computazionale
+1. Nel caso peggiore, $O(nU)$ iterazioni.
+2. Per ogni iterazione, si risolve un costo minimo con costi positivi: usando Dijkstra e Heap di Fibonacci, la complessità è pari a $O(m+n\log n)$.
+3. In totale, Successive Shortest Path ha una complessita computazionale pari a $O(nU(m+n\log n))$.
+
 ## Primal-Dual Algorithm
 L'algoritmo *primale-duale* per la soluzione del problema del flusso di costo minimo è simile al *Successive Shortest Path Algorithm*, in quanto anch'esso mantien uno pseudo flusso che soddisfa le condizioni di non negatività dei costi ridotti e i vincoli di capacità mentre è mantenuta la conservazione del flusso.
 
