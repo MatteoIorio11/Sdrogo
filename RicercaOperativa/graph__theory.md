@@ -223,7 +223,7 @@ Il *Kilter Number* $k_{ij} \geq 0$ indica di quanto deve essere modificato il fl
 Il *Capacity Scaling Algorithm* è una variante del *Successive Shortest Path Algorithm* in cui ad ogni iterazione viene garantino che la capacità residua del *cammino aumentante* sia *"sufficientemente grande"*. Viene definito un parametro $\Delta$:
 * si selezionano i nodi *s* e *t* tali che $e_s \geq \Delta$ e $e_t \leq -\Delta$;
 * si sostituisce il grafo residuo *G(x)* con il suo sottografo $G(x,\Delta)$ contente solo quegli archi di capacità residua pari almeno a $\Delta$.
-Quando non è più possibile determinare una coppia di vertici *s* e *t* tali che $e_s \geq \Delta$ e $e_t \leq -\Delta$ allora si diminuisce il parametro $\Delpta$. Se $\Delta=1$ allora il flusso *x* corrente è ottimo. **Complessità computazionale:** *O((m logU)(m+ n logn))*. 
+Quando non è più possibile determinare una coppia di vertici *s* e *t* tali che $e_s \geq \Delta$ e $e_t \leq -\Delta$ allora si diminuisce il parametro $\Delta$. Se $\Delta=1$ allora il flusso *x* corrente è ottimo. **Complessità computazionale:** *O((m logU)(m+ n logn))*. 
 
 ### Minimum Mean Cycle Cancelling Algorithm
 Il *Minimum Mean Cycle Cacnelling Algorithm* è un altro algoritmo che riesce a migliorare la complessità computazione dell'algoritmo precedentemente detto, $O(n^2 m^3 log(n))$. 
