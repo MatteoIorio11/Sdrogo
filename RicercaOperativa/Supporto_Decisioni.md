@@ -432,7 +432,7 @@ La programmazione dinamica di fatto è una enumaerazione parziale delle soluzion
 $$
 z_j(w) = 
 \begin{cases}
-        z_{j-1}(w) & \text{se} \quad w \le w_j \\
+        z_{j-1}(w) & \text{se} \quad w < w_j \\
         \text{max}\{z_{j-1}(w), z_{j-1}(w - w_j) + p_j\} & \text{se}\quad w\geq w_j
 \end{cases}
 $$
