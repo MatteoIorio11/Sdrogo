@@ -236,13 +236,13 @@ Nella formulazione di un problema di programmazione lineare sono implicite alcun
 
 #### Esempio
 $$
-\begin{align*}
-    & \text{min} z = -x_1 - 3x_2 \\
-    & -x_1 - x_2 \geq -6 \quad (a) \\
-    & x_1 - 2x_2 \geq -8 \quad (b) \\
-    & x_1 + x_2 \geq 2 \quad (c) \\
+\begin{align}
+    \text{min} z = -&x_1 - 3x_2 \\
+    s.t.\quad &x_1 - x_2 \geq -6 \\
+    & x_1 - 2x_2 \geq -8 \\
+    & x_1 + x_2 \geq 2 \\
     & x_1 \text{,} \quad x_2 \geq 0 
-\end{align*}
+\end{align}
 $$
 
 In questo caso si può procedere attraverso il modello grafico. La prima operazione che si deve effettuare è quella di andare ad individuare tutte le zone in cui i nostri valori possono esistere, trasformando la nostra disequazione in una semplice equazione. Una volta trovate tutte le rette delle nostre equazioni si andrà a definire quindi la *regione ammissibile* dei nostri valori. Per minimizzare la funzione obbiettivo basta effettuare la derivata prima, il gradiente avrà valori : $[-1, -3]$, se ci muoviamo nel verso opposto alla direzione del nostro gradiente in quanto noi vogliamo *minimizzare* la funzione obbiettivo otterremo il valore che risolverà il nostro modello.
@@ -253,11 +253,9 @@ Un problema di programmazione lineare intera prevede il vincolo aggiuntivo che l
 
 $$
 \begin{align*}
-    & min \quad z_j(w) = \sum_{j=1}^n c_jx_j \\
-    & \qquad\qquad s.t. \\
-    & \qquad\qquad\qquad \sum_{j=1}^n{a_{ij}x_{ij}} \geq {b_i} \quad i = 1, .., m \\
-    & \qquad\qquad\qquad x_j \geq 0, \qquad j=1,...,n \\
-    & x_j intera \qquad j = 1, ...., n
+    min \quad z_j(w) = &\sum_{j=1}^n c_jx_j \\
+    s.t.& \sum_{j=1}^n{a_{ij}x_{ij}} \geq {b_i}  &i = 1, .., m \\
+    &  x_j \geq 0 \text{ intera} , &j=1,...,n \\
 \end{align*}
 $$
 
@@ -267,10 +265,9 @@ La programmazione lineare mira a minimizzare o minimizzare una *funzione obietti
 Per esempio:
 $$
 \begin{align*}
-& \text{min} \quad z = \sum_{j-1}^n c_jx_j \\
-& \qquad s.t. \\
-& \qquad\qquad \sum_{j-1}^n a_{ij}x_j \geq b)i & i=1,...,m \\
-& \qquad\qquad x_j \geq 0 & j=1,...,n
+\text{min} \quad z = &\sum_{j-1}^n c_jx_j \\
+s.t.&\sum_{j-1}^n a_{ij}x_j \geq b_i & i=1,...,m \\
+& x_j \geq 0 & j=1,...,n
 \end{align*}
 $$
 
@@ -284,10 +281,9 @@ dove:
 È possibile rappresentare il sistema lineare mediante le matrici, ottenendo così:
 $$
 \begin{align*}
-& \text{min} \quad z = \textbf{cx} \\
-& \qquad s.t. \\
-& \qquad\qquad \textbf{Ax} \geq \textbf{b} \\
-	& \qquad\qquad \textbf{x} \geq 0
+\min z = \quad&\textbf{cx} \\
+s.t.\quad& \textbf{Ax} \geq \textbf{b} \\
+& \textbf{x} \geq 0
 \end{align*}
 $$
 Dove le matrici coinvolte sono:
@@ -363,12 +359,11 @@ Per ogni problema di programmazione lineare, la sua soluzione può essere di uno
 Sia il problema di programmazione lineare:
 $$
 \begin{align*}
-    & \text{min} \quad z = -x_1 -3x_2 \\
-    & s.t. \\
-    & -x_1 -x_2 \geq-6 \\
-    & \quad x_1 -2x_2 \geq -8 \\
-    & \quad x_1 +x_2 \geq 2 \\
-    & \quad x_1, x_2 \geq 0
+    \min z = -&x_1 -3x_2 \\
+    s.t. \quad-&x_1 -x_2 &\geq&-6 \\
+    & x_1 -2x_2 &\geq &-8 \\
+    & x_1 +x_2 &\geq &\quad2 \\
+    & x_1, x_2 &\geq &\quad0
 \end{align*}
 $$
 È possibile tracciare in un grafico le aree ammissibili per ogni vincolo, in particolare è consigliato il seguente approccio:
@@ -445,7 +440,7 @@ otteniamo il valore minimo di $x_1$. Da questo, possiamo notare che il valore de
 A parte i dati numerici, era possibile capire che la soluzione era illimitata se, come prima, calcolavamo il gradiente della funzione obiettivo $\nabla z = \begin{bmatrix}-2 \\ -5\end{bmatrix}$, e considerando che il problema PL era il minimo di minimo, seguiamo la direzione opposta del gradiente dove la funzione si minimizza. È evidente a quel punto che le curve di livello non toccheranno mai un punto critico della regione ammissibile che sia maggiore di tutti gli altri, potendo constatare al volo che la soluzione era illimitata.
 
 
-#### Esempio: Regione Illimitata ma soluzione Illimitata
+#### Esempio: Regione Illimitata ma soluzione limitata
 Consideriamo il seguente problema di minimo:
 $$
 \begin{align*}
@@ -482,11 +477,9 @@ Un problema di programmazione lineare intera prevede il vincolo aggiuntivo che l
 
 $$
 \begin{align*}
-    & \text{min}\quad z = \sum_{j=1}^n c_jx_j \\
-    & s.t. \\
-    & \qquad \sum_{j=1}^n a_{ij}x_j  \geq b_i   & i=1,\dots,m \\
-    & \qquad x_j \geq 0                                & j=1,\dots,n \\
-    & \qquad x_j \text{intera}                         & j=1,\dots,m
+    \min z = &\sum_{j=1}^n c_jx_j \\
+    s.t.& \sum_{j=1}^n a_{ij}x_j  \geq b_i   & i=1,\dots,m \\
+    & x_j \geq 0, \text{ intera}                                & j=1,\dots,n \\
 \end{align*}
 $$
 
@@ -512,19 +505,17 @@ $$
 * *Forma "canonica"*: I vincoli sono tutte disequazioni
 $$ 
 \begin{align*}
-    &z = \text{min } \sum_{j=1}^n c_jx_j \\
-    & \qquad \text{s.t}  \\
-    & \qquad\qquad \sum_{j=1}^n a_{ij}x_j \geq b_i, \qquad i = 1,...,m \\
-    & \qquad\qquad x_j \geq 0 \qquad j = 1,...,n 
+    z = \text{min } &\sum_{j=1}^n c_jx_j \\
+    s.t.& \sum_{j=1}^n a_{ij}x_j \geq b_i, &i = 1,...,m \\
+    &  x_j \geq 0, &j = 1,...,n 
 \end{align*}
 $$
 * *Forma "standard"*: I vincoli sono tutte equazioni
 $$ 
 \begin{align*}
-    & z = \text{min } \sum_{j=1}^n c_jx_j \\
-    & \qquad \text{s.t} \\
-    & \qquad\qquad \sum_{j=1}^n a_{ij}x_j = b_i, \qquad i = 1,...,m \\
-    & \qquad\qquad x_j \geq 0 \qquad j = 1,...,n
+    z = \text{min } &\sum_{j=1}^n c_jx_j \\
+    s.t.& \sum_{j=1}^n a_{ij}x_j = b_i, &i = 1,...,m \\
+    &  x_j \geq 0, &j = 1,...,n 
 \end{align*}
 $$
 
@@ -532,9 +523,9 @@ $$
 Si consideri il seguente problema:
 $$ 
 \begin{align*}
-   \text{min } z = \textbf{ cx } \\
-    \text{s.t} \qquad \textbf{Ax} = \textbf{b} \\
-    \qquad \textbf{x}\geq 0
+   \min z = &\textbf{ cx} \\
+    \text{s.t}\quad&\textbf{Ax} = \textbf{b} \\
+    &\textbf{x}\geq 0
 \end{align*}
 $$
 dove $\textbf{A} \in R^{m,n}, \textbf{c}, \textbf{x} \in R^n \text{ e } \textbf{b} \in R^m$.
@@ -592,11 +583,10 @@ Sia dato:
 Allora ogni punto di $X$ può essere rappresentato come:
 $$
 \begin{align*}
-    & \textbf{x} = \sum_{i=1}^{np}\lambda_i \textbf{x}_i + \sum_{j-1}^{nd}\mu_j\textbf{d}_j \\
-    & s.t. \\
-    & \qquad \sum_{i=1}^{np} \lambda_i = 1 \\
-    & \qquad \lambda_i \geq 0 & i=1,\dots,np \\
-    & \qquad \mu_j\geq 0 & j=1,\dots,nd \\
+    \textbf{x} = &\sum_{i=1}^{np}\lambda_i \textbf{x}_i + \sum_{j-1}^{nd}\mu_j\textbf{d}_j& \\
+    s.t.  & \sum_{i=1}^{np} \lambda_i = 1& \\
+    & \lambda_i \geq 0 & i=1,\dots,np \\
+    & \mu_j\geq 0 & j=1,\dots,nd \\
 \end{align*}
 $$
 
@@ -610,7 +600,7 @@ Dove:
 **Teorema**: la soluzione ottima è **finita**, se e solo se $\textbf{cx} \geq 0, j=1,\dots,nd$. In questo caso il **minimo** si ottiene in corrispondeza di almeno uno dei punti estremi.
 
 **Dimostrazione**: dal teorema della rappresentazione, si può riscivere la funzione obiettivo come:
-$$\text{min} z = \textbf{cx} = \sum_{i=1}^{np}(\textbf{cx}_i)\lambda_i + \sum_{j=1}^{nd}(\textbf{cd}_j)\mu_j$$
+$$\min z = \textbf{cx} = \sum_{i=1}^{np}(\textbf{cx}_i)\lambda_i + \sum_{j=1}^{nd}(\textbf{cd}_j)\mu_j$$
 Dove abbiamo semplicemente moltiplicato i termini del teorema della rappresentazione al vettore di costo $\textbf{c}$.
 È evidente ora che per minimizzare la funzione obiettivo, è necessario minimizzare al massimo la seconda sommatoria. Possiamo quindi:
 - Se per almeno una direzione estrema $\textbf{d}_j$ si ha $\textbf{cd}_j < 0$, allora possiamo aumentare arbitrariamente $\mu_j$ e la funzione obiettivo risulterà **illimitata**.
@@ -720,10 +710,9 @@ Si dice quindi che la variabile $x_r$ esce dalla base e $x_k$ entra al posto suo
 Si consideri il problma LP in forma canonica, chiamato problema **primale**:
 $$
 \begin{align*}
-    z_P = & \min \textbf{cx} \\
-    & s.t.  \\
-    & \qquad \textbf{Ax} \geq \textbf{b} \\
-    & \qquad \textbf{x}\geq 0
+    z_P = \min \quad &\textbf{cx} \\
+    s.t.\quad& \textbf{Ax} \geq \textbf{b} \\
+    & \textbf{x}\geq 0
 \end{align*}
 $$
 
@@ -732,10 +721,9 @@ dove l'insieme dei suoi punti ammissibili è $X = \{\textbf{x}: \textbf{Ax}\geq 
 Si definisce il suo **problema duale** nel seguente modo:
 $$
 \begin{align*}
-    z_D = & \max \textbf{wb} \\
-    & s.t.  \\
-    & \qquad \textbf{wA} \leq \textbf{c} \\
-    & \qquad \textbf{w}\geq 0
+    z_D = \max \quad&\textbf{wb} \\
+    s.t.\quad& \textbf{wA} \leq \textbf{c} \\
+    & \textbf{w}\geq 0
 \end{align*}
 $$
 
@@ -755,20 +743,18 @@ Osservazioni:
 Partendo dal problema in forma canonica:
 $$
 \begin{align*}
-    z_p = & \min \textbf{cx} \\
-    & s.t.  \\
-    & \qquad \textbf{Ax} \geq \textbf{b} \\
-    & \qquad \textbf{x}\geq 0
+    z_p = \min \quad&\textbf{cx} \\
+    s.t. \quad& \textbf{Ax} \geq \textbf{b} \\
+    & \textbf{x}\geq 0
 \end{align*}
 $$
 
 È possibile aggiungere $m$ variabili di **slack** alle $n$ variabili originarie: il primale equivale al problema in forma standard:
 $$
 \begin{align*}
-    z_p = & \min \textbf{cx} \\
-    & s.t.  \\
-    & \qquad \textbf{Ax} - \textbf{Ix}_s = \textbf{b} \\
-    & \qquad \textbf{x}, \textbf{x}_s\geq 0
+    z_p =  \min \quad &\textbf{cx} \\
+    s.t. \quad& \textbf{Ax} - \textbf{Ix}_s = \textbf{b} \\
+    & \textbf{x}, \textbf{x}_s\geq 0
 \end{align*}
 $$
 
@@ -777,7 +763,7 @@ Dove $\textbf{I} = [\textbf{a}_{n+1}, \dots, \textbf{a}_{n+m}] = [\textbf{e}_1, 
 In corrispondenza di una soluzione ottima del primale, deve esistere una base $\textbf{B}$ per cui:
 $$\textbf{w}\textbf{a}_j - c_j \leq 0, \qquad j=1,\dots, n+m$$
 
-Dove si ricorda che $\textbf{w} = \textbf{c}_B\textbf{B}_{-1}$ (vedi [Pricing](#step-2-pricing)).
+Dove si ricorda che $\textbf{w} = \textbf{c}_B\textbf{B}^{-1}$ (vedi [Pricing](#step-2-pricing)).
 
 Si può ora riscrivere la disequazione $\textbf{w}\textbf{a}_j \leq 0$ per le variabili originarie e quelle di slack, ottenendo:
 $$
@@ -826,10 +812,9 @@ Dalla Dualità debole, si deduce che il valore di $\textbf{w}\textbf{b}$ di qual
 Il miglior Lower Bound $\textbf{w}^*\textbf{b}$ alla soluzione ottima del primale lo si può ottenere risolvendo il seguente problema duale:
 $$
 \begin{align*}
-    & z = \max \textbf{w}\textbf{b} \\
-    & s.t. \\
-    & \qquad \textbf{wA} \leq \textbf{c} \\
-    & \qquad \textbf{w} \geq 0
+    z = \max \quad&\textbf{w}\textbf{b} \\
+    s.t. \quad & \textbf{wA} \leq \textbf{c} \\
+    & \textbf{w} \geq 0
 \end{align*}$$
 
 **Corollario 1**: Se $\textbf{x}^* \in X$ e $\textbf{w}^* \in W$ soddisfano $\textbf{w}^*\textbf{b} = \textbf{cx}^*$ allora $\textbf{x}^*$ è **soluzione ottima** del primale e $\textbf{w}^*$ è soluzione ottima del duale.
@@ -856,10 +841,9 @@ Il teorema della dualità forte stabilisce che se esistno **soluzioni ammissibil
 Scriviamo il primale in forma standard:
 $$
 \begin{align*}
-    z_P = & \min \textbf{cx} \\
-    & s.t.  \\
-    & \qquad \textbf{Ax} - \textbf{Ix}_s = \textbf{b} \\
-    & \qquad \textbf{x}, \textbf{x}_s\geq 0
+    z_P = \min \quad &\textbf{cx} \\
+    s.t.  \quad & \textbf{Ax} - \textbf{Ix}_s = \textbf{b} \\
+    & \textbf{x}, \textbf{x}_s\geq 0
 \end{align*}
 $$
 
@@ -906,11 +890,11 @@ Questa tabella vale sempre per ogni problema di cui riesco a definire primale e 
 Dato il seguente problema PL:
 $$
 \begin{align*}
-    \min &z_P = \textbf{cx}& \\
-         & s.t. &\textbf{A}_1\textbf{x} &\geq \textbf{b}_1 \\
-               &&\textbf{A}_2\textbf{x} &=    \textbf{b}_2 \\
-               &&\textbf{A}_3\textbf{x} &\leq    \textbf{b}_2 \\
-               &&\textbf{x}& \geq0
+    \min z_P = \quad&\textbf{cx} \\
+          s.t. \quad&\textbf{A}_1\textbf{x} &\geq \textbf{b}_1 \\
+               &\textbf{A}_2\textbf{x} &=    \textbf{b}_2 \\
+               &\textbf{A}_3\textbf{x} &\leq    \textbf{b}_2 \\
+               &\textbf{x}&\geq0
 \end{align*}
 $$
 
