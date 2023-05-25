@@ -236,23 +236,26 @@ Il *Minimum Mean Cycle Cacnelling Algorithm* è un altro algoritmo che riesce a 
 * **Step2 [Determina Cammino Aumentante]**: Dichiara il vertice *s* non espanso con etichetta $[+s, \infty]$
   1. Se tutti i nodi etichettati sono già espansi, allora il flusso *v* è massimo, quindi **STOP**
   2. Se esiste un vertice *i* etichettato ma non ancora espanso, provvedi a espanderlo:
-   * Per ogni vertice $j \in R_i$ non etichettato per cui $x_{ij} \le u_{ij}$ assegna l'etichetta $[+i, \delta]$, dove $\delta = min{u_{ij} - x_{ij}, \delta_i}$
-   * Per ogni vertice $j \in R_{i}^{-1}$ non etichettato per cui $x_{ij} \ge 0$ assegna l'etichettà $[-i, \delta_{j}]$, dove $\delta_{j} = min(x_{ij}, \delta_{i}$
+   * Per ogni vertice $j \in R_i$ non etichettato per cui $x_{ij} \le u_{ij}$ assegna l'etichetta $[+i, \delta]$, dove $\delta = \min\{u_{ij} - x_{ij}, \delta_i\}$
+   * Per ogni vertice $j \in R_{i}^{-1}$ non etichettato per cui $x_{ij} \ge 0$ assegna l'etichettà $[-i, \delta_{j}]$, dove $\delta_{j} = \min\{x_{ij}, \delta_{i}\}$
   3. Se *t* non risulta etichettato torna al passo 1
 * **Step3 [Aumenta il Flusso x]**: Sia *P* il *cammino aumentante* dal vertice *s* al vertice *t*, Per ogni $(i, j) \in P$:
   1. Se l'arco (i, j) è percorso nel suo verso originario (da *i* a *j*) $x_{ij} = x_{ij} + \delta_{t}$
   2. Se l'arco (i, j) è percorso nel verso contrario (da *j* a *i*) $x_{ij} = x_{ij} - \delta_{t}$
-Aggiorna il glusso $v = v + \delta_{t}$. 
-Quando l'Algoritmo di Ford-Fulkerson termina, l'insieme dei vertici etichettati *S* e quello dei vertici non etichettati $S^{-}$ costituiscono un *taglio*:
-$v = \sum_{i \in S} \sum_{j \in S^{-}} u_{ij}$
+Aggiorna il flusso $v = v + \delta_{t}$. 
+Quando l'Algoritmo di Ford-Fulkerson termina, l'insieme dei vertici etichettati *S* e quello dei vertici non etichettati $\bar{S}$ costituiscono un *taglio*:
+$v = \sum_{i \in S} \sum_{j \in \bar{S}} u_{ij}$
+
 **Teorema**
 Sia *x* un *flusso ammissibile* in *G* da *s* a *t* e sia *G(x)* il corrispondente residuo, il flusso *x* è massimo *se e solo se* non esiste in *G(x)* un cammino da *s* a *t*.
 * **Step1 [Inizializza]**: Poni $x_{ij} = 0$, per ogni $(i, j) \in A$ e $v = 0$. 
 * **Step2 [Determina Cammino Aumentante]**: Trova un cammino da *s* a *t* in *G(x)*, se non esiste un cammino da *s* a *t*, allora il flusso *x* è massimo, quindi **STOP**.
-* **Step3 [Aumenta il Flusso x]**: Sia *P* il cammino trovato da *s* a *t* trovato e poni $\delta = min{r_{ij}:(i,j) \in P}$, per ogni $(i, j) \in P$:
+* **Step3 [Aumenta il Flusso x]**: Sia *P* il cammino trovato da *s* a *t* trovato e poni $\delta = \min\{r_{ij}:(i,j) \in P\}$, per ogni $(i, j) \in P$:
   1. Se *(i,j)* corrisponde all'arco $(i, j) \in A: x_{ij} = x_{ij} + \delta$
   2. Se *(i,j)* corrisponde all'arco $(i, j) \in A: x_{ij} = x_{ij} - \delta$
-Aggiorna il flusso $v = v + \delta$. L'algoritmo *Ford-Fulkerson* ha complessità *O(nmU)*, con le relative migliorie si possono **ottenere prestazioni migliori**. 
+Aggiorna il flusso $v = v + \delta$.
+
+L'algoritmo *Ford-Fulkerson* ha complessità *O(nmU)*, con le relative migliorie si possono **ottenere prestazioni migliori**. 
 
 ### Taglio s-t
 Si definisce un *Taglio s-t* una partizione dei vertici *N*, del grafo *G* in due sottoinsiemi $S$ e $S^{-} = N \ S$ tali che $s \in S$ e $t \in S^{-}$.
