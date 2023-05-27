@@ -36,6 +36,28 @@
   - [Column Generation](#column-generation)
     - [Algoritmo: Column Generation](#algoritmo-column-generation)
   - [TSP](#tsp)
+- [Graph Theory](#graph-theory)
+  - [Flusso a costo Minimo](#flusso-a-costo-minimo)
+    - [Duale](#duale)
+    - [Definizioni varie](#definizioni-varie)
+      - [Grafo residuo](#grafo-residuo)
+      - [Potenziali](#potenziali)
+        - [Proprietà dei potenziali](#proprietà-dei-potenziali)
+      - [Condizioni di Ottimalità](#condizioni-di-ottimalità)
+    - [Cycle Canceling: Costi](#cycle-canceling-costi)
+    - [Successive Shortest Path](#successive-shortest-path)
+      - [Lemma](#lemma)
+      - [Costi](#costi)
+    - [Primal Dual](#primal-dual)
+    - [Out-of-Kilter](#out-of-kilter)
+    - [Algoritmi Polinomiali e Pseudopolinomiali](#algoritmi-polinomiali-e-pseudopolinomiali)
+  - [Flusso massimo](#flusso-massimo)
+    - [Proprietà di Ford Fulkerson](#proprietà-di-ford-fulkerson)
+      - [Teorema (Grafo Residuo)](#teorema-grafo-residuo)
+      - [Costi](#costi-1)
+      - [Taglio $s$-$t$](#taglio-s-t)
+      - [Teoremi sui Tagli](#teoremi-sui-tagli)
+        - [Max-Flow/Min-Cut](#max-flowmin-cut)
 
 # Programmazione Lineare
 ## Teorema della Rappresentazione
@@ -348,3 +370,143 @@ $$
                 &x_{ij} \in \{0, 1\}, &(i,j) \in A
 \end{align*}
 $$
+
+# Graph Theory
+Sia dato un grafo direzionato $G=(N, A)$ in cui:
+- Ad ogni arco $(i,j) \in A$ è associato:
+  - Un **costo** $c_{ij}$
+  - Una **capacità** $u_{ij}$
+- Ad ogni *vertice* $i \in N$ è associata:
+  - Una *disponibilità* $b_i > 0$
+  - Una *richiesta* $b_i < 0$
+  - Un *cazzo* se $b_i = 0$
+
+## Flusso a costo Minimo
+Può essere formulato come segue:
+$$
+\begin{align*}
+  \min z(P) =   &\sum_{(i,j)\in A} c_{ij} x_{ij} \\
+  s.t.          &\sum_{j\in \Gamma_i}x_{ij} - \sum_{j \in \Gamma_i^{-1}} x_{ji} = b_i & i \in N \\
+                &0\leq x_{ij} \leq u_{ij} &(i,j) \in A \\
+\end{align*}
+$$
+Dove:
+- $\Gamma_i = \{j:(i,j) \in A\}$, archi uscenti dal vertice $i$.
+- $\Gamma_i^{-1} = \{j:(j,i) \in A\}$, archi entranti nel vertice $i$.
+
+### Duale
+$$
+\begin{align*}
+  \max z(D) = \quad&\sum_{i\in N} b_i \pi_i - \sum_{(i,j) \in A} u_{ij}\alpha_{ij} \\
+  s.t.        \quad& \pi_i - \pi_j - \alpha_{ij} \leq c_{ij} & (i,j)\in A \\
+              \quad& \pi \text{ qualsiasi}, & i\in N \\
+              \quad& \alpha_{ij} \geq 0, &(i,j) \in A \\
+\end{align*}
+$$
+
+Dove:
+- $\pi_i$ è la variabile duale associata al vincolo di conservazione del flusso corrispondente al nodo $i \in N$.
+- $\alpha_{ij}$ variabile duale associata al vincolo di capacità relativo all'arco $(i,j) \in A$.
+
+### Definizioni varie
+#### Grafo residuo
+Il grafo residuo $G(x)$ corrispondente al flusso $x$ è ottenuto sostituendo ogni arco $(i,j) \in A$  con due archi $(i,j)$ e $(j,i)$ tali che:
+- $(i,j)$: con costo $c_{ij} = c_{ij}$ e *capactià residua* $r_{ij} = u_{ij} - x_{ij}$
+- $(j,i)$: con costo $c_{ji} = -c_{ij}$ e *capacità residua* $r_{ji} = x_{ij}$.
+
+#### Potenziali
+Denotando il potenziale $\pi_i \in \mathbb{R}$ associato al nodo $i \in N$, possiamo definire il **costo ridotto** $c_{ij}^\pi$ come: $$c_{ij}^\pi =  c_{ij} - \pi_i + \pi_j$$
+
+##### Proprietà dei potenziali
+Per ogni cammino *diretto* $P$ dal nodo $k$ al nodo $l$ si ha:
+$$\sum_{(i,j) \in P} c_{ij}^\pi = \sum_{(i,j) \in P} c_{ij} - \pi_k + \pi_l$$
+E per ogni **ciclo diretto** $W$ si ha che:
+$$\sum_{(i,j) \in W} c_{ij}^\pi = \sum_{(i,j) \in W} c_{ij}$$ poiché sorgente e destinazione sono uguali in un ciclo.
+
+#### Condizioni di Ottimalità
+Una soluzione $x^*$ ammissibile è ottima se e solo se:
+- Il grafo residuo $G(x^*)$ non contiene **cicli di costo negativo**.
+- È possibile trovare dei potenziali $\pi$ tali che, $\forall (i,j)$ di $G(x^*)$ soddisfano $c_{ij}^\pi = c_{ij} - \pi_i + \pi_j \geq 0$
+- È possibile trovare dei potenziali $\pi$ tali che, $\forall (i,j) \in A$, il *costo ridotto* $c_{ij}^\pi$ soddisfa le seguenti condizioni degli **scarti complementari**:
+$$
+\begin{align*}
+  &\text{If } c_{ij}^\pi > 0, \quad \text{then }x_{ij}^* =0 \\
+  &\text{If } c_{ij}^\pi = 0, \quad \text{then } 0\leq x_{ij}^* \leq u_{ij}\\
+  &\text{If } c_{ij}^\pi < 0, \quad \text{then }x_{ij}^* = u_{ij}\\
+\end{align*}
+$$
+
+### Cycle Canceling: Costi
+- Nel caso peggiore esegue $O(mCU)$ iterazioni.
+- Ad ogni iterazione c'è un calcolo del cammino di costo minimo per scovare cicli di costo negativo: Bellman Ford con complessità $O(nm)$
+- **Totale**: $O(nm^2CU)$
+
+### Successive Shortest Path
+#### Lemma
+Sia $x$ un *pseudoflusso* che soddisfa le condizioni di non negatività dei costi ridotti per un qualche $\pi$ in $G(x)$.
+Sia $d=(d_1, \dots, d_n)$ la *distanza minima* in $G(x)$ da un nodo $s$ a tutti gli altri nodi rispetto ai costi ridotti $c_{ij}^\pi$. Le seguenti proprietà sono valide:
+- Il pseudoflusso $x$ soddisfa le condizioni di non negatività dei costi ridotti anche per i potenziali $\pi' = \pi - d$.
+- I costi ridotti $c_{ij}^{\pi'}$ sono nulli per tutti gli archi $(i,j)$ nel cammino minimo da $s$ a ogni altro nodo.
+---
+Questo serve a dire che ad ogni iterazione, l'algoritmo deve selezionare un nodo $s$ con un eccesso di flusso, e un nodo $t$ con un deficit di flusso, e aumentare il flusso lungo il cammino di costo minimo da $s$ a $t$ nel grafo residuo $G(x)$.
+
+#### Costi
+- Nel caso peggiore sono effettuate $O(nU)$ iterazioni.
+- Ad ogni iterazione viene calcolato uno shortest path: Applicando Dijkstra ($c_{ij}^\pi \geq 0$), la complessità è $O(m + n\log n)$ implementandolo con Heap di Fibonacci.
+- **Totale**: $O(nU(m+n\log n))$
+
+### Primal Dual 
+Zero voglia
+### Out-of-Kilter
+Tanto meno
+### Algoritmi Polinomiali e Pseudopolinomiali
+Se lo mette scrivo meno di zero
+
+## Flusso massimo
+Sia dato un grafo *direzionato* $G=(N,A)$, in cui ad ogni arco $(i,j) \in A$ è associata una capacità $c_{ij} > 0$.
+
+Si vuole determinare il *flusso massimo* che può essere inviato dal vertice **origine** $s \in N$ al vertice **destinazione** $t \in N$.
+
+$$
+\begin{align*}
+  \max z(P) = \quad&v \\
+  s.t.        \quad&\sum_{j \in \Gamma_i} x_{ij} - \sum_{j \in \Gamma^{-1}_i} x_{ji} = \begin{cases}
+      v, &i=s \\
+      -v, &i=t \\
+      0, &i \neq s, t
+  \end{cases} & i\in N \\
+            \quad&0\leq x_{ij} \leq u_{ij}, &(i,j) \in A
+\end{align*}
+$$
+
+### Proprietà di Ford Fulkerson
+Quando termina, l'insieme dei vertici etichettati $S$ e quello dei vertici non etichettati $\bar{S}$ costituiscono un **taglio**, tale che il flusso ottimo $v^*$ è pari alla capacità degli archi del taglio:
+$$v^* = \sum_{i\in S} \sum_{j \in \bar{S}}u_{ij}$$
+
+#### Teorema (Grafo Residuo)
+Sia $x$ un flusso ammissibile in $G$ da $s$ a $t$ e sia $G(x)$ il corrisponente grafo residuo. 
+Il flusso $x$ è *massimo* se e solo se non esiste in $G(x)$ un cammino da $s$ a $t$.
+
+#### Costi
+Ha complesità $O(nmU)$ poiché:
+- Ad ogni iterazione il flusso aumenta di $\delta \geq 1$ e il valore del flusso è limitato superiormente da $nU$.
+- Il calcolo di un cammino aumentante ha complessità $O(m)$.
+
+#### Taglio $s$-$t$
+È una partizione dei vertici $N$ del grafo $G$ in due sottoinsiemi $S$ e $\bar{S} = N \setminus S$ tali che $s \in S$ e $t \in \bar{S}$.
+
+La capacità di un taglio $s$-$t$ è data da:
+$$
+u(S, \bar{S}) = \sum_{(i,j)\in \Gamma(S, \bar{S})} u_{ij}
+$$
+dove $\Gamma(S, \bar{S}) = \{(i,j) \in A: i \in S, j\in \bar{S}\}$ ovvero la somma delle capacità degli archi che partono dalla partizione contenente la sorgente $s$, e arrivano nella partizione contenente la destinazione $t$.
+
+#### Teoremi sui Tagli
+
+**Teorema**: dato un flusso ammissibile $x$ pari a $v$, per ogni taglio $s$-$t$ $(S, \bar{S})$ si ha:
+$$v = \sum_{(i,j) \in \Gamma(S, \bar{S})} x_{ij} - \sum_{(i,j) \in \Gamma(S, \bar{S})}x_{ij}$$
+
+**Teorema**: il valore $v$ di ogni flusso ammissibile $x$ in $G$ è minore o uguale alla capacità $u(S, \bar{S})$ di un qualunque taglio $s$-$t$.
+
+##### Max-Flow/Min-Cut
+Il flusso massimo da $s$ a $t$ in $G$ è uguale alla capacità del taglio $s$-$t$ di capactià minima.
