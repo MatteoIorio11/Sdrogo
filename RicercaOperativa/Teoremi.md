@@ -17,6 +17,22 @@
     - [Degenerazione e Convergenza: Regola di Bland](#degenerazione-e-convergenza-regola-di-bland)
   - [Simplessi e garanzie](#simplessi-e-garanzie)
     - [Base ammissibile Simplesso Duale](#base-ammissibile-simplesso-duale)
+- [Programmazione Lineare Intera](#programmazione-lineare-intera)
+  - [Regole di Branching](#regole-di-branching)
+    - [Algoritmo Branch and Bound](#algoritmo-branch-and-bound)
+  - [Valid Inequalities: Tagli di Gomory](#valid-inequalities-tagli-di-gomory)
+  - [Rilassamento Lagrangiano](#rilassamento-lagrangiano)
+    - [Dualità Lagrangiana Debole](#dualità-lagrangiana-debole)
+      - [Dimostrazione](#dimostrazione-4)
+    - [Dualità Lagrangiana Forte](#dualità-lagrangiana-forte)
+      - [Dimostrazione](#dimostrazione-5)
+        - [Parte 1](#parte-1-1)
+        - [Parte 2](#parte-2-1)
+  - [Teorema: Metodo del Subgradiente](#teorema-metodo-del-subgradiente)
+    - [Dimostrazione](#dimostrazione-6)
+    - [Calcolo del $\\theta$](#calcolo-del-theta)
+    - [Considerazioni](#considerazioni)
+  - [Algoritmo: Metodo del Subgradiente](#algoritmo-metodo-del-subgradiente)
 
 # Programmazione Lineare
 ## Teorema della Rappresentazione
@@ -165,3 +181,131 @@ $$\mathbf{wa_k} - c_k = \max\{\mathbf{wa_j} - c_j: j \in N\}$$
 Due outcome sono possibili:
 - $x_{n+1} > 0$ &rarr; la soluzione **è ottima**.
 - $x_{n+1} = 0$ &rarr; la soluzione **è illimitata**.
+
+# Programmazione Lineare Intera
+## Regole di Branching
+Noi consideriamo la regola di branching per cui, selezionata la variabile frazionaria $x_j$, possiamo creare due sottoproblemi del tipo:
+- $P(x_j \leq \lfloor x_j\rfloor)$: ottenuto da LP aggiungendo il vincolo $x_j \leq \lfloor x_j \rfloor$.
+- $P(x_j \geq \lceil x_j\rceil)$: ottenuto da LP aggiungendo il vincolo $x_j \geq \lceil x_j \rceil$.
+
+Per ogni nodo $k$ dobbiamo risolvere il sottproblema $P_k$ ottenendo la soluzione $\mathbf{x_k}$ di costo $z_k$, presentando i seguenti outcome:
+- Se $P_k$ **non ha soluzione ammissibile**, poniamo $z_k = +\infty$ e *non generiamo nodi figli*.
+- Se la soluzione $\mathbf{x_k}$ di $P_k$ è **intera**, allora è sicuramente un **upper bound** alla soluzione ottima del problema intero originario, e non è necessario generare ulteriori figli poiché questi possono solo portare a lower bound della soluzione corrente.
+- Se la soluzione $\mathbf{x_k}$ di $P_k$ è **frazionaria**, allora $z_k$ rappresenta un **lower bound** al valore della migliore soluzione intera che si può ottenere nel sottoalbero di cui il nodo k è radice.
+
+### Algoritmo Branch and Bound
+1. Poni $z_{UB} = +\infty$ e inserisci nella heap vuota il problema $P_0: z_0\min\{\mathbf{cx: Ax \geq b, x \geq 0}\}$.
+2. Estrai il problema $P_k$ dalla heap (se è vuota STOP), e ottieni la soluzione $\mathbf{x_k}$ di costo $z_k$.
+   1. Se $z_k \geq z_{UB}$ torna allo step due e non espandere il nodo $k$.
+   2. Se la soluzione $\mathbf{x_k}$  è intera, aggiorna l'upper bound: $z_{UB} = z_k$ e $\mathbf{x = x_k}$.
+3. Seleziona una variabile $x_j$ frazionaria nella solzione $\mathbf{x_k}$ e inserisci nella heap due nodi figli $P(x_j \leq \lfloor x_j\rfloor)$ e $P(x_j \geq \lceil x_j\rceil)$; torna allo step 2.
+
+## Valid Inequalities: Tagli di Gomory
+Prendendo il tableau ottimo con soluzioni frazionarie, possiamo decomporre la riga $i-$esima in parte intera e frazionaria. Possiamo quindi aggiungere un nuovo vicolo al tableau, detto *taglio di Gomory*, dove se le variabili attualemnte include sono $n$, la nuova riga nel tableau ottimo è pari a:
+$$-\sum_{j \in N}F^j_ix_j + x_{n+1} = -F_i$$
+
+## Rilassamento Lagrangiano
+Consideriamo il problema $P$:
+$$
+\begin{align*}
+  z_P = \min  \quad&\mathbf{cx} \\
+  s.t.        \quad&\mathbf{Ax \geq b} \\
+              \quad&\mathbf{Bx \geq d} \\
+              \quad&\mathbf{x \geq 0} \text{ and integer}
+\end{align*}$$
+
+Il rilassamento lagrangiano permette di:
+- Rimuovere vincoli considerti rimossi
+- I vincoli rimossi sono **inserti** nella funzione obiettivo per mezzo delle **penalità lagrangiane**.
+
+$P$ quindi ora diventa:
+$$
+\begin{align*}
+  z_{LR}(\lambda) = \min  \quad&\mathbf{cx} + \lambda(\mathbf{b - Ax}) \\
+  s.t.                    \quad&\mathbf{Bx \geq d} \\
+                          \quad&\mathbf{x \geq 0} \text{ and integer} 
+\end{align*}
+$$
+
+### Dualità Lagrangiana Debole
+$z_{LR}(\lambda)$ è un *valido lower bound* al valore della soluzione ottima di $P$, per ogni $\lambda \geq 0$.
+
+#### Dimostrazione
+Sia $\mathbf{x^*}$ la soluzione ottima di $P$. Siccome $\mathbf{x^*}$ è una soluzione ammissibile per $LR(\lambda)$, per ogni $\lambda \geq 0$ si ha che:
+$$z_{LR}(\lambda, \mathbf{x^*}) = \mathbf{cx^* + \lambda(b-Ax^*)} \geq z_{LR}(\lambda)$$
+Dove $z_{LR}(\lambda)$ è la soluzione ottima per quel certo $\lambda$ scelto.
+
+Però $\mathbf{\lambda(b - Ax^*)} \leq 0$, perché $\lambda \geq 0$ e $\mathbf{Ax^* \geq b}$, quindi:
+$$z_{LR}(\lambda) \leq z_{LR}(\lambda, \mathbf{x^*})\leq z_P, \quad \forall \mathbf{\lambda \geq 0}$$
+
+### Dualità Lagrangiana Forte
+Dato il problema $P$, sia $\mathbf{\bar{x}}$ la soluzione ottima di $z_{LR}(\bar{\lambda})$ per un  dato $\bar{\lambda} \geq 0$. Se $\mathbf{\bar{x}}$ e $\bar{\lambda}$ soddisfano le seguenti condizioni:
+- $\mathbf{\bar{x}}$ è ammissibile per $P$ (cioè $\mathbf{A\bar{x} \geq b}$)
+- $\mathbf{\bar{\lambda}(b - A\bar{x}) = 0}$
+
+Allora  $\bar{\mathbf{x}}$ è la **soluzione ottima** di $P$ e $z_{LR} = z_{LR}(\bar{\lambda})$.
+
+#### Dimostrazione
+##### Parte 1
+Si vuole dimostrare che la soluzione $\mathbf{\bar{x}}$ è **ottima**.
+Essendo $\mathbf{\bar{x}}$ *soluzione ammissibile* di $P$, si ha:
+$$\mathbf{c\bar{x}} \geq z_P$$
+Per il teorema della dualità lagrangiana debole, si ha che:
+$$z_P \geq z_{LR}(\bar{\lambda}) = \mathbf{c\bar{x} + \bar{\lambda}(b - A\bar{x})}$$
+Ma per ipotesi, $\mathbf{\bar{\lambda}(b-A\bar{x}) = 0}$, quindi otteniamo:
+$$\mathbf{c\bar{x}} \geq z_P \geq \mathbf{c\bar{x}} \implies z_p = \mathbf{c\bar{x}}(=z_{LR}(\bar{\lambda}))$$
+
+##### Parte 2
+Si vuole dimostrare che $z_{LR} = z_{LR}(\bar{\lambda})$.
+Dalla definizione di lagrangiano duale, si ha che:
+$$z_{LR} \geq z_{LR}(\bar{\lambda})$$
+Mentre, dalla *dualità lagrangiana debole*, si ha che:
+$$z_P \geq z_{LR}$$
+Quindi, insieme all'ultimo passaggio della parte 1 ($z_p = z_{LR}(\bar{\lambda})$), otteniamo:
+$$z_{LR} = z_{LR}(\bar{\lambda})$$
+
+--- 
+NB: tutte le dimostrazioni e teoremi della differenza tra Rilassamento Lineare e Lagrangiano verranno brutalmente paccate perché non ho idea di cosa sia una combinazione convessa, e non ho voglia di perdere la vita per massimo 3/4 punti su 33 ;). (che dio ce la mandi buona)
+## Teorema: Metodo del Subgradiente
+La funzione Lagrangiana $z_{LR}(\bar{\lambda}) = \mathbf{c\bar{x} + \bar{\lambda}(b - A\bar{x})}$ è **concava** (quindi esiste un massimo :)).
+
+### Dimostrazione
+No grazie.
+
+L'unica cosa interessante è che un vettore $s$ è detto **subgradiente** della funzione $f(\lambda)$ nel punto $\bar{\lambda}$ se soddisfa la seguente condizione:
+$$f(\lambda) \leq f(\bar{\lambda}) + s(\lambda - \bar{\lambda})$$
+
+--- 
+Il subgradiente della funzione lagrangiana è trovabile come:
+$$z_{LR}(\bar{\lambda}) = \mathbf{c\bar{x} + \bar{\lambda} (b - A\bar{x})}$$
+Dove per ogni $\lambda \geq 0$, le soluzioni del lagrangiano sono più piccole o pari alla soluzione ottima, ovvero:
+$$z_{LR}(\lambda) \leq \mathbf{c\bar{x} + \bar{\lambda} (b - A\bar{x})}$$
+Se sottraiamo queste due, otteniamo:
+$$z_{LR}(\lambda) - z_{LR}(\bar{\lambda}) \leq (\lambda - \bar{\lambda})\mathbf{(b - A\bar{x})}$$
+Che riscrivendo come:
+$$z_{LR}(\lambda) \leq z_{LR}(\bar{\lambda}) + (\lambda - \bar{\lambda})\mathbf{(b - A\bar{x})}$$
+Risulta proprie l'equazione del subgradiente sopra; in particolare, $\mathbf{s = (b - A\bar{x})}$ è un subgradiente della funzione Lagrangiana $z_{LR}(\lambda)$ calcolata nel punto $\bar{\lambda}$.
+
+### Calcolo del $\theta$
+$\theta$ è lo spostamento lungo il subgradiente, e compare nella formual di aggiornamento delle penalità lagrangiane come: $\lambda = \bar{\theta}+ \theta \mathbf{s}$.
+
+- **Modo Esatto**: $\theta^* = \argmax\{z_{LR}(\bar{\lambda} + \theta \mathbf{s}): \theta > 0\}$, ma può essere molto costoso.
+- Ad ogni iterazione $k$ del subgradiente lo spostamento $\theta^k$ può essere calcolato con i seguenti approcci euristici:
+  - ***Polyak-type step size***: $$\theta^k = \beta^k \frac{\bar{z} - z_{LR}(\mathbf{\lambda^k})}{||\mathbf{s^k}||^2_2}$$ con $0 < \beta^k \leq 2$, garantisce convergenza di $z_{LR}(\lambda^k)$.
+  - Tramite una *sovrastima* di $z_{LR}(\lambda^k)$: $$\theta^k = \beta^k \frac{0.01 \times z_{LR}(\lambda^k)}{||\mathbf{s^k}||^2_2}$$
+
+### Considerazioni
+Quando si aggiornano le penalità lagrangiane, si deve tenere conto di eventuali vincoli di segno:
+- $\mathbf{a_ix} = b_i$: la penalità $\lambda_i$ può essere qualsiasi &rarr; $\lambda^{k+1}_i = \lambda_i^k + \theta^ks_i$
+
+
+- $\mathbf{a_ix} \geq b_i$: la penalità $\lambda_i$ deve essere non negativa &rarr; $\lambda^{k+1}_i = \max\{0, \lambda_i^k + \theta^ks_i\}$
+
+
+- $\mathbf{a_ix} \leq b_i$: la penalità $\lambda_i$ deve essere non positiva &rarr; $\lambda^{k+1}_i = \min\{0, \lambda_i^k + \theta^ks_i\}$
+
+## Algoritmo: Metodo del Subgradiente
+1. Sia $z_P = \min \{\mathbf{cx: Ax\geq b, x}\in X\}$, dove $\mathbf{A}\in\mathbb{R}^{m\times n}$, $\mathbf{c} \in \mathbb{R}^n$ e $\mathbf{b} \in \mathbb{R}^m$. <br> Poni $z_{LB} = -\infty$, $z_{UB} = + \infty$ e $\mathbf{\lambda} = 0$.
+2. Risolvi il problema Lagrangiano $$z_{LR}(\lambda) = \mathbf{(c - \lambda A)\bar{x} +\lambda b} = \min\{\mathbf{(c - \lambda A)x + \lambda b: x \in} X\}$$ e aggiorna il *lower bound* $z_{LB} = \min\{z_{UB}, \mathbf{c\bar{x}}\}$.
+3. Se $\mathbf{\bar{x}}$ è ammissibile $z_{UB} = \min \{z_{UB}, \mathbf{c\bar{x}}\}$, e se ottima, STOP! (per ottimalità vedi la [dualità lagrangiana forte](#dualità-lagrangiana-forte)).
+4. Aggiorna le penalità lagrangiane (occhio al segno del vincolo rilassato nel problema specifico) $$\lambda_i = \max\{0, \lambda_i + \theta s_i\}, \quad i=1,\dots,m$$ dove $s_i=b_i -\mathbf{a_i\bar{x}}$ e torna allo step 2.
