@@ -33,6 +33,9 @@
     - [Calcolo del $\\theta$](#calcolo-del-theta)
     - [Considerazioni](#considerazioni)
   - [Algoritmo: Metodo del Subgradiente](#algoritmo-metodo-del-subgradiente)
+  - [Column Generation](#column-generation)
+    - [Algoritmo: Column Generation](#algoritmo-column-generation)
+  - [TSP](#tsp)
 
 # Programmazione Lineare
 ## Teorema della Rappresentazione
@@ -309,3 +312,39 @@ Quando si aggiornano le penalità lagrangiane, si deve tenere conto di eventuali
 2. Risolvi il problema Lagrangiano $$z_{LR}(\lambda) = \mathbf{(c - \lambda A)\bar{x} +\lambda b} = \min\{\mathbf{(c - \lambda A)x + \lambda b: x \in} X\}$$ e aggiorna il *lower bound* $z_{LB} = \min\{z_{UB}, \mathbf{c\bar{x}}\}$.
 3. Se $\mathbf{\bar{x}}$ è ammissibile $z_{UB} = \min \{z_{UB}, \mathbf{c\bar{x}}\}$, e se ottima, STOP! (per ottimalità vedi la [dualità lagrangiana forte](#dualità-lagrangiana-forte)).
 4. Aggiorna le penalità lagrangiane (occhio al segno del vincolo rilassato nel problema specifico) $$\lambda_i = \max\{0, \lambda_i + \theta s_i\}, \quad i=1,\dots,m$$ dove $s_i=b_i -\mathbf{a_i\bar{x}}$ e torna allo step 2.
+
+## Column Generation
+Il problema di programmazione lineare:
+$$
+\begin{align*}
+z(P) = \min   &\sum_{j=1}^n c_jx_j \\
+s.t.          &\sum_{j=1}^n a_{ij}x_j = b_i, &i=1,\dots,m \\
+              &x_j \geq 0, &j=1,\dots,n \\
+\end{align*}
+$$
+
+Data una base $B$ di $A$, la corrispondente soluzione base può esse migliorata se esiste una colonna $h$ tale che $\bar{c}_h > 0$ dove:
+$$\bar{c}_h = \max\{\bar{c}_j = wa_j - c_j: j=1,\dots,n\} > 0$$
+Che viene definito *problema di **pricing***, dove in alcuni casi, dove applicare il simplesso può risultare proibitivo, la sua struttura è tale da consentire di calcolare la soluzione ottima senza considerare esplicitamente tutte le varibaili del problema originario.
+### Algoritmo: Column Generation
+1. Definisci una base ammissibile iniziale $B$.
+2. Calcola la solzuione base corrispondente a $B$: $$x = (x_b, 0) = (B^{-1}b, 0)$$ e la corrispondente soluzione duale $$w = c_BB^{-1}$$
+3. Risolvi il problema di pricing, generando la variabile $h$ di costo ridotto $\bar{c}_h = wa_h - c_h$ massimo.
+4. Se il costo ridotto $\bar{c}_h \leq 0$ allora STOP: la solzuione $x$ è ottima e non è necesario generare altre colonne; altrimenti calcola la nuova base $B$ e vai allo step 2.
+
+
+## TSP
+Consideriamo un grafo direzionato $G=(V,A)$, dove $V$ è l'insieme dei vertici e $A$ è l'insieme degli archi. Ad ogni arco è associato un costo $c_{ij} : (i,j) \in A$. In questo caso $c_{ij} \neq c_{ji}$, per cui si parla di ***Asymmetric Traveling Salesman Problem***.
+
+Siano $x_{ij}$ variabili decisionali binarie uguali a 1 se l'arco $(i,j)$ è nella soluzione ottima, 0 altrimenti.
+
+Modellimao il TSP come:
+$$
+\begin{align*}
+  z_{TSP} = \min &\sum_{i\in V}\sum_{j\in V}c_{ij}x_{ij} \\
+  s.t.          &\sum_{j\in V}x_{ij} = 1 &i \in V \\
+                &\sum_{j\in V}x_{ji} = 1 &i \in V \\
+                &\sum_{i\in S}\sum_{j\in \bar{S}} x_{ij} \geq 1, &\forall S \subset V, \bar{S} = V \setminus S \\
+                &x_{ij} \in \{0, 1\}, &(i,j) \in A
+\end{align*}
+$$
