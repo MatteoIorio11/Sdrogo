@@ -126,16 +126,16 @@ $$\begin{align*}
 Possiamo indicare con $\mathbf{(x^*, x^*_S)}$ la soluzione ottima del primale e con $\mathbf{B}$ la corrispondente base ottima.
 
 Per le condizioni di ottimalità si ha che
-$$\mathbf{c_BB^{-1}a_j} - c_j \leq 0, \quad j=1,\dots,n+m$$
-Dove ponendo $\mathbf{w^* = c_BB^{-1}}$, equivale a:
+$$\mathbf{c_B B^{-1}a_j} - c_j \leq 0, \quad j=1,\dots,n+m$$
+Dove ponendo $\mathbf{w^* = c_B B^{-1}}$, equivale a:
 $$\begin{align*}
     \mathbf{w^*A}&\leq \mathbf{c} \\
-    \mathbf{w^*} &\leq 0
+    \mathbf{w^*} &\geq 0
 \end{align*}$$
 
-Per cui la soluzione $\mathbf{w^*=c_BB^{-1}}$ è duale ammissibile, cioè $\mathbf{w^*}\in W$.
-Infine, siccome $\mathbf{w^* = c_BB^{-1}}$ e $\mathbf{x^*=(B^{-1}b, 0)}$, si ha:
-$$\mathbf{w^* b = c_BB^{-1}b = cx^*}$$
+Per cui la soluzione $\mathbf{w^*=c_B B^{-1}}$ è duale ammissibile, cioè $\mathbf{w^*}\in W$.
+Infine, siccome $\mathbf{w^* = c_B B^{-1}}$ e $\mathbf{x^*=(B^{-1}b, 0)}$, si ha:
+$$\mathbf{w^* b = c_B B^{-1}b = cx^*}$$
 Per cui il teorema è dimostrato.
 
 ## Condizioni di Complementarietà
