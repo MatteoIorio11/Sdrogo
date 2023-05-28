@@ -74,8 +74,8 @@ $$
 $$
 
 ## Step Simplesso Primale
-1. Definire una soluzione basee ammissibile $\mathbf{x = [x_B, X_N] = [B^{-1}b, 0] = [\bar{b}, 0]}$ di costo $z = \mathbf{c_Bx_B = c_BB^{-1}b}$.
-2. Calcolare $\mathbf{w=c_BB^{-1}}$ e calcolare i **costi ridotti** $\mathbf{wa_j} - c_j$ per le variabile non-base $j\in N$ e determina: $$\mathbf{wa_k} - c_k = \max_{j\in N}\{\mathbf{wa_j} - c_j\}$$
+1. Definire una soluzione basee ammissibile $\mathbf{x = [x_B, X_N] = [B^{-1}b, 0] = [\bar{b}, 0]}$ di costo $z = \mathbf{c_B x_B = c_B B^{-1}b}$.
+2. Calcolare $\mathbf{w=c_B B^{-1}}$ e calcolare i **costi ridotti** $\mathbf{wa_j} - c_j$ per le variabile non-base $j\in N$ e determina: $$\mathbf{wa_k} - c_k = \max_{j\in N}\{\mathbf{wa_j} - c_j\}$$
 3. Se $\mathbf{wa_k} - c_j < 0$ allora STOP, la **soluzione è ottima**.
 4. Calcola $\mathbf{y^k = B^{-1}a_k}$; se $\mathbf{y^k} < 0$, allora STOP la soluzione è **illimitata**.
 5. Calcola il valore da assegnare a $x_k$: $$x_k = \frac{\bar{b}_r}{y^k_r} = \min \left\{ \frac{\bar{b}_i}{y^k_i}: y^k_i > 0, i=1,\dots,m\right\}$$ La variabile $x_r$ esce dalla base e $x_k$ entra al posto suo. Aggiorna $\mathbf{B, N}$ e la soluzione base $\mathbf{x = [x_B, x_N] = [\bar{b}, 0]}$. Ritorna allo step 2.
@@ -84,7 +84,7 @@ $$
 Se $\mathbf{\tilde{x}} \in X = \mathbf{\{x: Ax \geq b, x \geq 0\}}$ e $\mathbf{\tilde{w}} \in W = \{\mathbf{w: wA \leq c, w \geq 0}\}$ allora $\mathbf{\tilde{w}b \leq c\tilde{x}}$.
 
 ### Dimostrazione
-Siccome $\mathbf{\tilde{x}} \in X$ allora $\mathbf{A\tilde{x} \geq b}$. Poichè $\mathbf{\tilde{w}} \leq 0$, si ha (cioè possiamo premoltiplicare per w easy senza cambiare il segno della disequazione):
+Siccome $\mathbf{\tilde{x}} \in X$ allora $\mathbf{A\tilde{x} \geq b}$. Poichè $\mathbf{\tilde{w}} \geq 0$, si ha (cioè possiamo premoltiplicare per w easy senza cambiare il segno della disequazione):
 $$\mathbf{\tilde{w}A\tilde{x} \geq \tilde{w}b}$$
 Similmente, siccome $\mathbf{\tilde{w}} \in W$, allora $\mathbf{\tilde{w}A \leq c}$. Poiché $\mathbf{\tilde{x}} \geq 0$, allora:
 $$\mathbf{\tilde{w}A\tilde{x} \leq c\tilde{x}}$$
