@@ -153,7 +153,7 @@ Si vuole dimostrare che:
 - Se le soluzioni $\mathbf{\tilde{x}}$ e $\mathbf{\tilde{w}}$ sono ottime, allora le condizioni $(1)$ e $(2)$ *devono* essere soddisfatte.
 
 ##### Parte 1
-Dal [lemma della dualità debole](#dualità-debole-lemma) si ha che per ogni $\mathbf{\tilde{x}}$ e $\mathbf{\tilde{w}}$: $$\mathbf{\tilde{w}b \leq \tilde{w}A\tilde{X} \leq c\tilde{x}}$$
+Dal [lemma della dualità debole](#dualità-debole-lemma) si ha che per ogni $\mathbf{\tilde{x}}$ e $\mathbf{\tilde{w}}$: $$\mathbf{\tilde{w}b \leq \tilde{w}A\tilde{x} \leq c\tilde{x}}$$
 
 Ma se $(1)$ e $(2)$ sono soddisfatte, si ha anche:
 $$
