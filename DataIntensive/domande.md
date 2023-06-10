@@ -40,3 +40,6 @@ La scelta tra classificazione e regressione dipende dalla natura del problema e 
 
 ## - come funzionano gli algoritmi dando per scontato aspetti matematici. quando un algoritmo non è soddisfacente, come mi devo muovere
 Gli algoritmi di machine learning funzionano eseguendo iterativamente calcoli matematici per adattare i parametri del modello ai dati di addestramento. Quando un algoritmo non è soddisfacente, potresti considerare di regolare i parametri, modificare l'architettura del modello, acquisire più dati di addestramento o esplorare altre tecniche di machine learning più adatte al problema.
+
+## - Recommendation 
+La recommendation (raccomandazione) nell'ambito del Data Science è una tecnica che mira a fornire suggerimenti personalizzati agli utenti su elementi o prodotti che potrebbero interessarli. L'obiettivo è individuare i pattern di comportamento e le preferenze degli utenti in base ai dati raccolti, come la cronologia degli acquisti, le valutazioni o le interazioni passate.
