@@ -43,3 +43,6 @@ Gli algoritmi di machine learning funzionano eseguendo iterativamente calcoli ma
 
 ## - Recommendation 
 La recommendation (raccomandazione) nell'ambito del Data Science è una tecnica che mira a fornire suggerimenti personalizzati agli utenti su elementi o prodotti che potrebbero interessarli. L'obiettivo è individuare i pattern di comportamento e le preferenze degli utenti in base ai dati raccolti, come la cronologia degli acquisti, le valutazioni o le interazioni passate.
+
+## - StandardScaler
+Lo StandardScaler è una tecnica di normalizzazione dei dati utilizzata nell'ambito del machine learning e dell'analisi dei dati.  Lo StandardScaler rende i dati comparabili tra loro, eliminando differenze di scala che possono influenzare negativamente l'addestramento dei modelli. Ciò è particolarmente importante quando si utilizzano algoritmi basati sulla distanza o che richiedono dati normalizzati.
