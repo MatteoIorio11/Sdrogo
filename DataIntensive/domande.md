@@ -1,0 +1,42 @@
+## perche rbf è un kernel a infinite dimensioni
+RBF (Radial Basis Function) è un kernel a infinite dimensioni perché sfrutta una funzione radiale che calcola la distanza tra due punti in uno spazio n-dimensionale. Poiché la funzione radiale può essere definita in un numero infinito di dimensioni, si dice che il kernel RBF ha una dimensionalità infinita.
+
+## metodi di terminazione che possono usare alberi decisionali
+
+I metodi di terminazione che possono essere utilizzati con gli alberi decisionali includono la profondità massima dell'albero, il numero minimo di campioni richiesti in un nodo per eseguire una divisione e il numero minimo di campioni richiesti in una foglia.
+
+## valutazioni di modelli di classificazione e regressione 
+Per valutare i modelli di classificazione e regressione, vengono utilizzate diverse metriche. Ad esempio, nell'ambito della classificazione, si possono utilizzare l'accuratezza, la precisione, il richiamo e l'F1-score. Nella regressione, metriche comuni includono l'errore quadratico medio (RMSE) e il coefficiente di determinazione (R²).
+
+## a cosa servono i kernel
+I kernel sono utilizzati in algoritmi di machine learning, come il Support Vector Machine (SVM), per mappare i dati in uno spazio di dimensioni superiori. Questa mappatura consente di trattare dati non linearmente separabili in uno spazio lineare, aprendo la possibilità di applicare algoritmi di apprendimento lineare.
+
+## quali problemi risolvono le regolarizzazioni
+Le regolarizzazioni vengono utilizzate per affrontare problemi come l'overfitting nei modelli di machine learning. Aggiungendo un termine di regolarizzazione alla funzione di perdita, si penalizza la complessità del modello, favorendo soluzioni più semplici e generalizzabili.
+
+## similarità (tipo coseno)
+
+La similarità tra vettori, ad esempio mediante la misura del coseno, viene utilizzata per valutare quanto due vettori siano simili o correlati tra loro. Può essere utilizzata, ad esempio, per confrontare il testo o per calcolare la similarità tra documenti.
+
+## dfdf
+
+## bag of world 
+Il "bag of words" è un modello utilizzato nell'elaborazione del linguaggio naturale per rappresentare un testo. Consiste nell'ignorare l'ordine delle parole nel testo e rappresentarlo come un insieme di parole uniche con le relative frequenze.
+
+## feature engineering
+Il feature engineering è il processo di selezione e creazione di variabili (feature) rilevanti per l'addestramento di un modello di machine learning. Questo processo può comprendere la trasformazione delle variabili esistenti, la creazione di nuove variabili, la gestione dei dati mancanti o l'encoding di variabili categoriche.
+
+## - processo di un progetto di data science, aspetti centrali e conclusivi anche con ml 
+Un progetto di data science segue solitamente un processo che comprende la comprensione del problema, l'acquisizione e la preparazione dei dati, la scelta del modello, l'addestramento e la valutazione del modello, e infine l'interpretazione e la comunicazione dei risultati ottenuti.
+
+## - confronto modelli di classificazione
+Il confronto tra modelli di classificazione prevede l'analisi delle prestazioni di vari modelli utilizzando metriche adeguate, come l'accuratezza, l'F1-score o la curva ROC. Questo confronto aiuta a identificare il modello migliore per il problema specifico.
+
+## k statistics, cosa mi permette di risolvere invece di usare misure usuali sia nella regressione che nella classificazione
+Le statistiche k consentono di risolvere problemi di classificazione e regressione in cui si desidera valutare la relazione tra una variabile di output e più variabili indipendenti contemporaneamente. Le statistiche k, come il coefficiente di correlazione di Kendall o di Spearman, sono in grado di catturare relazioni non lineari o ordinali tra le variabili.
+
+## - quando un problem può essere meglio usar classificazione su regressione
+La scelta tra classificazione e regressione dipende dalla natura del problema e dal tipo di variabile di output. La classificazione è adatta per problemi in cui l'output è una variabile categorica, mentre la regressione viene utilizzata per predire un valore numerico o continuo.
+
+## - come funzionano gli algoritmi dando per scontato aspetti matematici. quando un algoritmo non è soddisfacente, come mi devo muovere
+Gli algoritmi di machine learning funzionano eseguendo iterativamente calcoli matematici per adattare i parametri del modello ai dati di addestramento. Quando un algoritmo non è soddisfacente, potresti considerare di regolare i parametri, modificare l'architettura del modello, acquisire più dati di addestramento o esplorare altre tecniche di machine learning più adatte al problema.
