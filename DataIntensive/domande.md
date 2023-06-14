@@ -61,3 +61,6 @@ GBM (Gradient Boosting Machine) è un modello di apprendimento automatico che co
 
 ## Classificazione Multiclasse
 In breve, l'approccio One-Versus-All addestra un classificatore binario per ogni classe e sceglie la classe con la più alta probabilità di appartenenza, mentre l'approccio Multinomial addestra un singolo classificatore che tiene conto delle relazioni tra tutte le classi per fornire una stima delle probabilità di appartenenza a ciascuna classe.
+
+## F1 Score
+L'F1 score è una misura di valutazione utilizzata nella classificazione per valutare l'accuratezza del modello considerando sia la precisione che il richiamo (recall). L'F1 score è la media armonica di precisione e recall, ed è utile quando si desidera avere un equilibrio tra le due misure.
