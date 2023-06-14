@@ -49,3 +49,6 @@ Lo StandardScaler è una tecnica di normalizzazione dei dati utilizzata nell'amb
 
 ## GBM
 GBM (Gradient Boosting Machine) è un modello di apprendimento automatico che combina più alberi di regressione per creare un modello predittivo più potente. Inizialmente, viene addestrato un singolo albero di regressione su un insieme di dati di addestramento. Successivamente, vengono aggiunti altri alberi di regressione per correggere gli errori residui del modello precedente. L'aggiunta di alberi viene ripetuta iterativamente fino a quando il modello non migliora ulteriormente le prestazioni. Alla fine, i risultati predittivi di tutti gli alberi vengono combinati per ottenere una previsione finale. L'approccio gradient boosting consente di ottenere un modello robusto e accurato per la regressione.
+
+## Classificazione Multiclasse
+In breve, l'approccio One-Versus-All addestra un classificatore binario per ogni classe e sceglie la classe con la più alta probabilità di appartenenza, mentre l'approccio Multinomial addestra un singolo classificatore che tiene conto delle relazioni tra tutte le classi per fornire una stima delle probabilità di appartenenza a ciascuna classe.
