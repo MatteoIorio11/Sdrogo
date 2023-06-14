@@ -3,7 +3,11 @@ RBF (Radial Basis Function) è un kernel a infinite dimensioni perché sfrutta u
 
 ## metodi di terminazione che possono usare alberi decisionali
 
-I metodi di terminazione che possono essere utilizzati con gli alberi decisionali includono la profondità massima dell'albero, il numero minimo di campioni richiesti in un nodo per eseguire una divisione e il numero minimo di campioni richiesti in una foglia.
+I metodi di terminazione che possono essere utilizzati con gli alberi decisionali includono:
+* la profondità massima dell'albero
+* il numero minimo di campioni richiesti in un nodo per eseguire una divisione
+* il numero minimo di campioni richiesti in una foglia
+* Soglia minima per MSE
 
 ## valutazioni di modelli di classificazione e regressione 
 Per valutare i modelli di classificazione e regressione, vengono utilizzate diverse metriche. Ad esempio, nell'ambito della classificazione, si possono utilizzare l'accuratezza, la precisione, il richiamo e l'F1-score. Nella regressione, metriche comuni includono l'errore quadratico medio (RMSE) e il coefficiente di determinazione (R²).
