@@ -46,3 +46,6 @@ La recommendation (raccomandazione) nell'ambito del Data Science è una tecnica 
 
 ## - StandardScaler
 Lo StandardScaler è una tecnica di normalizzazione dei dati utilizzata nell'ambito del machine learning e dell'analisi dei dati.  Lo StandardScaler rende i dati comparabili tra loro, eliminando differenze di scala che possono influenzare negativamente l'addestramento dei modelli. Ciò è particolarmente importante quando si utilizzano algoritmi basati sulla distanza o che richiedono dati normalizzati.
+
+## GBM
+GBM (Gradient Boosting Machine) è un modello di apprendimento automatico che combina più alberi di regressione per creare un modello predittivo più potente. Inizialmente, viene addestrato un singolo albero di regressione su un insieme di dati di addestramento. Successivamente, vengono aggiunti altri alberi di regressione per correggere gli errori residui del modello precedente. L'aggiunta di alberi viene ripetuta iterativamente fino a quando il modello non migliora ulteriormente le prestazioni. Alla fine, i risultati predittivi di tutti gli alberi vengono combinati per ottenere una previsione finale. L'approccio gradient boosting consente di ottenere un modello robusto e accurato per la regressione.
