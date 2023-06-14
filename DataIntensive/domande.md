@@ -18,7 +18,12 @@ Le regolarizzazioni vengono utilizzate per affrontare problemi come l'overfittin
 
 La similarità tra vettori, ad esempio mediante la misura del coseno, viene utilizzata per valutare quanto due vettori siano simili o correlati tra loro. Può essere utilizzata, ad esempio, per confrontare il testo o per calcolare la similarità tra documenti.
 
-## dfdf
+## TF-IDF
+TF-IDF (Term Frequency-Inverse Document Frequency) è una tecnica utilizzata nel campo del Natural Language Processing (NLP) per valutare l'importanza di una parola all'interno di un documento o di una collezione di documenti.
+
+La formula di TF-IDF combina due misure: la frequenza del termine (TF) e la frequenza inversa del documento (IDF). La frequenza del termine (TF) indica quante volte una parola appare all'interno di un documento specifico, mentre la frequenza inversa del documento (IDF) misura l'importanza del termine nell'intera collezione di documenti.
+
+La formula di calcolo del TF-IDF assegna un punteggio più alto a una parola che appare frequentemente all'interno di un documento specifico (alta frequenza del termine) ma rara nella collezione complessiva di documenti (bassa frequenza inversa del documento). In altre parole, le parole che sono particolarmente rappresentative e discriminanti per un documento ricevono un punteggio TF-IDF più elevato.
 
 ## bag of world 
 Il "bag of words" è un modello utilizzato nell'elaborazione del linguaggio naturale per rappresentare un testo. Consiste nell'ignorare l'ordine delle parole nel testo e rappresentarlo come un insieme di parole uniche con le relative frequenze.
