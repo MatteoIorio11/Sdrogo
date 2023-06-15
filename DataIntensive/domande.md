@@ -66,6 +66,7 @@ In breve, l'approccio One-Versus-All addestra un classificatore binario per ogni
 L'F1 score è una misura di valutazione utilizzata nella classificazione per valutare l'accuratezza del modello considerando sia la precisione che il richiamo (recall). L'F1 score è la media armonica di precisione e recall, ed è utile quando si desidera avere un equilibrio tra le due misure.
 In breve, l'F1 score è una misura complessiva che considera sia la precisione che il richiamo per valutare l'accuratezza del modello di classificazione.
 F1 accuracy è un modo per calcolare l'accuratezza del modello, tenendo conto delle classi sbilanciate nel set di dati.
+Il recall, d'altra parte, è una misura che indica la proporzione di istanze positive correttamente identificate dal modello rispetto a tutte le istanze effettivamente positive presenti nel dataset. In altre parole, rappresenta la capacità del modello di individuare tutte le istanze positive.
 
 ## CF "Item Based" e "User Based"
 La tecnica "User Based" nel collaborative filtering si basa sull'idea che gli utenti con preferenze simili tendano ad avere gusti simili. Quindi, il sistema di raccomandazione confronta i profili di preferenze degli utenti e cerca di individuare utenti simili. Quando un utente richiede una raccomandazione, il sistema identifica gli utenti simili e suggerisce oggetti (prodotti, articoli, film, ecc.) che gli utenti simili hanno valutato positivamente ma che l'utente target non ha ancora valutato o esplorato. Questo approccio si basa sulla collaborazione tra utenti simili per le raccomandazioni.
