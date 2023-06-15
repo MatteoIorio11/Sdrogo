@@ -65,3 +65,4 @@ In breve, l'approccio One-Versus-All addestra un classificatore binario per ogni
 ## F1 Score
 L'F1 score è una misura di valutazione utilizzata nella classificazione per valutare l'accuratezza del modello considerando sia la precisione che il richiamo (recall). L'F1 score è la media armonica di precisione e recall, ed è utile quando si desidera avere un equilibrio tra le due misure.
 In breve, l'F1 score è una misura complessiva che considera sia la precisione che il richiamo per valutare l'accuratezza del modello di classificazione.
+F1 accuracy è un modo per calcolare l'accuratezza del modello, tenendo conto delle classi sbilanciate nel set di dati.
