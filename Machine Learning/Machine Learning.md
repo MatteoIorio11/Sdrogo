@@ -8,7 +8,6 @@ All'interno del machine learning vi sono alcuni concetti chiave, tra cui:
 * Rende possibile esplorare i dati
 * Addestramento *end-to-end*
 * **Deep Learning**
-
 ## Intelligenza Artificiale e "Forza Bruta"
 
 ### Brute Force
