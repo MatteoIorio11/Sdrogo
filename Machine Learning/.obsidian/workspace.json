@@ -4,19 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "8beba7c9b6d019f3",
+        "id": "a45f76df45b85bd0",
         "type": "tabs",
         "children": [
           {
-            "id": "0e5b4570ac656168",
+            "id": "75ec638c13801416",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Machine Learning.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]

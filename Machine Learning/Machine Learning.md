@@ -1,3 +1,13 @@
+# Machine Learning
+
+- [[#Introduzione|Introduzione]]
+- [[#Intelligenza Artificiale e "Forza Bruta"|Intelligenza Artificiale e "Forza Bruta"]]
+	- [[#Intelligenza Artificiale e "Forza Bruta"#Brute Force|Brute Force]]
+	- [[#Intelligenza Artificiale e "Forza Bruta"#Weak AI|Weak AI]]
+	- [[#Intelligenza Artificiale e "Forza Bruta"#Evolutionary Computing|Evolutionary Computing]]
+- [[#Le stagioni dell'Intelligenza Artificiale|Le stagioni dell'Intelligenza Artificiale]]
+- [[#Deep Learning|Deep Learning]]
+---
 ## Introduzione
 
 Un *modello* di **Machine Learning** durante la fase di *training* apprende a partire da esempi. Successivamente è in grado di **generalizzare** e gestire nuovi dati nello stesso dominio applicativo. Questo tipo di modello è in grado di **imparare dagli esempi a migliorare le proprie prestazioni per la gestione dei nuovi dati**. 
