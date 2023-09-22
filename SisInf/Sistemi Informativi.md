@@ -159,4 +159,61 @@ I sistemi **SCADA** (Supervisory Control and Data Acquisition) sono usati per *m
 
 
 ## Industria 4.0
-Il termine **industria 4.0** indica una tendenza dell'automazione industriale che integra alcune nuove tecnologie produttive per migliorare le condizioni di lavoro. In questa nuova tipologia di industria l'intelligenza viene distribuita sulle macchine. 
+
+Il termine **industria 4.0** indica una tendenza dell'automazione industriale che integra alcune nuove tecnologie produttive per migliorare le condizioni di lavoro. In questa nuova tipologia di industria l'intelligenza viene distribuita sulle macchine (IoT). 
+
+
+
+## Sistemi ERP
+
+Il termine **ERP** (*Enterprise Resource Planning*) indica una suite di *moduli applicativi* che supportano l'intera gamma dei processi aziendali. I moduli possono essere sia **orizzontali** che **verticali**. I sistemi *ERP* sono basati su architetture *client-server* ma si stanno evolvendo verso architetture *thin-client web enabled*.
+
+### Sistemi ERP allargati
+
+ERP va ad includere diversi moduli (famiglie di software) tra cui:
+* **PLM** (*Product Lifecycle Management*): supporto alla gestione della documentazione tecnica
+* **SCM** (*Supply Chain Management*): supporto alla pianificazione e la controllo delle attività interaziendali
+* **CRM** (*Customer Relationship Management*): supporto all'interazione con il cliente
+* **E-procurement**: permettono la digitalizzazione degli strumenti di lavoro
+
+Il vantaggio sta nella **circolarità dell'informazione**. L'obbiettivo di *ERP*  è che i processi siano *sincronizzati* sulla base delle informazioni. *ERP* rispecchia una precisa concezione del sistema informativo che si basa su:
+1) **Unicità dell'informazione**
+2) **Estensione e modularità funzionale**
+3) **Prescrittività**
+
+#### ERP: unicità dell'informazione
+
+Tutti le elaborazioni condividono uno e un solo valore per ogni informazione, questo permette:
+* **Sincronizzazione dei dati**
+* **Assenza di ridondanze**
+* **Tracciabilità degli aggiornamenti**
+* **Affidabilità dell'informazione aziendale**
+
+#### ERP: estensione e modularità
+
+L'ampiezza della copertura dei sistemi *ERP* fa si che questi possano essere utilizzati come unica soluzione per il SI (riesco a coprire tutti i processi). Questo permette all'azienda di scegliere solo i moduli di interesse adottando le seguenti strategie:
+1) **Incrementale**: si acquistano progressivamente i moduli mancanti
+2) **One stop shopping**: acquisto i moduli di un solo *vendor*
+3) **Best of breed**: vengono utilizzati moduli realizzati da diversi *vendor*
+
+Azienda con funzioni **core** di nicchia adottano un approccio *best of breed* mentre per le aziende con funzioni **core** generiche si adotta un unico fornitore che copre tutte le funzionalità possibili. 
+
+
+#### ERP: prescrittività
+
+E' necessario far aderire i processi aziendali a quelli definiti dall'*ERP* (l'azienda deve informatizzare i suoi processi). L'impatto organizzativo può essere elevato, tuttavia garantiscono la *correttezza* e la *standardizzazione* delle operazioni. 
+
+I sistemi *ERP* non devono tuttavia considerarsi oggetti immutabili, vi sono margini di personalizzazione necessari a gestire il gap tra modulo standard e le specificità delle aziende. Si imposta il sistema all'azienda che lo ha richiesto. 
+
+## Sistemi MES
+
+**Manufacturing Execution System**: i MES permettono la *gestione* della fabbrica nel suo complesso. ricevono ordini dall'*ERP*, raccolgono informazioni dallo *SCADA* e forniscono informazioni aggiornate all'*ERP*.
+
+Le sue principali *funzionalità* sono:
+1) Pianificazione delle operazione
+2) Gestione lavoro e qualità
+I principali *benefici* dei MES: 
+1) Ridurre i tempi del ciclo di produzione
+2) Migliorare efficienza di produzione
+3) Migliorare qualità del prodotto
+
