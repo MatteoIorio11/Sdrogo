@@ -74,5 +74,89 @@ La *DT*, mira a migliorare l'**efficienza** e **efficacia** delle aziende tramit
 
 ### Ciclo di adozione delle tecnologie
 
-1) Maturazione di una o più 
+1) **Innovation triggers**: soggetti innovativi che per primi riconoscono le potenzialità della tecnologia
+2) **Peak of inflated expectations**: l'attenzione dei media unita a casi di successo porta ad un'ampia diffusione
+3) **Trough of disillusion**: l'adozione della tecnologia anche in contesti non idonei porta a un aumento dei casi di fallimento 
+4) **Slope of illumination**: spettro di applicazioni che consente di identificare i campi di applicazione in cui la tecnologia è efficace
+5) **Plateau of productivity**: fino a quando non diventa maturo, affidabile e ampiamente utilizzato
 
+----
+
+# Classificazione
+
+## Sistemi Informativi e Aziende
+
+Un'azienda è una struttura di comando che governa processi operativi, i *sistemi informativi* **supportano** sia i processi di governo e sia i processi operativi. 
+
+### SI operativi 
+
+Informatizzano processi volti all'*esecuzione* di attività o alla loro *programmazione* (pianificazione). Tutto questo però dipende dall'**intensità informativa** del settore.  Questo tipo di *sistema informativo* riguarda il terzo livello "*operation level*". 
+
+
+### SI direzionali
+
+* Supportano il processo decisionale fornendo informazioni ai manager
+* Sono posizionati sopra i sistemi informativi operazionali
+* Riducono i Big Data in Small Data
+
+I *SI Direzionali* si differenziano da quelli operativi dal momento in cui vengono eseguiti in **maniera periodica** e non continua.
+
+
+### SI analitici
+
+* Supportano la comprensione dei fenomeni di business
+* Sono focalizzati su prodotti, clienti e processi:
+	* permette di profilare i **clienti**
+	* mantengono la storia del **prodotto**
+
+### Similarità tra SI analitici e direzionali
+
+Entrambi i sistemi si basano su indici ed inoltre l'elaborazione non è continua ma **periodica**. Mentre i **sistemi direzionali** valutano i fenomeni *interni* all'azienda, quelli **analitici** misurano i fenomeni **esterni** all'azienda. 
+
+## La mappa dei SI
+
+Costruire una **mappa dei SI aziendali** significa scomporli in *moduli* a fini conoscitivi e di classificazione, in modo da supportare i vari processi. 
+
+Un **modulo** rappresenta un blocco di *funzionalità* software che supportano una fase di processo aziendale (si occupano di una serie di mansioni). Un modulo indica il **potenziale impiego** di tecnologia informatica. I moduli possono essere di due tipi:
+* *Orizzontali*: indipendenti dall'azienda o dal mercato
+* *Verticali*: sono utilizzati in specifici settori produttivi
+
+## Il portafoglio applicativo aziendale
+
+Il portafoglio applicativo, rappresenta una possibile mappa dei SI aziendali, i quali costituiscono un *asseto di software*. Dato un macro processo divido le attività in:
+1) **pianificazione**: individuare l'orizzonte temporale, determinare i piani e controllarne l'avanzamento
+2) **attività di esecuzione**: serie di operazioni pianificate per produrre l'output desiderato
+
+Al portafoglio corrisponde un insieme di *moduli standard*
+
+
+## Smart Manufactoring (AKA CIM)
+
+E' un'architettura multilivello che collega i diversi livelli di un sistema di produzione ed è finalizzata all'**ottimizzazione** dei processi e alla **gestione** delle risorse.
+
+Questo permette di ridurre i tempi di commercializzazione ed aumentare la qualità del prodotto. La SM è organizzata in un'architettura a **cinque livelli** in cui *ogni livello esegue le proprie elaborazioni ed è collegato con gli altri*. 
+
+## Sistemi SCADA
+
+Il componente di un sistema **CIM** preposto al controllo dei sistemi industriali è denominato **SCADA**. 
+
+I sistemi **SCADA** (Supervisory Control and Data Acquisition) sono usati per *monitorare* e *controllare* impianti industriali e sistemi meccanici/elettronici. L'adozione di questo tipo di sistema permette di **risparmiare** *tempo* e *denaro*. 
+
+### Architettura dei sistemi SCADA
+
+1) *Sensori* e Attuatori
+2) *Controllori*: PLC, RTU
+3) *Gateway*: raccoglie le informazioni dai controllori e si occupa di trasferirli
+4) *Front-End Server*: ricevono i dati dai diversi siti e li traducono in un formato utilizzabile dal server SCADA
+5) *SCADA Server*: Implementano le funzionalità di *monitoraggio* e di *gestione* degli allarmi. Operano in real time
+6) *Data Server*: Si occupa di salvare una versione storica dei dati
+
+### Evoluzione dei sistemi SCADA
+
+**Scalabilità**: data l'enorme quantità di dati pone il problema di doverli gestire e monitorare. 
+**Capacità di analisi dei dati raccolti**: moduli per valorizzazione dei dati storici racconti, ricavo informazioni dai dati
+**Sicurezza**: tutti i sistemi si basano su VPN, dal momenti in cui si vanno a lavorare su dati sensibili
+
+
+## Industria 4.0
+Il termine **industria 4.0** indica una tendenza dell'automazione industriale che integra alcune nuove tecnologie produttive per migliorare le condizioni di lavoro. In questa nuova tipologia di industria l'intelligenza viene distribuita sulle macchine. 
