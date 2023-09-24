@@ -1,7 +1,7 @@
 # Sistemi Informativi
 
 ## Aziende
-Ogni impresa o istituzione, sis struttura e si organizza secondo la propria missione e per conseguire i propri **obiettivi**. Per fare ciò l'azienda si struttura definendo una propria *struttura organizzativa* ed un insieme di *processi funzionali*.  Per capire un'azienda è fondamentale conoscere:
+Ogni impresa o istituzione, si struttura e si organizza secondo la propria missione e per conseguire i propri **obiettivi**. Per fare ciò l'azienda si struttura definendo un insieme di *processi funzionali*.  Per capire un'azienda è fondamentale conoscere:
 * Obiettivi
 * Struttura organizzativa
 * Processi funzionali
