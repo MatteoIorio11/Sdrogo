@@ -21,13 +21,13 @@ Le mansioni aziendali sono suddivise in tre livelli:
 3) Terzo livello, **Operational Level**: E' legato alle operazioni a breve termine di un'azienda, riguarda l'implementazione di beni e servizi
 ### Processi
 
-**Processo**: insieme delle attività tra loro interrelate, finalizzate ala realizzazione di un risultato definito e misurabile che contribuisce al raggiungimento della missione aziendale. 
+**Processo**: insieme delle attività tra loro interrelate, finalizzate alla realizzazione di un risultato definito e misurabile che contribuisce al raggiungimento della missione aziendale. 
 
 La produzione di **prodotti/servizi** richiede in genere il coinvolgimento di più unità organizzative, attraverso una distribuzione di *compiti e responsabilità*.  
 
 ## Sistema Informativo
 
-I processi per poter operare **hanno bisogno di informazioni**. Si definisce **Information Processing Capacity** è la adeguatezza di un'organizzazione rispetto alle necessità di elaborare informazioni a esse imposte dai propri obiettivi e dal contesto in cui opera. 
+I processi per poter operare **hanno bisogno di informazioni**. Si definisce **Information Processing Capacity** l'adeguatezza di un'organizzazione rispetto alle necessità di elaborare informazioni a esse imposte dai propri obiettivi e dal contesto in cui opera. 
 
 L'insieme delle informazioni gestite/generate, utilizzate ed elaborate dai processi aziendali e le modalità per la loro gestione costituisce il **sistema informativo** (informazioni per far funzionare i processi e le regole di essi). La porzione del sistema informativo in cui le informazioni sono raccolte, archiviate e scambiate mediante l'uso delle tecnologie costituisce il **sistema informatico**. 
 
@@ -50,7 +50,7 @@ $$\text{Efficacia}=\frac{\text{Output Effettivo}}{\text{Output Attesa}}$$
 	* **Caratteristiche**: *ripetitività delle operazioni*, *grandi moli di dati* 
 	* **Benefici**: *riduzione dei tempi e dei costi*, *minore probabilità di errore*
 2) *Fase due*: automazione delle attività di **controllo** e **valutazione** dell'andamento aziendale e delle scelte direzionali. Coinvolgo il livello *manager*.
-	* **Caratteristiche**: il sistema informatico non assume un ruolo **non passivo**
+	* **Caratteristiche**: il sistema informatico assume un ruolo **non passivo**, utile anche al controllo attivo
 	* **Benefici**: *riduzione dei costi*, *possibilità di analisi*
 3) *Fase tre*: integrazione tra le applicazioni settoriali, informatizzazione delle comunicazioni, i processi comunicano.
 	* **Caratteristiche**: *assenza di ridondanze*, *cooperare a lavorare a distanza*
@@ -58,13 +58,15 @@ $$\text{Efficacia}=\frac{\text{Output Effettivo}}{\text{Output Attesa}}$$
 
 ## Sistemi Informativi vs Basi di Dati
 
-I concetti di **sistema informativo** e **base di dati** non devono essere considerati dei sinonimi. Dal momento in cui la definizione e gestione di un *sistema informativo* richiede la conoscenza sui processi aziendali, sulla struttura aziendale e le informazioni necessarie ai processi. Le **basi di dati**, sono una *sottoporzione* del Sistema Informativo atta alla **memorizzazione** strutturale delle informazioni. Le basi di dati forniscono un **supporto** alla memorizzazione dei dati. 
+I concetti di **sistema informativo** e **base di dati** non devono essere considerati dei sinonimi. Dal momento in cui la definizione e gestione di un *sistema informativo* richiede la conoscenza sui processi aziendali, sulla struttura aziendale e le informazioni necessarie ai processi. Le **basi di dati**, sono una *sotto porzione* del Sistema Informativo atta alla **memorizzazione** strutturale delle informazioni. Le basi di dati forniscono un **supporto** alla memorizzazione dei dati. 
 
 
-La definizione del *Sistema Informativo* include anche la modellazione della logica applicativa, mentre la definizione della *base di dati* deve prescindere quanto più possibile dalla logica delle applicazioni e deve codificare la sola realtà delle informazioni. 
+*Sistema Informativo*: include la modellazione della logica applicativa
+
+*base di dati*: deve prescindere quanto più possibile dalla logica delle applicazioni e deve codificare la sola realtà delle informazioni. 
 
 
-I moderni *Sistemi Informatici* sono strutturati su tre livelli che rispettano la suddivisone **three-tier**, suddivido in base alla complessità. Si hanno:
+I moderni *Sistemi Informatici* sono strutturati su tre livelli che rispettano la suddivisone **three tier**, suddivido in base alla complessità. Si hanno:
 * **Livello di Presentazione**
 * **Livello dell'applicazione**
 * **Livello dei dati**
@@ -117,7 +119,7 @@ Entrambi i sistemi si basano su indici ed inoltre l'elaborazione non è continua
 
 Costruire una **mappa dei SI aziendali** significa scomporli in *moduli* a fini conoscitivi e di classificazione, in modo da supportare i vari processi. 
 
-Un **modulo** rappresenta un blocco di *funzionalità* software che supportano una fase di processo aziendale (si occupano di una serie di mansioni). Un modulo indica il **potenziale impiego** di tecnologia informatica. I moduli possono essere di due tipi:
+Un **modulo** rappresenta un blocco di *funzionalità* software che supportano una fase di processo aziendale (si occupano di una serie di mansioni). Un modulo indica il **potenziale impiego** di una tecnologia informatica. I moduli possono essere di due tipi:
 * *Orizzontali*: indipendenti dall'azienda o dal mercato
 * *Verticali*: sono utilizzati in specifici settori produttivi
 
@@ -153,9 +155,11 @@ I sistemi **SCADA** (Supervisory Control and Data Acquisition) sono usati per *m
 
 ### Evoluzione dei sistemi SCADA
 
-**Scalabilità**: data l'enorme quantità di dati pone il problema di doverli gestire e monitorare. 
-**Capacità di analisi dei dati raccolti**: moduli per valorizzazione dei dati storici racconti, ricavo informazioni dai dati
-**Sicurezza**: tutti i sistemi si basano su VPN, dal momenti in cui si vanno a lavorare su dati sensibili
+* **Scalabilità**: data l'enorme quantità di dati pone il problema di doverli gestire e monitorare. 
+
+* **Capacità di analisi dei dati raccolti**: moduli per valorizzazione dei dati storici racconti, ricavo informazioni dai dati
+
+*  **Sicurezza**: tutti i sistemi si basano su VPN, dal momenti in cui si vanno a lavorare su dati sensibili
 
 
 ## Industria 4.0
