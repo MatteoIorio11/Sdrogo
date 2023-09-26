@@ -154,3 +154,102 @@ In generale possiamo evitale la crescita esponenziale degli stati del DFA, prend
 > Un linguaggio $L$ è accettato da un DFA se e solo se $L$ è accettato da un NFA.
 
 ### Transizioni $\epsilon$
+Un $\epsilon$-NFA può consumare anche la stringa vuota '$\epsilon$'. Un $\epsilon$-NFA è una quintupla $(Q, \Sigma, \delta, q_0, F)$ dove $\delta$ è una funzione da $Q \bigtimes (\Sigma \cup \{\epsilon\})$ all'insieme dei sottoinsiemi Q. Ora uno stato può essere raggiunto anche tramite $\epsilon$ e basta. 
+
+### Epsilon chiusura
+
+Chiudiamo uno stato aggiungendo tutti gli stati raggiungibili da lui tramite una sequenza $\epsilon\epsilon\epsilon...\epsilon$. Sono tutti gli stati, includendo anche quello di partenza, che riesco a raggiungere consumando solamente la stringa $\epsilon$. 
+
+Si definisce come *ECLOSE(q)*. 
+
+**Base:**
+
+$$q \in \text{ECLOSE}(q)$$
+
+**Induzione:**
+$$p \in \text{ECLOSE}(q) \text{ and } r \in \delta(p, \epsilon) \Rightarrow r \in \text{ECLOSE}(q)$$
+
+* Definizione *induttiva* di $\hat \delta$ per automi $\epsilon$-NFA
+**Base:**
+$$\hat \delta(q, \epsilon) = \text{ECLOSE}(q)$$ **Induzione:**
+$$\hat \delta(q, xa) = \bigcup_{p \in \hat \delta(q,x)} ( \bigcup_{t \in \delta(p, a)}\text{ECLOSE}(t) ) $$
+## Equivalenza DFA e $\epsilon$-NFA
+
+Dato un $\epsilon$-NFA
+$$E=(Q_E, \Sigma, \delta_E, q_0, F_E)$$ costruiremo un DFA
+$$D = (Q_D, \Sigma, \delta_D, q_D, F_D)$$
+tale che
+$$L(D)=L(E)$$
+Se vuoi vedere i dettagli vai su 'Linguaggi regolari > pag 30'
+##### **Teorema 2.22**:
+> Un linguaggio *L* è accettato da un $\epsilon$-NFA *E* se e solo se *L* è accettato da un DFA
+
+## Espressioni regolari
+
+Un *FA* (*NFA* o *DFA*) è un metodo per costruire una macchina che riconosce linguaggi regolari. Una *espressione regolare* è un *modo dichiarativo* per descrivere un linguaggio regolare. Non c'è bisogno di realizzare un automa ma lo si può descrivere tramite una formula. Esempio: $01^\text{*} + 10^\text{*}$ 
+
+### Operazioni sui linguaggi
+
+* *Unione*
+$$ L \cup M = \{w: w \in L \text{ o } w \in M \}$$
+* *Concatenazione*
+$$LM = \{ w: w=xy, x \in L, y \in M \}$$
+* *Potenze*
+$$L^0 = \{ \epsilon \}, \space L^1=L, \space L^{k+1} = LL^k $$
+* *Chiusura di Kleene*
+$$L^{*} = \bigcup_{i=0}^{\infty} L^i \Rightarrow L^0 \cup L^1 \cup L^2 ...$$
+### Leggi algebriche per i linguaggi
+
+* L'unione è **commutativa**: $L \cup M = M \cup L$
+* L'unione è **associativa**: $(L \cup M) \cup N = L \cup (M \cup N)$
+* $\emptyset$ è l'**identità** per l'unione: $\emptyset \cup L = L \cup \emptyset = L$
+* {$\epsilon$} è l'**identità** sinistra e destra per la concatenazione: $\{\epsilon\}L=L\{\epsilon\} = L$
+* $\emptyset$ è l'**annichilatore** sinistro e destro per la concatenazione: $\emptyset L = L\emptyset=\emptyset$
+* La *concatenazione* è **distributiva** a sinistra sull'unione: $L(M \cup N) = LM \cup LN$
+* La *concatenazione* è **distributiva** a destra dell'unione: $(M \cup N) L = ML \cup NL$
+* L'unione è **idempotente**: $L \cup L=L$
+* $\emptyset^{*} = \{\epsilon\}$
+* $\{\epsilon\}^{*}=\{\epsilon\}$
+* $L^{+} = LL^{*} = L^{*}L,\space L^{*}=L^{+}\cup\{\epsilon\}$
+* $(L^{*})^{*}$
+* La concatenazione è **associativa**: $(LM)N = L(MN)$
+La concatenazione **non è commutativa**, cioè esistono *L* e *M* tali che $LM \neq ML$, dal momento in cui ottengo stringhe completamente diverse. 
+
+## Costruire le espressioni regolari
+
+**Base:**
+$\epsilon$ e $\emptyset$ sono espressioni regolari, $L(\epsilon)=\{\epsilon\}$, e $L(\emptyset) = \emptyset$ 
+Se $a \in \Sigma$ allora $a$ è una espressione regolare $L(a) = \{a\}$. 
+**Induzione:**
+* Se *E* è una espressione regolare, allora *(E)* è una espressione regolare $L((E)) = L(E)$
+* Se *E* e *F* sono espressioni regolari, allora $E + F$  è una espressione regolare $L(E + F) = L(E) \cup L(F)$ (unione delle due espressioni)
+* Se *E* e *F* sono espressioni regolari, allora $EF$ è una espressione regolare $L(EF)= L(E)L(F)$ 
+* Se *E* è una espressione regolare, allora $E^{*}$ è una espressione regolare $L(E^{*}) = (L(E^{*}))$ (tutte le stringhe)
+
+## Equivalenza di FA e espressioni regolari
+
+Abbiamo già detto che *DFA*, *NFA*  e $\epsilon$-NFA sono tutti equivalenti, partendo da un qualsiasi automa riesco a ricavare tutti gli altri. 
+1) Per ogni *DFA* *A* possiamo trovare un'espressione regolare R tale che $L(R) = L(A)$
+2) Per ogni espressione regolare R esiste un $\epsilon$-NFA A, tale che $L(A) = L(R)$
+
+### Da DFA a espressioni regolari
+##### **Teorema 3.4**:
+> Per ogni DFA $A=(Q, \Sigma, \delta, q_0, F)$ esiste una espressione regolare R, tale che $L(A) = L(R)$.
+
+L'automa lo si trasforma etichettando gli archi con espressioni regolari di simboli dell'alfabeto. 
+
+La procedura è piuttosto semplice, consiste nell'**eliminare** uno *stato* alla volta (escludendo lo stato inizia e gli stati finali). 
+1) Devo individuare lo stato da rimuovere, una volta scelto individuo:
+	* predecessori (frecce entranti nello stato)
+	* successori (frecce uscenti dallo stato)
+2) Una volta rimosso lo stato etichetto le transizioni con espressioni regolari
+
+Una volta rimossi tutti gli archi che non ci interessano saremo rimasto solamente con due forme: 
+1) La prima forma che possiamo ottenere è quella in cui lo stato iniziale non è l'unico stato rimanente. In questo caso l'espressione regolare che si ottiene è: $E_q=(R + SU^{*}T)^{*}SU^{*}$. Dove $(R + SU^{*}T)^{*}$ lo si può interpretare come l'esecuzione di un avanti e indietro tra lo stato iniziale e lo stato di accettazione, mentre la parte finale $SU^{*}$ è il momento in cui ci si consuma definitivamente l'intera stringa e si rimane nello stato di accettazione. 
+$$E_q=(R + SU^{*}T)^{*}SU^{*}$$
+![Prima forma dopo la cancellazione degli stati "non utili"](Compilatori/images/prima_forma_er.png)
+
+2)  La seconda forma che possiamo ottenere invece è un unico stato che rappresenta sia lo stato iniziale che lo stato finale. In questo caso l'espressione regolare è $E_q=R$
+$$E_q=R$$
+![Alt Text](Compilatori/images/seconda_forma_er.png)
+
