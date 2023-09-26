@@ -242,7 +242,7 @@ La procedura è piuttosto semplice, consiste nell'**eliminare** uno *stato* alla
 1) Devo individuare lo stato da rimuovere, una volta scelto individuo:
 	* predecessori (frecce entranti nello stato)
 	* successori (frecce uscenti dallo stato)
-2) Una volta rimosso lo stato etichetto le transizioni con espressioni regolari
+2) Una volta rimosso lo stato etichetto le transizioni con espressioni regolari, prendo i valori delle transizioni dei valori precedenti ed i valori delle transizioni successive e le **concateno**. 
 
 Una volta rimossi tutti gli archi che non ci interessano saremo rimasto solamente con due forme: 
 1) La prima forma che possiamo ottenere è quella in cui lo stato iniziale non è l'unico stato rimanente. In questo caso l'espressione regolare che si ottiene è: $E_q=(R + SU^{*}T)^{*}SU^{*}$. Dove $(R + SU^{*}T)^{*}$ lo si può interpretare come l'esecuzione di un avanti e indietro tra lo stato iniziale e lo stato di accettazione, mentre la parte finale $SU^{*}$ è il momento in cui ci si consuma definitivamente l'intera stringa e si rimane nello stato di accettazione. 
