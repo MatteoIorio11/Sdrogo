@@ -253,3 +253,47 @@ $$E_q=(R + SU^{*}T)^{*}SU^{*}$$
 $$E_q=R$$
 ![Alt Text](Compilatori/images/seconda_forma_er.png)
 
+## Da espressioni regolari a $\epsilon$-NFA
+#### Teorema 3.7:
+ > Per ogni espressione regolare *R* possiamo costruire un $\epsilon$-NFA A tale che *L(A)=L(R)* 
+
+**Prova:**
+Per induzione strutturale:
+**Base:**
+Automa per $\epsilon$, $\emptyset$ e $a$. Si lavora sempre con uno stato iniziale ed uno finale. 
+
+**Induzione:**
+Automa per $R+S$, $RS$ e $R^*$ :
++ Automa di $R+S$
+![[Pasted image 20230927174812.png]]
+
+* Automa di $RS$
+![[Pasted image 20230927174916.png]]
+* Automa di $R^*$
+![[Pasted image 20230927174950.png]]
+## Proprietà dei linguaggi regolari
+* *Pumping Lemma*: Ogni linguaggio regolare soddisfa il **pumping lemma**. Dato un linguaggio, se usando il pumping lemma si ottiene una contraddizione allora esso non è un linguaggio regolare
+* *Proprietà di chiusura*: Come costruire automi da componenti usando delle operazioni e per le quali operazioni è possibile farlo. 
+* *Proprietà di Decisione*: Analisi computazionale di auotomi, ad esempio quando due automi sono equivalenti
+* *Tecniche di minimizzazione*: Possiamo risparmiare costruendo automi più piccoli
+
+### Pumping Lemma
+#### Teorema 4.1
+> Il *Pumping Lemma* per linguaggi regolari.
+
+Sia *L* un linguaggio regolare, allora $\exists \space n \geq 1$  (n è il numero di stati del DFA) che soddisfa ogni $w \in L : |w| \geq n$ è **scomponibile** in tre stringhe $w =xyz$ tali che:
+1) $y \neq \epsilon$ (il corpo del ciclo ha almeno un simbolo)
+2) $|xy| \leq n$ (arrivo al nodo in cui ho il ciclo)
+3) $\forall k \geq 0, \space xy^kz \in L$ (il ciclo può essere ripetuto k volte, la stringa che si ottiene sarà sempre accettata dal linguaggio *L*)
+**Prova:** Supponiamo che *L* sia regolare
+Allora *L* è riconosciuto da un *DFA A*. Chiamo **n** il **numero degli stati** di A. 
+* Sia $w=a_1a_2...a_m \in L, m \geq n$ 
+* Sia $p_i = \hat \delta(q_0, a_1a_2...a_m)$ dove $q_0$ è lo stato iniziale di *A*
+$\Rightarrow \exists \space i < j \leq n: p_i=p_j$ (entro **n** simboli trovo il nodo che mi fa entrare nel ciclo, in questi casi lo incontro ad un momento *i* della mia stringa per poi ritornarci al carattere *j*)
+
+Ora $w=xyz$, dove:
+* $x=a_1a_2...a_i$
+* $y=a_{i+1}a_{i+2}...a_j$ (caratteri che itero sul ciclo)
+* $z = a_{j+1}a_{j+2}...a_m$
+![[Pasted image 20230927180536.png]]
+Quindi anche $xy^kz \in L$, per ogni $k \geq 0$, inoltre $y \neq \epsilon$ e $|xy| \leq n$ poiché $i < j \leq n$. 
