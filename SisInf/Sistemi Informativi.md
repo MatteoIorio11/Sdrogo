@@ -1,5 +1,17 @@
 # Sistemi Informativi
+**Contenuto**
+- [[#Aziende|Aziende]]
+- [[#Struttura e Processo|Struttura e Processo]]
+	- [[#Struttura e Processo#Mansioni aziendali|Mansioni aziendali]]
+	- [[#Struttura e Processo#Processi|Processi]]
+- [[#Sistema Informativo|Sistema Informativo]]
+- [[#Efficacia ed efficienza|Efficacia ed efficienza]]
+- [[#Evoluzione dei Sistemi Informatici|Evoluzione dei Sistemi Informatici]]
+- [[#Sistemi Informativi vs Basi di Dati|Sistemi Informativi vs Basi di Dati]]
+- [[#Digital Transformation (DT)|Digital Transformation (DT)]]
+	- [[#Digital Transformation (DT)#Ciclo di adozione delle tecnologie|Ciclo di adozione delle tecnologie]]
 
+---
 ## Aziende
 Ogni impresa o istituzione, si struttura e si organizza secondo la propria missione e per conseguire i propri **obiettivi**. Per fare ciò l'azienda si struttura definendo un insieme di *processi funzionali*.  Per capire un'azienda è fondamentale conoscere:
 * Obiettivi
@@ -31,11 +43,9 @@ I processi per poter operare **hanno bisogno di informazioni**. Si definisce **I
 
 L'insieme delle informazioni gestite/generate, utilizzate ed elaborate dai processi aziendali e le modalità per la loro gestione costituisce il **sistema informativo** (informazioni per far funzionare i processi e le regole di essi). La porzione del sistema informativo in cui le informazioni sono raccolte, archiviate e scambiate mediante l'uso delle tecnologie costituisce il **sistema informatico**. 
 
-
 I sistemi informatici sono diventati *elementi centrali* dell'organizzazione aziendale in grado di rivoluzionare la struttura dei processi aziendali aumentando drasticamente **l'efficacia del sistema azienda**. 
 
 ## Efficacia ed efficienza
-
 
 $$\text{Efficienza}=\frac{\text{Output Effettivo}}{\text{Input}}$$
 
@@ -60,11 +70,9 @@ $$\text{Efficacia}=\frac{\text{Output Effettivo}}{\text{Output Attesa}}$$
 
 I concetti di **sistema informativo** e **base di dati** non devono essere considerati dei sinonimi. Dal momento in cui la definizione e gestione di un *sistema informativo* richiede la conoscenza sui processi aziendali, sulla struttura aziendale e le informazioni necessarie ai processi. Le **basi di dati**, sono una *sotto porzione* del Sistema Informativo atta alla **memorizzazione** strutturale delle informazioni. Le basi di dati forniscono un **supporto** alla memorizzazione dei dati. 
 
-
 *Sistema Informativo*: include la modellazione della logica applicativa
 
 *base di dati*: deve prescindere quanto più possibile dalla logica delle applicazioni e deve codificare la sola realtà delle informazioni. 
-
 
 I moderni *Sistemi Informatici* sono strutturati su tre livelli che rispettano la suddivisone **three tier**, suddivido in base alla complessità. Si hanno:
 * **Livello di Presentazione**
@@ -94,7 +102,6 @@ Un'azienda è una struttura di comando che governa processi operativi, i *sistem
 
 Informatizzano processi volti all'*esecuzione* di attività o alla loro *programmazione* (pianificazione). Tutto questo però dipende dall'**intensità informativa** del settore.  Questo tipo di *sistema informativo* riguarda il terzo livello "*operation level*". 
 
-
 ### SI direzionali
 
 * Supportano il processo decisionale fornendo informazioni ai manager
@@ -102,7 +109,6 @@ Informatizzano processi volti all'*esecuzione* di attività o alla loro *program
 * Riducono i Big Data in Small Data
 
 I *SI Direzionali* si differenziano da quelli operativi dal momento in cui vengono eseguiti in **maniera periodica** e non continua.
-
 
 ### SI analitici
 
@@ -130,7 +136,6 @@ Il portafoglio applicativo, rappresenta una possibile mappa dei SI aziendali, i 
 2) **attività di esecuzione**: serie di operazioni pianificate per produrre l'output desiderato
 
 Al portafoglio corrisponde un insieme di *moduli standard*
-
 
 ## Smart Manufactoring (AKA CIM)
 
@@ -161,12 +166,9 @@ I sistemi **SCADA** (Supervisory Control and Data Acquisition) sono usati per *m
 
 *  **Sicurezza**: tutti i sistemi si basano su VPN, dal momenti in cui si vanno a lavorare su dati sensibili
 
-
 ## Industria 4.0
 
 Il termine **industria 4.0** indica una tendenza dell'automazione industriale che integra alcune nuove tecnologie produttive per migliorare le condizioni di lavoro. In questa nuova tipologia di industria l'intelligenza viene distribuita sulle macchine (IoT). 
-
-
 
 ## Sistemi ERP
 
@@ -201,7 +203,6 @@ L'ampiezza della copertura dei sistemi *ERP* fa si che questi possano essere uti
 3) **Best of breed**: vengono utilizzati moduli realizzati da diversi *vendor*
 
 Azienda con funzioni **core** di nicchia adottano un approccio *best of breed* mentre per le aziende con funzioni **core** generiche si adotta un unico fornitore che copre tutte le funzionalità possibili. 
-
 
 #### ERP: prescrittività
 
