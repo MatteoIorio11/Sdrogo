@@ -18,6 +18,22 @@
 	- [[#Fondamenti#Representation Learning|Representation Learning]]
 	- [[#Fondamenti#Problemi nel dominio Visione|Problemi nel dominio Visione]]
 	- [[#Fondamenti#Apprendimento|Apprendimento]]
+		- [[#Apprendimento#AutoML|AutoML]]
+	- [[#Fondamenti#Performance Metrics|Performance Metrics]]
+		- [[#Performance Metrics#Classificazione|Classificazione]]
+		- [[#Performance Metrics#Regressione|Regressione]]
+		- [[#Performance Metrics#Matrice di Confusione|Matrice di Confusione]]
+		- [[#Performance Metrics#Classificazione Binaria|Classificazione Binaria]]
+		- [[#Performance Metrics#Precision e Recall|Precision e Recall]]
+			- [[#Precision e Recall#F1-Score e AP|F1-Score e AP]]
+		- [[#Performance Metrics#Sensitività - Specificità|Sensitività - Specificità]]
+		- [[#Performance Metrics#Detection|Detection]]
+		- [[#Performance Metrics#Closed and Open Set Problems|Closed and Open Set Problems]]
+	- [[#Fondamenti#Convergenza|Convergenza]]
+		- [[#Convergenza#Overfitting|Overfitting]]
+			- [[#Overfitting#Avoiding Overfitting Practically|Avoiding Overfitting Practically]]
+	- [[#Fondamenti#Consigli Vari|Consigli Vari]]
+
 ---
 ## Introduzione
 
@@ -177,7 +193,7 @@ Per trovare gli iperparametri migliori si può operare in due livelli:
 
 e.g. grid-search di scikit-learn.
 
-Per poter effettaure un apprendimento efficiente, usiamo tre set disgiunti  tra loro, ognuno con uno scopo diverso:
+Per poter effettuare un apprendimento efficiente, usiamo tre set disgiunti  tra loro, ognuno con uno scopo diverso:
 - **Training set**: è l'insieme di pattern su cui addestrare il modello, su cui trovare il valore ottimo $\Theta^*$.
 - **Training set**: è l'insieme di pattern su cui tarare gli iperparametri $H$.
 - **Training set**: è l'insieme di pattern su cui valutare le prestazioni finali.
@@ -192,3 +208,114 @@ Dividiamo il training set in k-fold o gruppi. Per ogni combinazione di iperparam
 - Scegli l'iperparametri ottimali si riaddestra il modello su tutto il training set (tutti i k fold) e solo a questo punto si verifica sul test set lasciato da parte prima della k-fold cross validation.
 
 Il problema sta nel fatto che scegliamo il miglior modello che meglio si adatta al *test-set*. Questo viene chiamato **cherry picking**, e agendo in questo modo si ha overfitting sul test set. Questo ha forti implicazioni negative nell'ambito business, o in generale in ogni ambito dove i dataset sono molto piccoli o variabili molto nel tempo.
+
+#### AutoML
+Si tratta di sistemi in cui anche in fase di scelta del modello, effettuano decisioni automatiche del modello migliore (e.g. SVM, Random Forest, Rete Neurale MLP) per la risoluzione di un problema. Oltre al modello è possibile anche scegliere automaticamente tecniche di data/feature processing.
+Molto comune in sistemi cloud per gestire la complessità di questa investigazione. In locale si può usare `Auto-Sklearn`.
+
+### Performance Metrics
+Bisogna distinguere in base alla semantica del problema.
+
+#### Classificazione
+L'accuratezza è la percentuale di pattern correttamente classificati. L'errore di classificazione è il complemento.
+$$\text{Accuratezza} = \frac{\text{\# pattern correttamente classificati}}{\text{\# pattern classificati}}$$
+Bisogna fare attenzione ai problemi di classificazione con **classi sbilanciate**: meglio usare *precision* e *recall* potendo evitare risultati misleading.
+#### Regressione
+Si valuta in genere l'**RMSE** (Root Mean Squared Error), ovvero la radice della media dei quadrati degli scostamenti tra valore vero e valore predetto:
+$$\text{RMSE} = \sqrt{\frac{1}{N}\sum_{i=1}^N(\text{pred}_i - \text{true}_i)^2 }$$
+
+#### Matrice di Confusione
+È utile nei problemi di *classificazione* per capire la distribuzione degli errori
+	- Di norma, sulle righe ci sono le classi `True` (*Actual*), e sulle colonne le classi `Predicted` (non sempre così).
+	- Una cella $(r,c)$ riporta il numero di casi in cui il sistema ha predetto di classe $c$ un pattern di classe vera $r$
+	- Si può **normalizzare** una matrice di confusione, ovvero trasformare il numero di classi errate nella cella $(r,c)$, alla percentuale d'errore.
+		- Se si normalizza per riga, allora la somma di ogni riga da 1.
+#### Classificazione Binaria
+Dato un classificatore binario e $T = P + N$ pattern da classificare, il risultato di ciascuno dei tentativi di classificazione può essere:
+	- True Positive: pattern positivo etichettato correttamente come positivo.
+	- True Negative: pattern negativo etichettato correttamente come negativo.
+	- False Positive: pattern negativo etichettato erroneamente come positivo. Detto errore **Tipo 1** o **False**.
+	- False Negative: pattern positivo etichettato erroneamente come negativo. Detto errore **Tipo 2** o **Miss**
+	- L'accuratezza è esprimibile come: $\text{Accuracy} = \frac{TP + TN}{T = P + N}$
+![[Pasted image 20230927134819.png|center|300]]
+- L'output di un classificatore è spesso probabilistico. In un problema di classificazione binaria i pattern possono essere predetti come positivi (o negativi) confrontando **l'output** con una **soglia $t$**.
+	- Soglie restrittive (elevate) riducono i false positive a discapito dei false negative
+	- Soglie tolleranti (basse) riducono i false negative a scapito dei false positive.
+ ![[Pasted image 20230927140046.png|center|300]]
+- Considerando il grafico, le due curve possono essere condensate in una curva di **Detection Error Tradeoff** (**DET**) che nasconde la soglia.
+![[Pasted image 20230927140110.png|center|300]]
+
+![[Pasted image 20230927140205.png|center|300]]
+
+#### Precision e Recall
+Notazione molto usata in Information Retrieval e in generale in applicazioni di classificazione e detection.
+- **Precision**: indica quanto è accurato il sistema, calcolato come: $\text{Precision}=\frac{TP}{TP + FP}$
+- **Recall**: quanto è selettivo il sistema, calcolata come: $\text{Recall}=\frac{TP}{TP + FN} = \frac{TP}{P}$
+
+Nella classificazione multi classe, precision e recall si possono calcolare per ciascuna classe, considerando la classe come positive e gli esempi di tutte le altre come negative.
+
+##### F1-Score e AP
+Sono due indicatori compatti utili per **comparare** l'accuratezza di modelli diversi:
+- **F1-Score**: calcolato come la media armonica di Precision e Recall: $\text{F1-Score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}$
+	- Dove la media armonica corrisponde alla media aritmetica quando la precision è uguale alla recall, e *penalizza maggiormente* quando i valori sono molto diversi.
+- **Average Precision (AP)** è una sorta di Area Under Curve (AUC) sul grafico Recall/Precision:
+$$AP = \sum_n (R_n - R_{n-1})P_n$$
+- Dove:
+	- $P_n$ è il valore della precision alla soglia $n$
+	- $P_n$ è il valore della recall alla soglia $n$
+
+#### Sensitività - Specificità
+Sono termini derivanti dalla diagnosi medica per caratterizzare la bontà di un test. 
+
+#### Detection
+Difficile perché mi deve dire:
+- Categoria Giusta.
+- Posizione nello spazio.
+- Ci sono più oggetti nell'immagine.
+
+Di norma si usano:
+- AP calcolata per oggetti di una singola classe su tutto il dataset.
+- *mean Average Precision* è la media di AP su tutte le classi
+- Per calcolare TP e FP si considera una predizione corretta quando la classe è giusta e la *Intersection over Unit* delle bounding box (quella rilevata e quella vera) è maggiore di un valore dato.
+
+#### Closed and Open Set Problems
+Normalmente, si assume che il pattern da classificare appartenga a una delle classi note (**Closed set**). In molti casi reali invece, i pattern da classificare possono appartenere a classi non note (**Open set**).
+
+*Soluzioni*:
+- Si aggiunge una nuova classe di oggetti non identificati tra le classi presenti.
+- Si consente al sistema di **non assegnare** i pattern (*Appartenenza con Soglia*) se la probabilità di appartenenza ad una classe è minore di una certa **soglia**.
+	- La soglia può essere usata anche per problemi di classificazione binaria.
+
+---
+### Convergenza
+![[Pasted image 20230927143821.png|center|400]]
+Lo scopo del modello è raggiungere la convergenza sul train set. In particolare, si ha accuratezza quando:
+- La **loss** ha andamento decrescente
+- L'**accuratezza** ha andamento crescente.
+
+Note:
+- Se la loss non decresce (o oscilla significativamente), il sistema non converge.
+- Se la loss decresce ma l'accuratezza non cresce, probabilmente è stata scelta una loss-function errata.
+- Se l'accuratezza non si avvicina al 100% sul training set, i gradi di libertà del classificatore non sono sufficienti per gestire la complessità del problema.
+
+#### Overfitting
+Per **generalizzazione** possiamo intendere la capacità di *trasferire* l'elevata accuratezza raggiunta sul training set sul validation set.
+Se i gradi di libertà del classificatore sono eccessivi, si raggiunge elevata accuratezza sul training set, ma non sul validation set. In questo caso si parla di **overfitting**, molto frequente quando il training set è di piccole dimensioni.
+
+Generalmente nei processi di addestramento iterativo, dopo un certo numero di iterazioni è possibile notare una decrescita dell'accuratezza sul validation set per via di overfitting. Monitorando l'andamento si può arrestare l'addestramento nel punto ideale (**early stopping**).
+
+Per evitare overfitting possiamo dire che:
+- È buona norma iniziare con pochi gradi di libertà (controllabili con il tuning degli iperparametri) e via via aumentarli monitorando costantemente l'accuratezza su validation e training.
+
+##### Avoiding Overfitting Practically
+- Avere molti dati!
+- Collezionare un **dataset realistico** di quello che è il problema da analizzare, distribuendoli adeguatamente tra Train, Validation e Test set (usare cross validation).
+- **Automatizzare** le procedure di valutazione delle prestazioni.
+- **Confronto** delle prestazioni del sistema *solo* con altri modelli addestrati sullo stesso dataset e con lo stesso protocollo.
+- Verificare l'affidabilità statistica del risultato (non sparare a cazzo percentuali, confrontare con magari modelli che hanno già operato su quel dataset in quella maniera). Preferire intervalli di confidenza e simulazioni su più run al variare delle condizioni iniziali.
+
+### Consigli Vari
+- A priori non si può sapere quanto un sistema sarà accurato.
+- La fase di data collection può essere molto costosa.
+- **Data-drift**: buone performance in laboratorio, ma non generalizzante in produzione. In generale, data drift indica un peggioramento costante delle prestazioni nel tempo.
+- Il sistema può presentare bias, comportamenti disomogeneil.
