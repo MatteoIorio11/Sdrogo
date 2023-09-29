@@ -291,3 +291,168 @@ Risulta quindi evidente come dal sistema CRM dipende la capacità di integrare i
 - Si classificano in:
 	- **Business-to-Customer**: punti di accesso per utenti finali fortemente orientati all'acquisto.
 	- **Business-to-Business**: punti di accesso per le aziende partner maggiormente orientati ai servizi.
+
+---
+## Innovazione nei Sistemi Informativi
+### Il ciclo di Innovazione
+![[Pasted image 20230929122616.png|right|400]]
+La storia di ogni azienda è caratterizzata di momenti in cui si discute come cambiare il modo di operare.
+Essenzialmente il ciclo di **Deming** sintetizza la logica secondo la quale *gestire il ciclo di innovazione* (molto spesso è sincronizzato con il ciclo di budgeting).
+Grazie al ciclo di pianificazione e controllo, il sistema informativo rimane *attuale*, minimizzando i rischi di **incoerenza** e **costi di realizzazione**.
+
+#### Pianificazione
+In questa fase del ciclo, la prima cosa è la **formalizzazione delle strategie** la quale permette di individuare gli obiettivi da conseguire e i principali terreni di intervento. Successivamente le fasi sono:
+1. **Scelta delle Priorità** degli interventi di automazione.
+2. **Validazione dei progetti** da attivare, in base alle priorità, vincoli di bilancio e relazioni tra vari progetti.
+3. **Definizione degli impegni** in termini di risorse e responsabilità
+4. **Stesura del documento di Piano**, che specifica budget, responsabilità, obiettivi e fasi del progetto, con l'approvazione dei vertici
+
+#### Realizzazione
+Durante la fase di pianificazione, per alcuni progetti non è possibile definirne la fattibilità. Perciò nella prima fase della *realizzazione* si effettua uno **studio di fattibilità** per ognuno di questi progetti (in generale risponde alla domanda: "Ha senso fare sta roba?"). Successivamente:
+1. **Definizione di progetti esecutivi** e di **piani operativi** per i progetti previsti. (cioè il come fare il progetto)
+2. **Acquisizione di prodotti e servizi dal mercato**
+3. **Realizzazione dei progetti**
+4. **Conduzione operativa dei sistemi**, cioè il deployment dei servizi informativi previsiti.
+
+In questa fase del ciclo, è dove risiediamo noi stronzi ingegneri informatici.
+
+#### Verifica
+(Nell'immagine è controllo), prevede essenzialmente una **raccolta di informazioni** sullo stato dei progetti di servizio, producendo delle analisi e delle diagnosi per:
+- **Diagnosi di servizi e processi**. Sostanzialmente evidenziano i problemi identificandone le cause e indicando le direzioni di intervento.
+- **Diagnosi della risorsa Informazione**
+- **Diagnosi dei sistemi informatici**
+
+#### Intervento
+In questa fase si **elaborano gli interventi di reingegnerizzazione** dei processi, definendo i requisiti di fondo per lo sviluppo e la revisione dei sistemi applicativi. Al contempo, si individuano iniziative di **reingegnerizzazione dei sistemi informatici**, attraverso programmi di adeguamento delle infrastrutture informatiche.
+
+### Definizione degli obiettivi
+Ogni azienda redige il **piano di informatizzazione** che individua e formalizza gli obiettivi, in modo da stabilire responsabilità, tempi e priorità. Distinguiamo:
+- **Piano Strategico**: copre dai 3 ai 5 anni, necessario per dare **unitarietà** alle specifiche iniziative. Contiene:
+	- Obiettivi strategici.
+	- Architetture tecnologiche e applicative come riferimento.
+	- Progetti di grande rilievo che richiedono tempi e risorse elevati.
+- **Piano Operativo**: ha validità annuale e definisce in maniera **dettagliata** gli **interventi** previsti dal pipiano triennale.
+
+Esiste anche una che prevede la rivalutazione degli obiettivi continuamente sia all'interno del piano operativo che quello strategico. Si viene così a creare annualmente un **piano strategico a scorrimento**, in cui vengono focalizzati con maggior dettaglio impegni e attività relativi al primo esercizio.
+
+Tipicamente possiamo utilizzare due strategie per definire gli obiettivi:
+- **Top Down**: parto da obiettivi strategici e opero nel seguente modo:
+	1. Si definiscono le **caratteristiche generali del SI**
+	2. Si definiscono le **aree di intervento**.
+	3. Si definiscono gli **specifici progetti per realizzarlo**.
+	- Generalmente è maggiormente innovativo, e risponde alla necessità di mutamenti radicali; d'altra parte causa maggiori tensioni e rischi organizzativi.
+- **Bottom Up**: parte da indicazioni delle diverse unità organizzative che successivamente vengono integrate e razionalizzate, definendo le priorità all'interno del budget complessivo.
+	- Approccio più conservativo e difficilmente produce innovazioni radicali, ma mira a migliorare il sistema esistente; non comporta quindi grandi rischi realizzativi.
+- **Ibrido**: nella pratica si usa un compromesso, in grado di individuare e **diffondere** le strategie generali di evoluzione, quindi si parte da un idea dall'alto anche ascoltando le proposte delle singole unità organizzative.
+
+#### Aziende Data-Driven
+Oggi è necessario inculcare nel mindset dei manager l'idea di azienda data-driven , oltre a diffondere una cultura generale del dato (in termini di utilità, validità e adeguatezza) e attrezzare adeguatamente l'azienda. In questo modo però l'azienda può utilizzare i dati a supporto delle decisioni e i processi, fornendo solide basi quantitative.
+In questo contesto, la **digitalizzazione** riguarda proprio queste tematiche. In particolare suoi obiettivi principali sono:
+- Risolvere un problema e **apportarne un valore**
+- Realizzabile in un intervallo di tempo limitato.
+- I costi devono essere correlati agli utili.
+
+---
+### Intro BPR
+> Il **Business Process Rengineering** nasce come completo ripensamento e radicale ridisegno dei fondamentali processi di un'organizzazione alla luce delle potenzialità offerte dai nuovi strumenti informatici.
+
+Il BPR oltre alla digitalizzazione e al suo relativo incremento di efficienza, mira ad aumentare anche l'**efficacia** aziendale.
+
+#### I Processi Aziendali
+> **Processo**: insieme di attività tra loro *interrelate* finalizzate alla **realizzazione di un risultato** *definito e misurabile* che contribuisce al raggiungimento della **missione aziendale**.
+
+> **Cliente**: persona o gruppo che richiede o usa un prodotto o servizio realizzato tramite un processo.
+
+Primo compito del progettista nell'ambito del BPR è di descrivere e classificare i processi:
+- **Classificazioni normative**, ossia descrizione della struttura dei processi come dovrebbe essere (e.g. nelle grandi aziende) (**best practices**).
+- Mappare classificazioni normative nei principali **pacchetti software**.
+
+##### Descrizione dei Processi
+Un progetto può essere descritto in modo soddisfacente solo quando arrivo al punto in cui ho una comprensione completa su cosa sto lavorando.
+È quindi necessario andare in profondità scomponendo gerarchicamente i processi aziendali interessati, per vari livelli di approfondimento:
+1. **Macroprocesso**: e.g. catena del valore di Porter. Utile per determinare l'area di intervento.
+2. **Processo**: illustra le operazioni svolte da un azienda.
+3. **Fase**: descrive il **modo** in cui un processo è **implementato**.
+4. **Attività** Sono determinate scomponendo ulteriormente le fasi secondo una logica sequenziale.
+
+Per la corretta descrizione di un processo, possiamo impiegare le **variabili di progettazione**:
+- **Flusso delle attività**: sequenza di attività attraverso cui il processo è  svolto. Assieme a HR e al livello di tecnologia, determina la **qualità dell'output**.
+- **Organizzazione del Processo**: Ci aiuta a comprendere e mettere in chiaro se il flusso di attività analizzato ha senso, determinando il livello di accorpamento delle attività. (modellato con **Linear Responsability Charting**).
+- **Competenza risorse umane** fondamentale per la trasformazione a seguito dell'innovazione tecnologica.
+	- Le risorse umane determina la differenza tra il risultato effettivo e il massimo teoricamente possibile da una configurazione del processo.
+	- Essenziale tra l'HR è la **capacità di indurre al cambiamento** , evitando il rifiuto del nuovo sistema.
+- **Sistema di misurazione e controllo delle prestazioni**, essenziale per aziende data-driven, usato per quantificare le performance del processo analizzato. Viene calcolato realizzando sistemi di **Key Performance Indicator**.
+
+#### Key Performance Indicator
+Permettono la misurazione **quantitativa** dell'efficacia del processo, in termini di soddisfacimento dei requisiti del cliente.
+Per ogni processo, i requisiti da soddisfare variano in base alla prospettiva, ossia in base al tipo di cliente (detto anche Stakeholder credo).
+Formalmente definiamo i KPI come:
+> **KPI**: indicatore quantificabile dell'efficacia e/o efficienza di un processo o di un sottoprocesso. Ha le seguenti caratteristiche
+> - È quantificabile
+> - È rilevabile, cioè calcolabile tramite i dati per poterlo istanziare.
+> - È correlato con l'obiettivo di business interno di processo, cioè deve essere espressione del concetto che sta misurando.
+
+Per poter misurare un processo attraverso un KPI è dapprima necessario crearne la mappa, ossia identificare:
+- **Output**
+- **Obiettivi**
+- **Attività Principali**
+
+##### Proprietà
+- **Significatività**: correlazione con gli obiettivi strategici.
+- **Controllabilità**: misura risultati che possono essere influenzati o azioni che possono essere intraprese.
+- **Semplicità**: facile concettualmente, mette in gioco pochi indicatori.
+- **Misurabilità**: i dati sono disponibili, affidabili ed accurati.
+- **Equilibrio** di:
+	- **Indicatori tecnici**, che misurano la performance con le attività di un processo.
+	- **Indicatori di risultato**, che misurano attività che influenzano le performance, attraverso il collegamento con gli obiettivi e gli output del processo stesso.
+
+Per rendere i KPI utili per la misurazione del fenomeno, è necessario definire una mappa integrata di KPI che copra diversi punti di vista a diversi livelli di dettaglio:
+- **Fenomeno da misurare**
+- **Obiettivi**: quale scopo deve raggiungere il processo o il soggetto.
+- **Misure**: identificazione qualitativa degli aspetti da monitorare.
+- **Stakeholder**: soggetti interessati ai KPI.
+- **Sorgente Dati**: determina l'effettiva calcolabilità dell'indicatore.
+- **Formulazione**: specifica la formula dell'indicatore.
+
+###### Visualizzazione di KPI
+Devono essere visualizzati in maniera semplice. Un buon esempio sono gli indicatori di Sant'Anna, mappa di centinaia di indicatori finalizzati a valutare le performance della sanità pubblica.
+
+##### Overall Equipment Effectiveness
+**OEE** è il principale KPI per misurare la capacità di produzione di un'**azienda manifatturiera**.
+
+$$\text{Availability} \times \text{Performance} \times \text{Quality}$$
+
+- **Availability**: tempo lavorato su tempo disponibile.
+- **Performance**: percentuale di pezzi effettivamente lavorati su pezzi teoricamente lavorabili.
+- **Quality**: percentuale dei pezzi conformi sul totale dei pezzi prodotti.
+
+È evidente come per l'OEE sia fondamentale avere un sistema [[#Sistemi MES|MES]] in combinazione con un sistema [[#Sistemi SCADA|SCADA]].
+
+### BPR
+Di norma in occidente si ha un approccio ciclico (come visto in [[#Il ciclo di Innovazione]]), ma possiamo dire che il miglioramento è **discontinuo**.
+Il BPR server proprio di realizzare il salto di qualità (**Breakthrough**), ma non in maniera ciclica. Infatti avviene di tanto in tanto, e deve avere senso farlo se e solo se il suo valore è più che proporzionale alla complessità dell'intervento, poiché può causare problematiche di:
+- Costo
+- **Operazionale**
+	- Per sopperire a quest'ultimo si può intervenire con la frammentazione dei cambiamenti (devops like), in maniera continuativa, affinché non si sente l'esigenza di un cambiamento radicale. Ecco che il cerchio si chiude ritornando a considerare il BPR.
+
+In generale, le varie modalità di reingnegnerizzazione variano in funzione dello **scopo**  e **ampiezza del cambiamento**:
+- **Streamlining**: ricerca il miglioramento delle **prestazioni** modificando il processo attuale (devops).
+- **BPR**: ricerca un cambiamento radicale del processo attuale.
+- **Enterprise Transformation**: Ricerca una riconfigurazione del business (e.g. BMW & Luftwaffe).
+
+Determinare il breakthrough significa  valutare il cambiamento atto a portare un cambiamento di qualità, effettuando
+- **Benchmarking**: metodo di comparazione delle performance interne con standard esterni di eccellenza.
+	- Può aiutare ad accelerare il processo di cambiamento con un'efficacia di comunicazione considerevole.
+- **Ascolto del Cliente** attraverso un metodo di rilevazione strutturato e approfondito delle necessità e delle aspettative del cliente.
+
+Ovviamente per il BPR, è fondamentale concentrarsi dapprima sui ==processi che contribuiscono maggiormente alla creazione del valore==.
+Attenzione che non tutti i processi inefficienti e distorti sono necessariamente ad alto valore aggiunto (e.g. contabilità).
+In generale la scelta dei processi sui quali intervenire deve tenere conto:
+- **Impatto potenziale**.
+- **Difficoltà di implementazione** (competenza di noi ingegneri informatici ziocaro)
+- **Tempo Disponibile**.
+
+![[Pasted image 20230929181344.png|right|400]]
+Una buona idea è iniziare con un processo con una bassa difficoltà di implementazione/tempo di realizzazione ma con un grande impatto potenziale, per sfruttare due cose:
+- È poco una sbatta, quindi top che ci metto poco.
+- Faccio subito vedere ai vecchi di merda quanto valore aggiunto dia sta roba, quindi 
