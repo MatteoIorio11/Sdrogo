@@ -10,6 +10,26 @@
 - [[#Sistemi Informativi vs Basi di Dati|Sistemi Informativi vs Basi di Dati]]
 - [[#Digital Transformation (DT)|Digital Transformation (DT)]]
 	- [[#Digital Transformation (DT)#Ciclo di adozione delle tecnologie|Ciclo di adozione delle tecnologie]]
+- [[#Classificazione|Classificazione]]
+	- [[#Classificazione#Sistemi Informativi e Aziende|Sistemi Informativi e Aziende]]
+		- [[#Sistemi Informativi e Aziende#SI operativi|SI operativi]]
+		- [[#Sistemi Informativi e Aziende#SI direzionali|SI direzionali]]
+		- [[#Sistemi Informativi e Aziende#SI analitici|SI analitici]]
+		- [[#Sistemi Informativi e Aziende#Similarità tra SI analitici e direzionali|Similarità tra SI analitici e direzionali]]
+	- [[#Classificazione#La mappa dei SI|La mappa dei SI]]
+	- [[#Classificazione#Il portafoglio applicativo aziendale|Il portafoglio applicativo aziendale]]
+	- [[#Classificazione#Smart Manufactoring (AKA CIM)|Smart Manufactoring (AKA CIM)]]
+	- [[#Classificazione#Sistemi SCADA|Sistemi SCADA]]
+		- [[#Sistemi SCADA#Architettura dei sistemi SCADA|Architettura dei sistemi SCADA]]
+		- [[#Sistemi SCADA#Evoluzione dei sistemi SCADA|Evoluzione dei sistemi SCADA]]
+	- [[#Classificazione#Industria 4.0|Industria 4.0]]
+	- [[#Classificazione#Sistemi ERP|Sistemi ERP]]
+		- [[#Sistemi ERP#Sistemi ERP allargati|Sistemi ERP allargati]]
+			- [[#Sistemi ERP allargati#ERP: unicità dell'informazione|ERP: unicità dell'informazione]]
+			- [[#Sistemi ERP allargati#ERP: estensione e modularità|ERP: estensione e modularità]]
+			- [[#Sistemi ERP allargati#ERP: prescrittività|ERP: prescrittività]]
+	- [[#Classificazione#Sistemi MES|Sistemi MES]]
+	- [[#Classificazione#Sistemi CMS|Sistemi CMS]]
 
 ---
 ## Aziende
@@ -92,17 +112,17 @@ La *DT*, mira a migliorare l'**efficienza** e **efficacia** delle aziende tramit
 
 ----
 
-# Classificazione
+## Classificazione dei Sistemi Informativi
 
-## Sistemi Informativi e Aziende
+### Sistemi Informativi e Aziende
 
 Un'azienda è una struttura di comando che governa processi operativi, i *sistemi informativi* **supportano** sia i processi di governo e sia i processi operativi. 
 
-### SI operativi 
+#### SI operativi 
 
 Informatizzano processi volti all'*esecuzione* di attività o alla loro *programmazione* (pianificazione). Tutto questo però dipende dall'**intensità informativa** del settore.  Questo tipo di *sistema informativo* riguarda il terzo livello "*operation level*". 
 
-### SI direzionali
+#### SI direzionali
 
 * Supportano il processo decisionale fornendo informazioni ai manager
 * Sono posizionati sopra i sistemi informativi operazionali
@@ -110,18 +130,18 @@ Informatizzano processi volti all'*esecuzione* di attività o alla loro *program
 
 I *SI Direzionali* si differenziano da quelli operativi dal momento in cui vengono eseguiti in **maniera periodica** e non continua.
 
-### SI analitici
+#### SI analitici
 
 * Supportano la comprensione dei fenomeni di business
 * Sono focalizzati su prodotti, clienti e processi:
 	* permette di profilare i **clienti**
 	* mantengono la storia del **prodotto**
 
-### Similarità tra SI analitici e direzionali
+#### Similarità tra SI analitici e direzionali
 
 Entrambi i sistemi si basano su indici ed inoltre l'elaborazione non è continua ma **periodica**. Mentre i **sistemi direzionali** valutano i fenomeni *interni* all'azienda, quelli **analitici** misurano i fenomeni **esterni** all'azienda. 
 
-## La mappa dei SI
+### La mappa dei SI
 
 Costruire una **mappa dei SI aziendali** significa scomporli in *moduli* a fini conoscitivi e di classificazione, in modo da supportare i vari processi. 
 
@@ -129,7 +149,7 @@ Un **modulo** rappresenta un blocco di *funzionalità* software che supportano u
 * *Orizzontali*: indipendenti dall'azienda o dal mercato
 * *Verticali*: sono utilizzati in specifici settori produttivi
 
-## Il portafoglio applicativo aziendale
+### Il portafoglio applicativo aziendale
 
 Il portafoglio applicativo, rappresenta una possibile mappa dei SI aziendali, i quali costituiscono un *asseto di software*. Dato un macro processo divido le attività in:
 1) **pianificazione**: individuare l'orizzonte temporale, determinare i piani e controllarne l'avanzamento
@@ -137,19 +157,19 @@ Il portafoglio applicativo, rappresenta una possibile mappa dei SI aziendali, i 
 
 Al portafoglio corrisponde un insieme di *moduli standard*
 
-## Smart Manufactoring (AKA CIM)
+### Smart Manufactoring (AKA CIM)
 
 E' un'architettura multilivello che collega i diversi livelli di un sistema di produzione ed è finalizzata all'**ottimizzazione** dei processi e alla **gestione** delle risorse.
 
 Questo permette di ridurre i tempi di commercializzazione ed aumentare la qualità del prodotto. La SM è organizzata in un'architettura a **cinque livelli** in cui *ogni livello esegue le proprie elaborazioni ed è collegato con gli altri*. 
 
-## Sistemi SCADA
+### Sistemi SCADA
 
 Il componente di un sistema **CIM** preposto al controllo dei sistemi industriali è denominato **SCADA**. 
 
 I sistemi **SCADA** (Supervisory Control and Data Acquisition) sono usati per *monitorare* e *controllare* impianti industriali e sistemi meccanici/elettronici. L'adozione di questo tipo di sistema permette di **risparmiare** *tempo* e *denaro*. 
 
-### Architettura dei sistemi SCADA
+#### Architettura dei sistemi SCADA
 
 1) *Sensori* e Attuatori
 2) *Controllori*: PLC, RTU
@@ -158,7 +178,7 @@ I sistemi **SCADA** (Supervisory Control and Data Acquisition) sono usati per *m
 5) *SCADA Server*: Implementano le funzionalità di *monitoraggio* e di *gestione* degli allarmi. Operano in real time
 6) *Data Server*: Si occupa di salvare una versione storica dei dati
 
-### Evoluzione dei sistemi SCADA
+#### Evoluzione dei sistemi SCADA
 
 * **Scalabilità**: data l'enorme quantità di dati pone il problema di doverli gestire e monitorare. 
 
@@ -166,15 +186,15 @@ I sistemi **SCADA** (Supervisory Control and Data Acquisition) sono usati per *m
 
 *  **Sicurezza**: tutti i sistemi si basano su VPN, dal momenti in cui si vanno a lavorare su dati sensibili
 
-## Industria 4.0
+### Industria 4.0
 
 Il termine **industria 4.0** indica una tendenza dell'automazione industriale che integra alcune nuove tecnologie produttive per migliorare le condizioni di lavoro. In questa nuova tipologia di industria l'intelligenza viene distribuita sulle macchine (IoT). 
 
-## Sistemi ERP
+### Sistemi ERP
 
 Il termine **ERP** (*Enterprise Resource Planning*) indica una suite di *moduli applicativi* che supportano l'intera gamma dei processi aziendali. I moduli possono essere sia **orizzontali** che **verticali**. I sistemi *ERP* sono basati su architetture *client-server* ma si stanno evolvendo verso architetture *thin-client web enabled*.
 
-### Sistemi ERP allargati
+#### Sistemi ERP allargati
 
 ERP va ad includere diversi moduli (famiglie di software) tra cui:
 * **PLM** (*Product Lifecycle Management*): supporto alla gestione della documentazione tecnica
@@ -187,7 +207,7 @@ Il vantaggio sta nella **circolarità dell'informazione**. L'obbiettivo di *ERP*
 2) **Estensione e modularità funzionale**
 3) **Prescrittività**
 
-#### ERP: unicità dell'informazione
+##### ERP: unicità dell'informazione
 
 Tutti le elaborazioni condividono uno e un solo valore per ogni informazione, questo permette:
 * **Sincronizzazione dei dati**
@@ -195,7 +215,7 @@ Tutti le elaborazioni condividono uno e un solo valore per ogni informazione, qu
 * **Tracciabilità degli aggiornamenti**
 * **Affidabilità dell'informazione aziendale**
 
-#### ERP: estensione e modularità
+##### ERP: estensione e modularità
 
 L'ampiezza della copertura dei sistemi *ERP* fa si che questi possano essere utilizzati come unica soluzione per il SI (riesco a coprire tutti i processi). Questo permette all'azienda di scegliere solo i moduli di interesse adottando le seguenti strategie:
 1) **Incrementale**: si acquistano progressivamente i moduli mancanti
@@ -204,13 +224,13 @@ L'ampiezza della copertura dei sistemi *ERP* fa si che questi possano essere uti
 
 Azienda con funzioni **core** di nicchia adottano un approccio *best of breed* mentre per le aziende con funzioni **core** generiche si adotta un unico fornitore che copre tutte le funzionalità possibili. 
 
-#### ERP: prescrittività
+##### ERP: prescrittività
 
 E' necessario far aderire i processi aziendali a quelli definiti dall'*ERP* (l'azienda deve informatizzare i suoi processi). L'impatto organizzativo può essere elevato, tuttavia garantiscono la *correttezza* e la *standardizzazione* delle operazioni. 
 
 I sistemi *ERP* non devono tuttavia considerarsi oggetti immutabili, vi sono margini di personalizzazione necessari a gestire il gap tra modulo standard e le specificità delle aziende. Si imposta il sistema all'azienda che lo ha richiesto. 
 
-## Sistemi MES
+### Sistemi MES
 
 **Manufacturing Execution System**: i MES permettono la *gestione* della fabbrica nel suo complesso. ricevono ordini dall'*ERP*, raccolgono informazioni dallo *SCADA* e forniscono informazioni aggiornate all'*ERP*.
 
@@ -222,3 +242,4 @@ I principali *benefici* dei MES:
 2) Migliorare efficienza di produzione
 3) Migliorare qualità del prodotto
 
+### Sistemi CMS
