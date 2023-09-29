@@ -242,4 +242,52 @@ I principali *benefici* dei MES:
 2) Migliorare efficienza di produzione
 3) Migliorare qualità del prodotto
 
-### Sistemi CMS
+### Sistemi CRM
+Con **Customer Relationship Management** si intende il processo integrato e strutturato per la *gestione* della *relazione con la clientela*, cercando di instaurare relazioni *personalizzate*  e di *lungo periodo*.
+
+In questo tipo di sistemi, il focus è il cliente, specialmente considerando il concetto di lungo periodo: infatti avere un nuovo cliente ha dei costi (pubblicità, call center, supporto ad invogliare) ed è necessario averlo come cliente per un periodo tale da ricoprire tali costi!
+
+Oltre a supportare le relazioni con il cliente, i sistemi CRM **informatizzano  i flussi di attività** cui le richieste del cliente vengono servite.
+Ovviamente non tutte le aziende necessitano di avere sistemi CRM molto sviluppati, ma in generale tutti i settori che prevedono
+- frequenti relazioni,
+- continuate nel tempo
+- una clientela numerosa
+
+dovrebbe avere un sistema CRM piuttosto sviluppato.
+
+#### Struttura
+È composto da 3 moduli principali:
+- CRM **Operativo**: implementazione dei processi in grado di comunicare con il cliente (attraverso l'informatizzazione dei canali di contatto).
+- CRM **Analitico**: informatizza l'analisi della clientela, interpreta i dati e performance esterni al fine di elaborare politiche di contatto.
+- CRM **Direzionale**: permette al management di valutare la **performance** dell'azienda verso il cliente (valuta quindi dati e performance interni).
+
+La differenza tra analitico e direzionale non è immediatissima, quindi in generale:
+- Analitico &rarr; supporta il settore commerciale e marketing nella *pianificazione* delle attività.
+- Direzionale &rarr; supporta la dirigenza nel valutare l'*efficienza* del settore marketing e commerciale (diciamo quindi ad un livello superiore nella gerarchia).
+
+In generale un sistema CRM deve essere in grado di comunicare con tutti gli elementi del SI, specialmente la raccolta dati con l'[[#Sistemi ERP|ERP]].
+
+#### Caratterstiche
+- **Multicanalità**, affinché il cliente possa scegliere di volta in volta il canale che più gli conviene.
+- **Completezza** e **Unicità** dei **dati sui clienti**. Quindi è dal CRM che tutti gli altri sistemi che necessitano di anagrafiche o dati vari sui client si interpelleranno, perciò ha la responsabilità di avere dati buoni.
+- **Catene di servizio**, ovvero le richieste sottoposte al front-end generano una serie di attività complesse nel back-end.
+
+Risulta quindi evidente come dal sistema CRM dipende la capacità di integrare i servizi del SI.
+
+#### Canali del CRM
+**Presenza**:
+- il CRM supporta il venditore nel ciclo di individuazione del cliente.
+- Siccome l'automazione è destinata al venditore, si parla di **Sales Force Automation**.
+
+**Voce e Corrispondenza**
+- Sostanzialmente, telefono con rete di operatori assistiti dal CRM o sistemi automatici (call-center).
+- La componente informatica risiede
+	- Meccanismi di smistamento delle chiamate in base al servizio richiesto
+	- Risposte automatiche
+	- Supporta gli operatori.
+
+**Webbe**
+- Oggi principale canale CRM, è anche detto canale di **commercio elettronico**.
+- Si classificano in:
+	- **Business-to-Customer**: punti di accesso per utenti finali fortemente orientati all'acquisto.
+	- **Business-to-Business**: punti di accesso per le aziende partner maggiormente orientati ai servizi.
