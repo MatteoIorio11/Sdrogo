@@ -297,3 +297,5 @@ Ora $w=xyz$, dove:
 * $z = a_{j+1}a_{j+2}...a_m$
 ![[Pasted image 20230927180536.png]]
 Quindi anche $xy^kz \in L$, per ogni $k \geq 0$, inoltre $y \neq \epsilon$ e $|xy| \leq n$ poiché $i < j \leq n$. 
+
+* L'idea di base è che ogni automa dispone di una memoria limitata, proprio per questo infatti non è possibile ricordare cosa è successo negli stati precedenti.  
