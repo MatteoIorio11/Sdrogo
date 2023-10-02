@@ -319,3 +319,69 @@ Per evitare overfitting possiamo dire che:
 - La fase di data collection può essere molto costosa.
 - **Data-drift**: buone performance in laboratorio, ma non generalizzante in produzione. In generale, data drift indica un peggioramento costante delle prestazioni nel tempo.
 - Il sistema può presentare bias, comportamenti disomogeneil.
+
+---
+# Classificazione
+
+## Approccio Bayesiano
+
+All'interno dell'approccio *Bayesiano* il problema è posto in termini **probabilistici**. Se tutte le distribuzioni sono note, questo tipo di approccio costituisce la migliore soluzione. 
+
+* Sia $V$ uno spazio di pattern $d$-dimensionale w $W=\{w_1,w_2,..,w_s\}$ un insieme di $s$ classi disgiunte costituite da elementi di $V$. 
+* Indichiamo con $p(x|w_i)$ la **densità di probabilità condizionale** di $x$ data la classe $w_i$ 
+* Per ogni $w \in W$, indichiamo con $P(w_i)$ la **probabilità a priori** di $w_i$, ovvero la probabilità di avere la classe $w_i$
+* Si indica con $p(x)$ la **densità di probabilità assoluta** di $x$, ovvero la densità di probabilità che il prossimo pattern da classificare sia $x$.
+$$p(x) = \sum_{i=1}^{s} p(x|w_i) \times P(w_i)$$
+dove 
+$$\sum_{i=1}^{s}P(w_i)=1$$
+* Per ogni $w \in W$ e per ogni $x \in X$ indichiamo con $P(w_i | x)$ la **probabilità a posteriori** di $w_i$ dato $x$ ovvero la probabilità che dato il valore di $x$ appartenga alla classe $w_i$
+$$P(w_i | x) = \frac{p(x | w_i) \times P(w_i)}{p(x)}$$
+
+## Classificatore di Bayes
+
+Dato un pattern $x$ da classificare in una delle *s* classi $w_1,w_2,...,w_s$ sono noti:
+1) le *probabilità a priori* $P(w_1), P(w_2), ..., P(w_s)$
+2) le *densità di probabilità condizionali* $p(x|w_1), p(x|w_2),...,p(x | w_s)$
+
+Attraverso la regola di classificazione di *Bayes* si assegna $x$ alla classe $b$ per cui è massima la probabilità a posteriori 
+$$b=argmax_{i=1,...,s}\{P(w_i | x)\}$$ Massimizzare la probabilità significa *massimizzare la densità di probabilità condizionale* tenendo conto della probabilità di ciascuna classe. Attraverso questa tecnica è anche possibile **minimizzare l'errore di classificazione**. 
+
+## Bayes: approccio parametrico e non-parametrico
+
+La conoscenza delle densità condizionali è possibile sono in teoria, nella pratica vi sono due sole soluzioni:
+* *Approccio Parametrico*: si fanno ipotesi sulla forma delle distribuzioni e si apprendono i parametri fondamentali, effettuo delle ipotesi
+* *Approccio non parametrico*: si apprendono le distribuzioni dal **training set**.
+
+### Distribuzione Normale (d=1)
+
+La densità di probabilità della distribuzione normale (d=1) è:
+$$p(x)=\frac{1}{\sigma \sqrt{2 \pi}}e^{-\frac{(x-\mu)}{2\sigma^2}}$$
+* $\mu$ : è il valore medio
+* $\sigma$ : è la deviazione standard
+* $\sigma^2$ : è la varianza
+![[Pasted image 20231002175620.png]]
+
+### Distribuzione normale multivariata (multinormale)
+
+La densità di probabilità nella distribuzione multinormale $(d > 1)$ è:
+$$p(x)=\frac{1}{(2\pi)^{d/2} |\Sigma|^{1/2}}e^{- \frac{1}{2} (x-\mu)^{t} \Sigma^{-1}(x-\mu)}$$
+dove:
+* $\mu=[\mu^1, \mu^2, ..., \mu^d]$ : è il vettore medio
+* $\Sigma=[\sigma^{ij}]$ : è la matrice di covarianza, è sempre simmetrica e definita positiva
+* $|\Sigma|$: è il determinante
+* $\Sigma^{-1}$ : è l'inversa della matrice
+
+Gli elementi diagonali $\sigma^{ii}$ sono le varianze dei rispettivi $x^i$, gli elementi non diagonali $\sigma^{ij}$ sono le covarianze tra $x^i$ e $x^j$. 
+### Distanza di Mahalanobis
+La distanza $r$ è definita come : 
+$$r = (x - \mu)^t \Sigma^{-1}(x - \mu)$$
+definisce i bordi a densità costante in una distribuzione multinormale. Riesce a pesare le diverse componenti tenendo conto dei relativi spazi di variazione e della loro correlazione. 
+
+## Classificatore di Bayer con distribuzioni multinormali
+
+Lo spazio è suddiviso in regioni non connesse. Un *decision boundary* o *decision surface*, è una zona di confine tra regioni che il classificatore associa a classi diverse, in questo punto la probabilità equivale al $50\%$ 
+![[Pasted image 20231002181303.png]]
+
+### Bayes e confidenza di classificazione
+
+Un grande vantaggio del classificatore di *Bayes* è che esso produce un output probabilistico che può essere utilizzato come confidenza, visualizzato nella figura precedente tramite in colori. 
