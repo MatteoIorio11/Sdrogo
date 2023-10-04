@@ -7,7 +7,7 @@
 	- [[#Linguaggi Regolari#Concetti base|Concetti base]]
 	- [[#Linguaggi Regolari#Automi a Stati Finiti|Automi a Stati Finiti]]
 		- [[#Automi a Stati Finiti#Automi a Stati Finiti *Deterministici*|Automi a Stati Finiti *Deterministici*]]
-			- [[#Automi a Stati Finiti *Deterministici*#Riconoscimento di **Stringhe**|Riconoscimento di **Stringhe**]]
+			- [[#Automi a Stati Finiti *Deterministici*#Riconoscimento di Stringhe|Riconoscimento di Stringhe]]
 			- [[#Automi a Stati Finiti *Deterministici*#Tecnica Induttiva|Tecnica Induttiva]]
 		- [[#Automi a Stati Finiti#Automi a Stati Finiti *Non Deterministici*|Automi a Stati Finiti *Non Deterministici*]]
 	- [[#Linguaggi Regolari#Equivalenza tra Automi|Equivalenza tra Automi]]
@@ -15,6 +15,38 @@
 			- [[#Teoremi random su DFA $\rightarrow$ NFA#**Teorema 2.11**:|**Teorema 2.11**:]]
 			- [[#Teoremi random su DFA $\rightarrow$ NFA#**Teorema 2.12**:|**Teorema 2.12**:]]
 	- [[#Linguaggi Regolari#Transizioni $\epsilon$|Transizioni $\epsilon$]]
+	- [[#Linguaggi Regolari#Epsilon chiusura|Epsilon chiusura]]
+- [[#Equivalenza DFA e $\epsilon$-NFA|Equivalenza DFA e $\epsilon$-NFA]]
+	- [[#Equivalenza DFA e $\epsilon$-NFA#**Teorema 2.22**:|**Teorema 2.22**:]]
+- [[#Espressioni regolari|Espressioni regolari]]
+	- [[#Espressioni regolari#Operazioni sui linguaggi|Operazioni sui linguaggi]]
+	- [[#Espressioni regolari#Leggi algebriche per i linguaggi|Leggi algebriche per i linguaggi]]
+- [[#Costruire le espressioni regolari|Costruire le espressioni regolari]]
+- [[#Equivalenza di FA e espressioni regolari|Equivalenza di FA e espressioni regolari]]
+	- [[#Equivalenza di FA e espressioni regolari#Da DFA a espressioni regolari|Da DFA a espressioni regolari]]
+		- [[#Da DFA a espressioni regolari#**Teorema 3.4**:|**Teorema 3.4**:]]
+- [[#Da espressioni regolari a $\epsilon$-NFA|Da espressioni regolari a $\epsilon$-NFA]]
+	- [[#Da espressioni regolari a $\epsilon$-NFA#Teorema 3.7:|Teorema 3.7:]]
+- [[#Proprietà dei linguaggi regolari|Proprietà dei linguaggi regolari]]
+	- [[#Proprietà dei linguaggi regolari#Pumping Lemma|Pumping Lemma]]
+		- [[#Pumping Lemma#Teorema 4.1|Teorema 4.1]]
+	- [[#Proprietà dei linguaggi regolari#Proprietà di Chiusura|Proprietà di Chiusura]]
+		- [[#Proprietà di Chiusura#Teorema 4.4 (Unione)|Teorema 4.4 (Unione)]]
+		- [[#Proprietà di Chiusura#Teorema 4.5 (Complemento)|Teorema 4.5 (Complemento)]]
+		- [[#Proprietà di Chiusura#Teorema 4.8 (Intersezione)|Teorema 4.8 (Intersezione)]]
+			- [[#Teorema 4.8 (Intersezione)#Prova con DeMorgan|Prova con DeMorgan]]
+			- [[#Teorema 4.8 (Intersezione)#Prova con Simulazione Parallela|Prova con Simulazione Parallela]]
+		- [[#Proprietà di Chiusura#Teorema 4.10 (Differenza)|Teorema 4.10 (Differenza)]]
+		- [[#Proprietà di Chiusura#Teorema 4.11 (Reverse)|Teorema 4.11 (Reverse)]]
+	- [[#Proprietà dei linguaggi regolari#Proprietà di Decisione|Proprietà di Decisione]]
+		- [[#Proprietà di Decisione#Testare se un linguaggio è vuoto|Testare se un linguaggio è vuoto]]
+		- [[#Proprietà di Decisione#Testare l'Appartenenza|Testare l'Appartenenza]]
+	- [[#Proprietà dei linguaggi regolari#Equivalenza e Minimizzazione di automi|Equivalenza e Minimizzazione di automi]]
+		- [[#Equivalenza e Minimizzazione di automi#Algoritmo Riempi-Tabella|Algoritmo Riempi-Tabella]]
+			- [[#Algoritmo Riempi-Tabella#Spiegazione di come il prof vuole che la facciamo|Spiegazione di come il prof vuole che la facciamo]]
+		- [[#Equivalenza e Minimizzazione di automi#Classi di Equivalenza|Classi di Equivalenza]]
+		- [[#Equivalenza e Minimizzazione di automi#Equivalenza tra Automi|Equivalenza tra Automi]]
+		- [[#Equivalenza e Minimizzazione di automi#Minimizzazione di Automi|Minimizzazione di Automi]]
 
 ---
 
@@ -158,7 +190,7 @@ Un $\epsilon$-NFA può consumare anche la stringa vuota '$\epsilon$'. Un $\epsil
 
 ### Epsilon chiusura
 
-Chiudiamo uno stato aggiungendo tutti gli stati raggiungibili da lui tramite una sequenza $\epsilon\epsilon\epsilon...\epsilon$. Sono tutti gli stati, includendo anche quello di partenza, che riesco a raggiungere consumando solamente la stringa $\epsilon$. 
+Chiudiamo uno stato aggiungendo tutti gli stati raggiungibili da lui tramite una sequenza $\epsilon\epsilon\epsilon…\epsilon$. Sono tutti gli stati, includendo anche quello di partenza, che riesco a raggiungere consumando solamente la stringa $\epsilon$. 
 
 Si definisce come *ECLOSE(q)*. 
 
@@ -181,7 +213,7 @@ $$D = (Q_D, \Sigma, \delta_D, q_D, F_D)$$
 tale che
 $$L(D)=L(E)$$
 Se vuoi vedere i dettagli vai su 'Linguaggi regolari > pag 30'
-##### **Teorema 2.22**:
+### **Teorema 2.22**:
 > Un linguaggio *L* è accettato da un $\epsilon$-NFA *E* se e solo se *L* è accettato da un DFA
 
 ## Espressioni regolari
@@ -197,7 +229,7 @@ $$LM = \{ w: w=xy, x \in L, y \in M \}$$
 * *Potenze*
 $$L^0 = \{ \epsilon \}, \space L^1=L, \space L^{k+1} = LL^k $$
 * *Chiusura di Kleene*
-$$L^{*} = \bigcup_{i=0}^{\infty} L^i \Rightarrow L^0 \cup L^1 \cup L^2 ...$$
+$$L^{*} = \bigcup_{i=0}^{\infty} L^i \Rightarrow L^0 \cup L^1 \cup L^2 …$$
 ### Leggi algebriche per i linguaggi
 
 * L'unione è **commutativa**: $L \cup M = M \cup L$
@@ -233,7 +265,7 @@ Abbiamo già detto che *DFA*, *NFA*  e $\epsilon$-NFA sono tutti equivalenti, pa
 2) Per ogni espressione regolare R esiste un $\epsilon$-NFA A, tale che $L(A) = L(R)$
 
 ### Da DFA a espressioni regolari
-##### **Teorema 3.4**:
+#### **Teorema 3.4**:
 > Per ogni DFA $A=(Q, \Sigma, \delta, q_0, F)$ esiste una espressione regolare R, tale che $L(A) = L(R)$.
 
 L'automa lo si trasforma etichettando gli archi con espressioni regolari di simboli dell'alfabeto. 
@@ -254,7 +286,7 @@ $$E_q=R$$
 ![Alt Text](Compilatori/images/seconda_forma_er.png)
 
 ## Da espressioni regolari a $\epsilon$-NFA
-#### Teorema 3.7:
+### Teorema 3.7:
  > Per ogni espressione regolare *R* possiamo costruire un $\epsilon$-NFA A tale che *L(A)=L(R)* 
 
 **Prova:**
@@ -271,11 +303,12 @@ Automa per $R+S$, $RS$ e $R^*$ :
 ![[Pasted image 20230927174916.png]]
 * Automa di $R^*$
 ![[Pasted image 20230927174950.png]]
+--- 
 ## Proprietà dei linguaggi regolari
-* *Pumping Lemma*: Ogni linguaggio regolare soddisfa il **pumping lemma**. Dato un linguaggio, se usando il pumping lemma si ottiene una contraddizione allora esso non è un linguaggio regolare
-* *Proprietà di chiusura*: Come costruire automi da componenti usando delle operazioni e per le quali operazioni è possibile farlo. 
-* *Proprietà di Decisione*: Analisi computazionale di auotomi, ad esempio quando due automi sono equivalenti
-* *Tecniche di minimizzazione*: Possiamo risparmiare costruendo automi più piccoli
+* [[#Pumping Lemma]]: Ogni linguaggio regolare soddisfa il **pumping lemma**. Dato un linguaggio, se usando il pumping lemma si ottiene una contraddizione allora esso non è un linguaggio regolare
+* [[#Proprietà di Chiusura]]: Come costruire automi da componenti usando delle operazioni e per le quali operazioni è possibile farlo. 
+* [[#Proprietà di Decisione]]: Analisi computazionale di automi, ad esempio quando due automi sono equivalenti
+* [[#Equivalenza e Minimizzazione di automi|Tecniche di minimizzazione]]: Possiamo risparmiare costruendo automi più piccoli
 
 ### Pumping Lemma
 #### Teorema 4.1
@@ -287,15 +320,154 @@ Sia *L* un linguaggio regolare, allora $\exists \space n \geq 1$  (n è il numer
 3) $\forall k \geq 0, \space xy^kz \in L$ (il ciclo può essere ripetuto k volte, la stringa che si ottiene sarà sempre accettata dal linguaggio *L*)
 **Prova:** Supponiamo che *L* sia regolare
 Allora *L* è riconosciuto da un *DFA A*. Chiamo **n** il **numero degli stati** di A. 
-* Sia $w=a_1a_2...a_m \in L, m \geq n$ 
-* Sia $p_i = \hat \delta(q_0, a_1a_2...a_m)$ dove $q_0$ è lo stato iniziale di *A*
+* Sia $w=a_1a_2…a_m \in L, m \geq n$ 
+* Sia $p_i = \hat \delta(q_0, a_1a_2…a_m)$ dove $q_0$ è lo stato iniziale di *A*
 $\Rightarrow \exists \space i < j \leq n: p_i=p_j$ (entro **n** simboli trovo il nodo che mi fa entrare nel ciclo, in questi casi lo incontro ad un momento *i* della mia stringa per poi ritornarci al carattere *j*)
 
 Ora $w=xyz$, dove:
-* $x=a_1a_2...a_i$
-* $y=a_{i+1}a_{i+2}...a_j$ (caratteri che itero sul ciclo)
-* $z = a_{j+1}a_{j+2}...a_m$
+* $x=a_1a_2…a_i$
+* $y=a_{i+1}a_{i+2}…a_j$ (caratteri che itero sul ciclo)
+* $z = a_{j+1}a_{j+2}…a_m$
 ![[Pasted image 20230927180536.png]]
 Quindi anche $xy^kz \in L$, per ogni $k \geq 0$, inoltre $y \neq \epsilon$ e $|xy| \leq n$ poiché $i < j \leq n$. 
 
 * L'idea di base è che ogni automa dispone di una memoria limitata, proprio per questo infatti non è possibile ricordare cosa è successo negli stati precedenti.  
+### Proprietà di Chiusura
+Con chiusura si intende la proprietà di un insieme di supportare un insieme di operazioni fondamentali. Per esempio, se si considera l'insieme dei numeri naturali $\mathbb{N}$, possiamo dire che è chiuso rispetto la somma (cioè $a + b=c \in \mathbb{N} \iff a,b\in \mathbb{N}$), ma non possiamo dire lo stesso della *differenza*, perché se il sottraendo è maggiore, il numero sarà negativo e quindi non appartenente a $\mathbb{N}$.
+
+Per i linguaggi regolari, siano L e M due linguaggi regolari. Allora i seguenti linguaggi sono regolari:
+- [[#Teorema 4.4 (Unione)|Unione]]: $L \cup M$.
+- [[#Teorema 4.8 (Intersezione)|Intersezione]]: $L \cap M$
+- [[#Teorema 4.5 (Complemento)|Complemento]]: $\overline{N}$
+- [[#Teorema 4.10 (Differenza)|Differenza]]: $L \setminus M$
+- [[#Teorema 4.11 (Reverse)|Inversione (Reverse)]]: $L^{R} = \{w^R : w \in L\}$
+- **Chiusura**: $L^*$
+- **Concatenazione**: $L.M$
+
+#### Teorema 4.4 (Unione)
+> Per ogni coppia di linguaggi regolari $L$ e $M$, $L \cup M$ è regolare.
+
+**Prova**: prendiamo le espressioni regolari dei due linguaggi, rispettivamente $L = L(E)$ e $M = L(F)$.
+Per definizione delle espressioni regolari $L(E + F) = L \cup M$.
+
+#### Teorema 4.5 (Complemento)
+> Sia $L$ un linguaggio regolare su $\Sigma$, allora anche $\overline{L} = \Sigma^* \setminus L$ è regolare.
+
+**Prova**: Sia $L$ rappresentabile da un *DFA*: $A = (Q, \Sigma, \delta, q_0, F)$ e consideriamo un altro *DFA*  $B$ tale che:
+$$B = (Q, \Sigma, \delta, q_0, Q\setminus F)$$
+ovvero il DFA $A$ con gli stati di accettazione invertiti con gli stati di non accettazione. Allora vale $L(B) = L$.
+
+#### Teorema 4.8 (Intersezione)
+> Se $L$ e $M$ sono regolare allora anche $L \cap M$ è regolare.
+
+##### Prova con DeMorgan
+Per la legge di **DeMorgan** si ha $L \cap M = \overline{\overline{L}\cup \overline{M}}$.
+È dimostrabile per il [[#Teorema 4.4 (Unione)|teorema 4.4]] che i linguaggi regolari sono chiusi rispetto l'unione e per il [[#Teorema 4.5 (Complemento)|teorema 4.5]] rispetto il complemento.
+
+##### Prova con Simulazione Parallela
+Siano $A_L$ e $A_M$ gli automi a stati finiti deterministici rispettivamente di $L$ e $M$, costruiti in questo modo:
+- $A_L = (Q_L, \Sigma, \delta_L, q_L, F_L)$
+- $A_M = (Q_M, \Sigma, \delta_M, q_M, F_M)$
+
+Costruiamo un automa che **simula in parallelo** $A_L$ e $A_M$, il quale accetta se e solo se **sia** $A_L$ sia $A_M$ accettano.
+
+Formalmente possiamo dire che la simulazione parallela modelli l'automa così definito:
+$$A_{L\cap M}(Q_L \times Q_M, \Sigma, \delta_{L \cap M}, (q_L, q_M), F_L \times F_M)$$
+
+dove $\delta_{L \cap M}((q_L, q_M), a) = (\delta_L(p, a), \delta_M(q,a))$ e mediante la solita dimostrazione induttiva si arriva a definire $\hat{\delta}$ come:
+
+$$\hat{\delta}_{L \cap M}((q_L, q_M), w) = (\hat{\delta}_L(q_L, w),\hat{\delta}_M(q_M, w))$$
+
+Tutto sto casino per dire che se $A_L$ va dallo stato $p$ allo stato $s$ leggendo $a$, e $A_M$ va dallo stato $q$ allo stato $t$ leggendo $a$, allora $A_{L \cap M}$ andrà dallo stato $(p,q)$ allo stato $(s,t)$ leggendo $a$. Si ha una condizione di accettazione **solo** quando la **coppia di stati di arrivo**  è costituita da **soli stati di accettazione**.
+
+#### Teorema 4.10 (Differenza)
+> Se $L$ e $M$ sono linguaggi regolari, allora anche $L \setminus M$ è regolare.
+
+**Prova**: si osserva che $L \setminus M = L \cap \overline{M}$. Per il [[#Teorema 4.5 (Complemento)|teorema 4.5]] e [[#Teorema 4.8 (Intersezione)|teorema 4.8]] i linguaggi regolari sono chiusi rispettivamente per complemento e intersezione.
+
+#### Teorema 4.11 (Reverse)
+> Se $L$ è un linguaggio regolare, allora anche $L^R$ (linguaggio formato dalle stringhe lette all'inverso) è regolare.
+
+**Prova**: Sia $L$ riconosciuto da un automa a stati finiti $A$ (non per forza deterministico quindi). Modifichiamo $A$ per renderlo un altro automa a stati finiti per $L^R$, in questo modo:
+1. Invertiamo il senso di tutte le transizioni (gli archi).
+2. Rendiamo il vecchio stato iniziale nell'unico stato finale.
+3. Creiamo un nuovo stato iniziale $p_0$ con $\delta(p_0, \epsilon) = F$, ovvero colleghiamo $p_0$ con tutti i vecchi stati finali con una transizione $\epsilon$
+
+### Proprietà di Decisione
+Vogliamo capire 3 cose:
+1. Come capire che un linguaggio è vuoto (i.e. $L = \emptyset$). [[#Testare se un linguaggio è vuoto|1]]
+2. Come capire se una stringa appartiene ad un linguaggio (i.e. $w\in L$). [[#Testare l'appartenenza|2]]
+3. Se è possibile che due descrizioni definiscano lo stesso linguaggio.
+
+#### Testare se un linguaggio è vuoto
+Quanti passi richiede questo test?
+
+- $L(A) \neq \emptyset$ per automi a stati finiti $A$ se e solo se uno stato finale è raggiungibile dallo stato iniziale in $A$
+	- $O(n^2)$ passi.
+- Consideriamo un'espressione regolare $E$ di lunghezza $s$ e controllare se $L(E) = \emptyset$ in $O(s)$ passi, usando il seguente metodo:
+	- $E = F + G$:  $L(E)$ è vuoto $\iff$ sia $L(F)$ sia $L(G)$ sono vuoti.
+	- $E = F.G$: $L(E)$ è vuoto $\iff$ se $L(F)$ o $L(G)$ sono vuoti.
+	- $E = F^*$: $L(E)$ non è **mai** vuoto poiché $\epsilon \in L(E)$.
+	- $E = \epsilon$: $L(E)$ non è vuoto.
+	- $E = a$: $L(E)$ non è vuoto.
+	- $E = \emptyset$: $L(E)$ è vuoto.
+
+#### Testare l'Appartenenza
+Per controllare se $w \in L(A)$
+- Per un DFA $A$, simuliamo $A$ su $w$.
+	- Se $|w| = n$$O(n)$ passi.
+- Per un NFA a $s$ stati
+	- $O(ns^2)$ passi, perché potenzialmente ogni stato dell'NFA può portarmi ad al massimo altri $s$ stati.
+- Per un $\epsilon$-NFA
+	- Se si calcolano preventivamente tutti gli `ECLOSE`, $O(ns^2)$ passi.
+- Per un espressione regolare $E$ di lunghezza $s$, possiamo prima convertirla in un $\epsilon$-NFA con $2s$ stati.
+	- $O(ns^2)$ passi.
+
+### Equivalenza e Minimizzazione di automi
+Consideriamo un DFA $A = (Q, \Sigma, \delta, q_0, F)$ e $\{p,q\} \subseteq Q$. Possiamo dire che:
+$$p\equiv q \iff \forall w \in \Sigma^* : \hat{\delta}(p,w)\in F \quad\text{and}\quad \hat{\delta}(q, w)\in F$$
+Ovvero che due stati si dicono equivalenti se e solo se esiste una stringa $w$ che porta sia dallo stato $q$, sia dallo stato $p$ in uno stato di accettazione $\in F$.
+- Se $p \equiv q$, $p$ e $q$ sono **equivalenti**.
+- Se $p \not\equiv q$, $p$ e $q$ sono **distinguibili**.
+	- Possiamo dire in modo più swag che $p$ e $q$ sono distinguibili se: $\exists w : \hat{\delta}(p,w), \in F$ e $\hat{\delta}(q, w) \not\in F$
+
+#### Algoritmo Riempi-Tabella
+Riempimi sto cazzo coglione.
+Possiamo calcolare coppie di stati *distinguibili* con il metodo induttivo, detto algoritmo riempi tabella:
+**Base**: Se $p \in F$ e $q \not\in F$, allora $p \not \equiv q$.
+**Induzione**: Se $\exists a \in \Sigma : \delta(p, a) \not\equiv \delta(q,a )$, allora $p \not\equiv q$.
+
+##### Spiegazione di come il prof vuole che la facciamo
+![[Pasted image 20231003164945.png]]
+Dividere il tutto in *passate* (sì, a lezione ha fatto la battuta "passata…di pomodoro", per questo ora si spiega la faccia di chad ciuchino).
+1. Inizialmente, creo la griglia come una tabella con tutti gli stati su righe e colonne, una sorta di matrice, dove però vengono tolti tutti gli elementi superiori della diagonale, e la diagonale stessa (quindi le righe partono dal secondo stato, e le colonne non contengono l'ultimo stato).
+2. **Passata 1**: prendo tutte le coppie distinte $(\text{stato-finale}, \text{stato-NON-finale})$ e le si segnano nella tabella (sarebbero il passo base del metodo induttivo).
+3. **Passata 2**: ci si muove riga per riga, colonna per colonna, dall'alto verso il basso, e da sinistra verso destra. KIARO???
+	1. Consideriamo tutte le coppie che vengono presentate nella colonna, e facciamo il ragionamento induttivo per ogni carattere dell'alfabeto. Occhio che ho detto carattere, non stringa, quindi facciamo i test sempre con elementi base, per esempio se $\Sigma = \{0,1\}$, per ogni coppia di stati che troviamo, calcoliamo dove si arriva se in entrambi faccio 0 e poi dove si va con 1.
+	2. Una volta preso il carattere da analizzare, si va a vedere in che coppia di stati si arriva con quel carattere. Questa coppia di stati verrà poi cercata nella tabella, e se risulta segnata, allora segniamo la coppia che stavamo analizzando, per via del passo induttivo.
+4. **Passata 3-$\infty$**: Una volta che terminiamo la seconda passata, avremo un certo numero di elementi segnati e altri no. Per tutti gli elementi non ancora segnati, si riprova a vedere in che coppia di stati si va con un carattere, perché magari ora la coppia che prima non era segnata poi lo è diventata! Questo procedimento va avanti, e se alla fine della passata non ho toccato nulla (non ho segnato alcun elemento in questa passata), allora l'algoritmo termina.
+
+#### Classi di Equivalenza
+Una volta terminato l'algoritmo riempi tabella, tutte le coppie non segnate saranno le coppie di stati equivalenti.
+Per ogni coppia di stati equivalenti, creiamo ciò che viene definita **classe di equivalenza**, in sostanza l'insieme di tutti gli stati che sono risultati equivalenti applicando l'algoritmo Riempi tabella.
+
+Le classi di equivalenza sono molto utili per la [[#Minimizzazione di Automi]].
+
+#### Equivalenza tra Automi
+Consideriamo $L$ e $M$ due linguaggi regolari, e seguiamo il seguente processo per determinare se sono equivalenti:
+1. Generiamo il DFA per entrambi i linguaggi regolari.
+2. Consideriamo entrambi i DFA come uno unico.
+3. Applichiamo l'algoritmo riempi tabella.
+4. Se alla fine dell'applicazione dell'algoritmo, i due stati iniziali sono distinguibili, allora $L \not\equiv M$, altrimenti $L \equiv M$.
+
+#### Minimizzazione di Automi
+Applichiamo come sempre l'algoritmo riempi tabella. Una volta terminato, si saranno generati tutti gli **insiemi di tutti gli stati equivalenti**, e chiamiamo la **classe di equivalenza** di $p$, come $p\backslash_{\equiv}$.
+
+Per minimizzare un DFA $A = (Q, \Sigma, \delta, q_0, F)$, costruiamo un DFA $B = (Q\backslash_{\equiv}, \Sigma, \gamma, p_0\backslash_{\equiv}, F\backslash_{\equiv})$ dove abbiamo:
+$$\gamma(p\backslash_{\equiv},a) = \delta(p, a)$$
+
+Dove sostanzialmente stiamo dicendo che per calcolare la transizione tra classi di equivalenza, ci basta prendere qualsiasi elemento della classe di appartenenza e controllare l'insieme dell'elemento di arrivo che porterebbe la sua transizione originaria.
+
+Due cose per la minimizzazione:
+- Il nuovo **stato iniziale**  è la classe di equivalenza che contiene il vecchio stato iniziale.
+- il nuovo **stato finale** è la classi di equivalenza che contiene **solo** stati di accettazione.
