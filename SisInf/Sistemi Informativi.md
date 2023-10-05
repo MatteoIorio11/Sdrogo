@@ -475,3 +475,121 @@ In generale la scelta dei processi sui quali intervenire deve tenere conto:
 Una buona idea è iniziare con un processo con una bassa difficoltà di implementazione/tempo di realizzazione ma con un grande impatto potenziale, per sfruttare due cose:
 - È poco una sbatta, quindi top che ci metto poco.
 - Faccio subito vedere ai vecchi di merda quanto valore aggiunto dia sta roba, quindi 
+
+La scelta dei processi sui quali intervenire dipende dagli obiettivi della *reingegnerizzazione*. Bisogna ricordarsi inoltre che non tutti i processi hanno lo stesso **impatto** e **valore**. 
+
+### Strumenti analitici
+I nuovi strumenti analitici aiutano a concepire *nuovi metodi* di **organizzare** il flusso di lavoro. 
+* **Azienda estesa**: gestire i processi *oltre i confini* organizzativi dell'azienda, capire chi ci sta intorno, capire le esigenze dei clienti e dei fornitori.
+* **Parallelizzazione**: sostituire processi sequenziali con processi parallelizzati, gestire processi complessi guidati dal sistema in modo di eseguirli in parallelo
+* **Riallocazione**: riposizionare esperti funzionali incorporando l'*expertise* in sistemi e strumenti
+* **Eliminazione**: verificare la necessità di attività e funzioni tradizionali, rimuovere attività *inutili*.
+* **Cicli di miglioramento continuo**: costruire cicli di feedback per stimolare il miglioramento delle performance, in modo da migliorare in maniera continua. Dipende fortemente dalla *tecnologia*. 
+
+## Tecniche BPR
+
+### Analisi dei tempi di ciclo
+
+L'*analisi* dei tempi di ciclo permette di identificare i tempi morti:
+1) Parto dal *problema*
+2) Analizzo il *processo*
+3) Trovo una *soluzione*
+
+### Analisi della creazione del valore
+
+Permette di identificare le attività che aggiungono valore al cliente attraverso un processo composto da domande chiave. L'approccio organizzativo per processi cambia il ruolo dell'Information Technology. L'*Information Technology* va strategicamente interpretata come fattore di successo ottimale per le prestazioni dei processi di business. 
+
+* Bisogna sempre partire da quali siano i **problemi** e quali **valori** si vogliono ottenere
+* Tutte le opportunità nascono dai processi, la tecnologia è solamente un mezzo con la quale si risolvono i problemi. Non devono essere la fonte dalla quale partire per ottenere i *valori*.
+
+![[Pasted image 20231005111827.png]]
+
+## Ridisegno dei processi
+
+### Prima fase: Condivisione degli obiettivi di business
+
+1) Documentare la visione aziendale di strategie ed obiettivi  $\Rightarrow$ si ottiene un *quadro di riferimento* degli orientamenti strategici e obiettivi di sviluppo
+2) Rilevare piani di sviluppo $\Rightarrow$ linee guida per lo sviluppo delle attività
+3) Rilevare ruolo e attese dell'azienda, dei clienti e di coloro che partecipano al processo $\Rightarrow$ modello di interrelazione volumi
+
+### Seconda fase: definizione delle linee guida
+
+1) Selezionare i processi di gestione da considerare $\Rightarrow$ quadro dei processi di attività
+2) Identificare le skill e le risorse necessarie $\Rightarrow$ definisco i macro target
+3) Strutturare i team e pianificare le attività $\Rightarrow$ definizione della struttura operativa del programma
+4) Sviluppare e promuovere il programma di comunicazione $\Rightarrow$ approccio alla comunicazione e scopi
+
+### Analisi dei benchmark
+
+1) Sviluppare processi interni ed esterni per la definizione dei requisiti dei clienti
+2) Definire le priorità alle opportunità di miglioramento
+
+### Generazione di concetti innovativi e progettazione del cambiamento
+
+1) Sviluppare la visione di un processo eccellente
+2) Disegnare le opzioni per i nuovi processi
+3) Definire i requisiti in termini di risorse e tecnologie
+
+### Pianificare l'implementazione
+
+1) Preparare e concordare piano d'implementazione
+2) Accordarsi sulla futura struttura organizzativa post-implementazione
+3) Accordarsi sull'architettura ed il piano di migrazione
+4) Allineare i criteri di misurazione delle prestazioni 
+
+## Realizzazione del cambiamento
+
+La realizzazione del cambiamento è composto da un insieme finito di attività chiave
+
+* Incontri frequenti sullo stato di avanzamento
+* Impiegare risorse in modo flessibile
+* Incoraggiare e supportare il processo di cambiamento
+* Monitorare i sistemi di misurazione
+* Individuare azioni di miglioramenti
+* Comunicazione dei risultati
+
+In un programma di *trasformazione* aziendale il *process reengineering* va integrato con la realizzazione dei nuovi supporti informatici e la gestione del cambiamento. 
+
+---
+# Data Flow Diagram
+
+## Data Flow Diagram
+
+Il DFD è un modello con la quale è possibile rappresentare un sistema attraverso una **rete di processi funzionali interconnessi da depositi di dati**. Si riescono ad enfatizzare le operazioni effettuare sulle *informazioni* e le *dipendenze funzionali* che vengono a crearsi con i vari processi in base ai flussi di informazione. 
+
+I processi poi possono essere in oltre *raffinati* mediante **scomposizione gerarchica**. 
+
+### Entità dei DFD
+
+* *Processi* (attività) che trasformano i dati 
+![[Pasted image 20231005114117.png]]
+* *Flussi* che muovo i dati o muovono oggetti concreti
+![[Pasted image 20231005114127.png]]
+* *Agenti Esterni* che producono e consumano dati
+![[Pasted image 20231005114141.png]]
+* *Deposito Dati* che memorizzano informazioni in modo passivo, dove vengono archiviati i dati, non per forza sono distinti.
+![[Pasted image 20231005114155.png]]
+
+### Sintassi
+
+Un DFD è una quadrupla composta da $<P, D, A,F>$ dove:
+* *P*: è un insieme finito non vuoto di processi
+* *D*: è un insieme finito di depositi
+* *A*: è un insieme finito di agenti
+
+#### Vincoli
+* archivi che parlano tra di loro
+* agente esterno che comunica con archivio dati
+* agenti esterni che comunicano fra di loro
+
+### Rappresentazione
+
+Tramite un grafo orientato in cui ogni nodo appartiene a uno dei tre insiemi P, D e A e ogni arco orientato rappresenta un flusso di dati. In oltre non è sensato pensare di sviluppare un singolo DFD per modellare con sufficiente dettaglio un ambiente reale, ma sono richieste applicazioni a più livelli. 
+
+Evitare di costruire DFD molto sbilanciati, bisogna fare in modo che i DFD siano tra loro coerenti. 
+
+### Strategie per la costruzione di DFD
+* **top-down**: decomposizione di un processo in una serie di sottoprocessi identificabili e indipendenti
+* **bottom-up**: a partire da una serie di concetti si costruiscono via via le connessioni tra di essi
+* **mixed**: raffinamento di un DFD di massima in stadi successivi con tecniche di *bottom-up* e *top-down*
+* **outside-in**: parte delle interfacce con il sistema e propaga in avanti gli ingressi evidenziando i processi coinvolti nel flusso di dati o propaga all'indietro le uscite. 
