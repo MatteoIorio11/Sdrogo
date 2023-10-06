@@ -47,6 +47,18 @@
 		- [[#Equivalenza e Minimizzazione di automi#Classi di Equivalenza|Classi di Equivalenza]]
 		- [[#Equivalenza e Minimizzazione di automi#Equivalenza tra Automi|Equivalenza tra Automi]]
 		- [[#Equivalenza e Minimizzazione di automi#Minimizzazione di Automi|Minimizzazione di Automi]]
+- [[#Linguaggi Liberi dal Contesto|Linguaggi Liberi dal Contesto]]
+	- [[#Linguaggi Liberi dal Contesto#Definizione|Definizione]]
+	- [[#Linguaggi Liberi dal Contesto#Derivazione|Derivazione]]
+		- [[#Derivazione#Derivazione a Sinistra e Destra|Derivazione a Sinistra e Destra]]
+	- [[#Linguaggi Liberi dal Contesto#Il linguaggio di una Grammatica|Il linguaggio di una Grammatica]]
+	- [[#Linguaggi Liberi dal Contesto#Alberi Sintattici|Alberi Sintattici]]
+		- [[#Alberi Sintattici#Costruzione|Costruzione]]
+		- [[#Alberi Sintattici#Prodotto di un albero sintattico|Prodotto di un albero sintattico]]
+		- [[#Alberi Sintattici#Alberi sintattici e Derivazioni|Alberi sintattici e Derivazioni]]
+		- [[#Alberi Sintattici#Ambiguità in Grammatiche e Linguaggi|Ambiguità in Grammatiche e Linguaggi]]
+			- [[#Ambiguità in Grammatiche e Linguaggi#Ambiguità e Derivazioni a Sinistra|Ambiguità e Derivazioni a Sinistra]]
+				- [[#Ambiguità e Derivazioni a Sinistra#Teorema 5.29|Teorema 5.29]]
 
 ---
 
@@ -444,7 +456,9 @@ Dividere il tutto in *passate* (sì, a lezione ha fatto la battuta "passata…di
 2. **Passata 1**: prendo tutte le coppie distinte $(\text{stato-finale}, \text{stato-NON-finale})$ e le si segnano nella tabella (sarebbero il passo base del metodo induttivo).
 3. **Passata 2**: ci si muove riga per riga, colonna per colonna, dall'alto verso il basso, e da sinistra verso destra. KIARO???
 	1. Consideriamo tutte le coppie che vengono presentate nella colonna, e facciamo il ragionamento induttivo per ogni carattere dell'alfabeto. Occhio che ho detto carattere, non stringa, quindi facciamo i test sempre con elementi base, per esempio se $\Sigma = \{0,1\}$, per ogni coppia di stati che troviamo, calcoliamo dove si arriva se in entrambi faccio 0 e poi dove si va con 1.
-	2. Una volta preso il carattere da analizzare, si va a vedere in che coppia di stati si arriva con quel carattere. Questa coppia di stati verrà poi cercata nella tabella, e se risulta segnata, allora segniamo la coppia che stavamo analizzando, per via del passo induttivo.
+	2. Una volta preso il carattere da analizzare, si va a vedere in che coppia di stati si arriva con quel carattere all'interno della tabella. Questa coppia di stati verrà poi cercata nella tabella, e se risulta segnata, allora segniamo la coppia che stavamo analizzando, per via del passo induttivo.
+	3. Se per un carattere si incontra una coppia segnata nella tabella, allora segno la cella corrente e vado avanti.
+	4. Se per tutti i caratteri non trovo celle segnate, lascio la cella corrente non segnata e vado avanti con la prossima cella.
 4. **Passata 3-$\infty$**: Una volta che terminiamo la seconda passata, avremo un certo numero di elementi segnati e altri no. Per tutti gli elementi non ancora segnati, si riprova a vedere in che coppia di stati si va con un carattere, perché magari ora la coppia che prima non era segnata poi lo è diventata! Questo procedimento va avanti, e se alla fine della passata non ho toccato nulla (non ho segnato alcun elemento in questa passata), allora l'algoritmo termina.
 
 [Link utile per algoritmo riempi tabella](https://www.reddit.com/r/LaStalla/comments/w5k2bb/er_ciuchino_chad_ti_guarda_che_fai/)
@@ -473,3 +487,79 @@ Dove sostanzialmente stiamo dicendo che per calcolare la transizione tra classi 
 Due cose per la minimizzazione:
 - Il nuovo **stato iniziale**  è la classe di equivalenza che contiene il vecchio stato iniziale.
 - il nuovo **stato finale** è la classi di equivalenza che contiene **solo** stati di accettazione.
+
+---
+## Linguaggi Liberi dal Contesto
+Chiamiamo:
+- **Linguaggi Liberi dal Contesto** (CFL = Context-Free Languages)
+- **Grammatiche Libere dal Contesto** (CFG = Context-Free Grammars), sono la base della sintassi *BNF* (Backus-Naur-Form).
+
+### Definizione
+Una grammatica libera dal contesto, è una quadrupla
+$$G = (V, T, P, S)$$
+dove:
+- $V$ &rarr; è un insieme finito di **variabili**.
+- $T$ &rarr; è un insieme finito di **terminali**.
+- $P$ &rarr; è un insieme finito di **produzioni** (o **regole**), della forma $A \rightarrow \alpha$, dove $A$ è una variabile e $\alpha \in (V \cup T)^*$.
+- $S$ &rarr; è una variabile distinta chiamata **variabile iniziale**.
+
+### Derivazione
+Sia $G = (V, T, P, S)$ una CFG, $A \in V$, $\{\alpha, \beta\} \subset (V \cup T)^*$, e $A \rightarrow \gamma \in P$.
+Possiamo scrivere:
+$$\alpha A \beta \xRightarrow[G]{} \alpha\gamma\beta$$
+E diciamo che da $\alpha A \beta$  si deriva $\alpha \gamma \beta$.
+Nell'ambito dei linguaggi liberi da contesto, $\alpha \beta$ viene chiamato **contesto**.
+
+Possiamo definire $\xRightarrow[]{*}$ come la chiusura *riflessiva* e *transitiva* di $\implies$:
+
+**Base**: Sia $\alpha \in (V \cup T)^*$, allora $\alpha \xRightarrow[]{*} \alpha$.
+
+**Induzione**: $\alpha \xRightarrow[]{*} \beta$, e $\beta \implies \gamma$, allora $\alpha \xRightarrow[]{*}\gamma$.
+
+Cioè, se da $\alpha$ posso derivare $\beta$ e da $\beta$ posso derivare $\gamma$, allora per riflessione, esiste un numero di passi di derivazione che mi permettono $\alpha \xRightarrow[]{*}\gamma$, cioè di derivare da $\alpha$ a $\gamma$.
+
+#### Derivazione a Sinistra e Destra
+- Viene definita la **derivazione canonica a sinistra** $\xRightarrow[lm]{}$ ($lm$ = left-most): rimpiazza sempre la variabile più a sinistra con il corpo di una delle sue regole.
+- Viene definita la **derivazione canonica a destra** $\xRightarrow[rm]{}$ ($rm$ = right-most): rimpiazza sempre la variabile più a destra con il corpo di una delle sue regole.
+
+### Il linguaggio di una Grammatica
+Se $G(V, T, P, S)$ è una CFG, allora il **linguaggio** di G è:
+$$L(G)=\{w \in T^* : S \xRightarrow[G]{*} w\}$$
+Cioè l'insieme delle stringhe su $T^*$ (paragonabile a $\Sigma^*$ per i linguaggi regolari) derivabili dal simbolo iniziale. I linguaggi definiti da una CFG, vengono definiti **linguaggi liberi dal contesto** (Context-Free Languages).
+Questi linguaggi non dipendono dal contesto durante la derivazione (contesto inteso come insieme di caratteri che non cambiano durante una regola di una derivazione).
+
+### Alberi Sintattici
+Se $w \in L(G)$, per una CFG, allora $w$ ha un **albero sintattico** che ci dice la **struttura sintattica** di $w$. 
+In generale, gli alberi sintattici sono una rappresentazione alternativa alle derivazioni. Per ogni stringa, in generale possono esistere più alberi sintattici, ma idealmente dovrebbe essercene solo uno, affinché la CFG sia **non ambigua**.
+
+#### Costruzione
+Sia $G=(V, T, P, S)$ una CFG; un albero sintattico per $G$ è dato da un albero che soddisfa le seguenti caratteristiche:
+1. Ogni **nodo interno** è etichettato con una variabile in $V$.
+2. Ogni **foglia** è etichettata con un simbolo appartenente a $V \cup T \cup \{\epsilon\}$, dove ogni foglia etichettata con $\epsilon$ è l'unico figlio di suo padre.
+3. Per ogni nodo interno $A$, e i suoi figli $X_1,X_2,\dots,X_k$ vale: $A \rightarrow X_1X_2 \dots X_k \in P$, cioè i figli sono il corpo (ordinato) della produzione.
+
+#### Prodotto di un albero sintattico
+Il prodotto di un albero sintattico è la **stringa** di **foglie da sinistra a destra**. Gli alberi che interessano maggiormente sono quelli dove:
+1. Il prodotto è una **stringa terminale** (composta da soli caratteri terminali).
+2. La radice è etichettata dal **simbolo iniziale**.
+
+Grazie all'insieme di questi due alberi, possiamo costruire il **linguaggio della grammatica** (per esempio usato dai compilatori).
+
+#### Alberi sintattici e Derivazioni
+Sia $G=(V, T, P, S)$ una CFG, e $A \in V$. I seguenti sono equivalenti:
+1. $A \xRightarrow[]{*} w$
+2. $A \xRightarrow[lm]{*} w$ e $A \xRightarrow[rm]{*} w$.
+3. C'è un albero sintattico di $G$ con radice $A$ e prodotto $w$.
+
+#### Ambiguità in Grammatiche e Linguaggi
+In generale, abbiamo visto come per una grammatica possano tranquillamente esistere più derivazioni. Il problema si ha per quelle grammatiche che sono rappresentabili da più di un albero sintattico, provocando un **ambiguità** del linguaggio e della grammatica stessa.
+
+> **Def:** Sia $G = (V, T, P, S)$ una CFG. Diciamo che $G$ è **ambigua** se esiste una stringa in $T^*$ che ha più di un albero sintattico.
+
+##### Ambiguità e Derivazioni a Sinistra
+Possiamo dire in generale che:
+- Ad un albero sintattico corrispondono molte derivazioni.
+- Ad ogni (diverso) albero sintattico corrisponde **un'unica (diversa) derivazione a sinistra e a destra**.
+
+###### Teorema 5.29
+> Data una CFG $G$, una **stringa terminale** $w$ ha due distinti alberi sintattici se e solo se $w$ ha **due distinte derivazioni a sinistra** dal simbolo iniziale.
