@@ -447,6 +447,8 @@ Dividere il tutto in *passate* (sì, a lezione ha fatto la battuta "passata…di
 	2. Una volta preso il carattere da analizzare, si va a vedere in che coppia di stati si arriva con quel carattere. Questa coppia di stati verrà poi cercata nella tabella, e se risulta segnata, allora segniamo la coppia che stavamo analizzando, per via del passo induttivo.
 4. **Passata 3-$\infty$**: Una volta che terminiamo la seconda passata, avremo un certo numero di elementi segnati e altri no. Per tutti gli elementi non ancora segnati, si riprova a vedere in che coppia di stati si va con un carattere, perché magari ora la coppia che prima non era segnata poi lo è diventata! Questo procedimento va avanti, e se alla fine della passata non ho toccato nulla (non ho segnato alcun elemento in questa passata), allora l'algoritmo termina.
 
+[Link utile per algoritmo riempi tabella](https://www.reddit.com/r/LaStalla/comments/w5k2bb/er_ciuchino_chad_ti_guarda_che_fai/)
+
 #### Classi di Equivalenza
 Una volta terminato l'algoritmo riempi tabella, tutte le coppie non segnate saranno le coppie di stati equivalenti.
 Per ogni coppia di stati equivalenti, creiamo ciò che viene definita **classe di equivalenza**, in sostanza l'insieme di tutti gli stati che sono risultati equivalenti applicando l'algoritmo Riempi tabella.
