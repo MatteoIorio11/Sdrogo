@@ -16,6 +16,21 @@
 - [[#Beyond ACID|Beyond ACID]]
 - [[#BASE|BASE]]
 - [[#CAP Today|CAP Today]]
+- [[#Replication and Consistency|Replication and Consistency]]
+	- [[#Replication and Consistency#Consistency|Consistency]]
+		- [[#Consistency#Data-Centric Consistency Model|Data-Centric Consistency Model]]
+			- [[#Data-Centric Consistency Model#Continuous Consistency|Continuous Consistency]]
+			- [[#Data-Centric Consistency Model#Inconsistency (conit)|Inconsistency (conit)]]
+			- [[#Data-Centric Consistency Model#Sequential Consistency|Sequential Consistency]]
+			- [[#Data-Centric Consistency Model#Casual Consistency|Casual Consistency]]
+		- [[#Consistency#Client-Centric Consistency Model|Client-Centric Consistency Model]]
+			- [[#Client-Centric Consistency Model#Eventual Consistency|Eventual Consistency]]
+		- [[#Consistency#Some Definitions|Some Definitions]]
+	- [[#Replication and Consistency#Replication|Replication]]
+- [[#Dependability|Dependability]]
+	- [[#Dependability#Faults and Errors (chap: 8)|Faults and Errors (chap: 8)]]
+		- [[#Faults and Errors (chap: 8)#Failure masking with Redundancy|Failure masking with Redundancy]]
+
 ----
 # Distributed Systems
 
