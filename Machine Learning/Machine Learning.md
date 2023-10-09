@@ -33,6 +33,24 @@
 		- [[#Convergenza#Overfitting|Overfitting]]
 			- [[#Overfitting#Avoiding Overfitting Practically|Avoiding Overfitting Practically]]
 	- [[#Fondamenti#Consigli Vari|Consigli Vari]]
+- [[#Classificazione|Classificazione]]
+	- [[#Classificazione#Approccio Bayesiano|Approccio Bayesiano]]
+		- [[#Approccio Bayesiano#Classificatore di Bayes|Classificatore di Bayes]]
+		- [[#Approccio Bayesiano#Bayes: approccio parametrico e non-parametrico|Bayes: approccio parametrico e non-parametrico]]
+			- [[#Bayes: approccio parametrico e non-parametrico#Distribuzione Normale (d=1)|Distribuzione Normale (d=1)]]
+			- [[#Bayes: approccio parametrico e non-parametrico#Distribuzione normale multivariata (multinormale)|Distribuzione normale multivariata (multinormale)]]
+		- [[#Approccio Bayesiano#Distanza di Mahalanobis|Distanza di Mahalanobis]]
+			- [[#Distanza di Mahalanobis#Classificatore di Bayes con distribuzioni multinormali|Classificatore di Bayes con distribuzioni multinormali]]
+			- [[#Distanza di Mahalanobis#Bayes e confidenza di classificazione|Bayes e confidenza di classificazione]]
+		- [[#Approccio Bayesiano#Approcci Non Parametrici|Approcci Non Parametrici]]
+			- [[#Approcci Non Parametrici#Parzen Window|Parzen Window]]
+	- [[#Classificazione#Classificatore Nearest Neighbour|Classificatore Nearest Neighbour]]
+		- [[#Classificatore Nearest Neighbour#K-Nearest Neighbour|K-Nearest Neighbour]]
+		- [[#Classificatore Nearest Neighbour#NN e Prototipi di Classi|NN e Prototipi di Classi]]
+		- [[#Classificatore Nearest Neighbour#NN e Metriche|NN e Metriche]]
+			- [[#NN e Metriche#Normalizzazione|Normalizzazione]]
+			- [[#NN e Metriche#Metric Learning|Metric Learning]]
+			- [[#NN e Metriche#Similarità Coseno|Similarità Coseno]]
 
 ---
 ## Introduzione
@@ -321,9 +339,9 @@ Per evitare overfitting possiamo dire che:
 - Il sistema può presentare bias, comportamenti disomogeneil.
 
 ---
-# Classificazione
+## Classificazione
 
-## Approccio Bayesiano
+### Approccio Bayesiano
 
 All'interno dell'approccio *Bayesiano* il problema è posto in termini **probabilistici**. Se tutte le distribuzioni sono note, questo tipo di approccio costituisce la migliore soluzione. 
 
@@ -337,22 +355,22 @@ $$\sum_{i=1}^{s}P(w_i)=1$$
 * Per ogni $w \in W$ e per ogni $x \in X$ indichiamo con $P(w_i | x)$ la **probabilità a posteriori** di $w_i$ dato $x$ ovvero la probabilità che dato il valore di $x$ appartenga alla classe $w_i$
 $$P(w_i | x) = \frac{p(x | w_i) \times P(w_i)}{p(x)}$$
 
-## Classificatore di Bayes
+#### Classificatore di Bayes
 
-Dato un pattern $x$ da classificare in una delle *s* classi $w_1,w_2,...,w_s$ sono noti:
-1) le *probabilità a priori* $P(w_1), P(w_2), ..., P(w_s)$
-2) le *densità di probabilità condizionali* $p(x|w_1), p(x|w_2),...,p(x | w_s)$
+Dato un pattern $x$ da classificare in una delle *s* classi $w_1,w_2,…,w_s$ sono noti:
+1) le *probabilità a priori* $P(w_1), P(w_2), …, P(w_s)$
+2) le *densità di probabilità condizionali* $p(x|w_1), p(x|w_2),…,p(x | w_s)$
 
 Attraverso la regola di classificazione di *Bayes* si assegna $x$ alla classe $b$ per cui è massima la probabilità a posteriori 
-$$b=argmax_{i=1,...,s}\{P(w_i | x)\}$$ Massimizzare la probabilità significa *massimizzare la densità di probabilità condizionale* tenendo conto della probabilità di ciascuna classe. Attraverso questa tecnica è anche possibile **minimizzare l'errore di classificazione**. 
+$$b=argmax_{i=1,…,s}\{P(w_i | x)\}$$ Massimizzare la probabilità significa *massimizzare la densità di probabilità condizionale* tenendo conto della probabilità di ciascuna classe. Attraverso questa tecnica è anche possibile **minimizzare l'errore di classificazione**. 
 
-## Bayes: approccio parametrico e non-parametrico
+#### Bayes: approccio parametrico e non-parametrico
 
 La conoscenza delle densità condizionali è possibile sono in teoria, nella pratica vi sono due sole soluzioni:
 * *Approccio Parametrico*: si fanno ipotesi sulla forma delle distribuzioni e si apprendono i parametri fondamentali, effettuo delle ipotesi
 * *Approccio non parametrico*: si apprendono le distribuzioni dal **training set**.
 
-### Distribuzione Normale (d=1)
+##### Distribuzione Normale (d=1)
 
 La densità di probabilità della distribuzione normale (d=1) è:
 $$p(x)=\frac{1}{\sigma \sqrt{2 \pi}}e^{-\frac{(x-\mu)}{2\sigma^2}}$$
@@ -361,27 +379,149 @@ $$p(x)=\frac{1}{\sigma \sqrt{2 \pi}}e^{-\frac{(x-\mu)}{2\sigma^2}}$$
 * $\sigma^2$ : è la varianza
 ![[Pasted image 20231002175620.png]]
 
-### Distribuzione normale multivariata (multinormale)
+##### Distribuzione normale multivariata (multinormale)
 
 La densità di probabilità nella distribuzione multinormale $(d > 1)$ è:
 $$p(x)=\frac{1}{(2\pi)^{d/2} |\Sigma|^{1/2}}e^{- \frac{1}{2} (x-\mu)^{t} \Sigma^{-1}(x-\mu)}$$
 dove:
-* $\mu=[\mu^1, \mu^2, ..., \mu^d]$ : è il vettore medio
+* $\mu=[\mu^1, \mu^2, …, \mu^d]$ : è il vettore medio
 * $\Sigma=[\sigma^{ij}]$ : è la matrice di covarianza, è sempre simmetrica e definita positiva
 * $|\Sigma|$: è il determinante
 * $\Sigma^{-1}$ : è l'inversa della matrice
 
 Gli elementi diagonali $\sigma^{ii}$ sono le varianze dei rispettivi $x^i$, gli elementi non diagonali $\sigma^{ij}$ sono le covarianze tra $x^i$ e $x^j$. 
-### Distanza di Mahalanobis
+#### Distanza di Mahalanobis
 La distanza $r$ è definita come : 
 $$r = (x - \mu)^t \Sigma^{-1}(x - \mu)$$
 definisce i bordi a densità costante in una distribuzione multinormale. Riesce a pesare le diverse componenti tenendo conto dei relativi spazi di variazione e della loro correlazione. 
 
-## Classificatore di Bayer con distribuzioni multinormali
+##### Classificatore di Bayes con distribuzioni multinormali
 
 Lo spazio è suddiviso in regioni non connesse. Un *decision boundary* o *decision surface*, è una zona di confine tra regioni che il classificatore associa a classi diverse, in questo punto la probabilità equivale al $50\%$ 
 ![[Pasted image 20231002181303.png]]
 
-### Bayes e confidenza di classificazione
+##### Bayes e confidenza di classificazione
 
 Un grande vantaggio del classificatore di *Bayes* è che esso produce un output probabilistico che può essere utilizzato come confidenza, visualizzato nella figura precedente tramite in colori. 
+
+**Bayes in pratica**: dato un problema con $s$ classi, e dato un training set significativo, deve essere innanzitutto **valutata la "normalità delle $s$ distribuzioni"**, cioè le densità di probabilità dei dati deve seguire un andamento normale, se no il classificatore bayesiano non risulta molto preciso. Si può verificare se i dati hanno questo andamento mediante:
+- Metodo formale (e.g. test statistico di Malkovich - Afifi).
+- Metodo empirico visualizzando le nuvole di dati o gli istogrammi sulle diversi componenti.
+
+Una volta verificata, possiamo procedere calcolando il vettore medio $\mu$ e la matrice di covarianza (maximum likelihood) $\Sigma$.
+
+#### Approcci Non Parametrici
+In questo genere di approcci le densità di probabilità sono **stimate direttamente** dal training set.
+In generale possiamo stimare le densità in spazi a dimensionalità ridotta (generalmente $d < 10$) e diventa critica al crescere della dimensionalità (*curse of dimensionality*).
+Attraverso la *riduzione della dimensionalità* è possibile contrastare questo fenomeno.
+
+Possiamo **stimare la densità** che un pattern $\mathbf{x}$ cada all'interno di $\mathbb{R}$ (ovvero la regione in cui voglio calcolare la densità) come:
+$$P_1 = \int_{\mathbb{R}} p(\mathbf{x}')\quad d\mathbf{x}'$$
+Dati $n$ pattern indipendenti, è possibile calcolare la probabilità che $k$ di questi cadano nella regione $\mathbb{R}$ attraverso la **distribuzione binomiale**:
+$$P_k = \binom{n}{k} P_1^k(1 - P_1)^{n - k}$$
+Dove
+- $P_1$ è la probabilità che un solo record  cada nella regione.
+- Possiamo assumere che il valor medio è $k = n P_1$
+	- Vale quindi $P_1 = k / n$
+
+Assumendo che la regione $\mathbf{R}$ abbia volume $V$ e sia piccola, perciò $P(\cdot)$ non varia significativamente, otteniamo:
+$$P_1 = \int_{\mathbb{R}} p(\mathbf{x}') \quad d\mathbf{x}' \approx p(\mathbf{x})\cdot V$$
+
+Se portiamo $V$ al denominatore di $P_1$ e riprendiamo il valor medio di $k$, otteniamo infine:
+
+$$p(x) = \frac{P_1}{V} = \frac{k}{n \cdot V}$$
+
+##### Parzen Window
+L'idea di fondo è quella di costruire un ipercubo $d$-dimensionale, definito da una funzione $\phi$, definendo la regione $\mathbb{R}$ detta anche **window**. La funzione $\phi$ viene costruita in modo tale da:
+$$\phi(\mathbf{u}) = \begin{cases}
+1 \qquad |u_j| \leq \frac{1}{2}, \quad j = 1,\dots,d \\
+0 \qquad \text{altrimenti}
+\end{cases}$$
+![[Pasted image 20231009183602.png|right]]
+Graficamente, è interessante vedere il caso in due dimensioni, dove la regione delineata $\mathbb{R}$ è delineata dal rettangolo di lato 1.
+
+Possiamo applicare delle trasformazioni all'ipercubo in modo tale da non alterare la sua funzione, in particolare possiamo far traslare il cubo dal suo centro fissato in corrispondenza dell'istanza $\mathbf{u}$, sottraendo o aggiungendo una costante $c$ &rarr; $\phi(\mathbf{u} - c)$. Inoltre, possiamo scegliere in modo arbitrario la lunghezza del lato dell'ipercubo, *iperparametro* $h_n$.
+
+In questo modo possiamo dire che, dato un generico ipercubo centrato in $\mathbf{x}$ e avente lato $h_n$ (quindi volume $V = h_n^d$), il numero di pattern del training set che cadono all'interno dell'ipercubo è dato da:
+$$k_n = \sum_{i=1}^n \phi \left( \frac{\mathbf{x}_i - \mathbf{x}}{h_n}\right)$$
+
+dove possiamo sostituire $k_n$ con la formula trovata prima si ricava:
+$$p_n(\mathbf{x}) = \frac{1}{n \cdot V_n}\sum_{i=1}^n\phi\left(\frac{\mathbf{x}_i - \mathbf{x}}{h_n}\right)$$
+
+Dove:
+- $V_n = h_n^d$
+- $\frac{1}{n \cdot V_n}$ è un fattore normalizzante
+- $h_n$ è un iperparametro che indica la grandezza della finestra, il quale ha un forte impatto sul risultato:
+	- Finestra **piccola** &rarr; la stima è molto attratta dai campioni e statisticamente instabile.
+	- Finestra **grande** &rarr; la stime è più stabile ma vaga e sfuocata.
+
+Nella pratica al posto di utilizzare ipercubi, si utilizzano delle funzioni kernel più soft, producendo superfici decisionali più regolari (**smoothed**).
+La più utilizzata tra queste funzioni kernel è la funzione **multinormale** vista anche per l'altro approccio, e possiamo quindi definire la funzione $\phi$ come:
+$$\phi(\mathbf{u}) = \frac{1}{(2\pi)^{d/2}}e^{-\frac{\mathbf{u}^T\mathbf{u}}{2}}$$
+Dove:
+- $\mu = [0\dots0]$ e $\Sigma = I$
+- Più aumenta $h$, più la granularità aumenta, ma con una più grande dipendenza sul numero delle istanze $n$.
+
+### Classificatore Nearest Neighbour
+È un classificatore più pragmatico e per certi versi meno formale del bayesiano, ma è l'ideale per tutti quei problemi dove non è poi così chiara la distribuzione normale dei dati.
+
+Data una metrica $\text{dist}(\cdot)$ nello spazio multidimensionale, il classificatore NN classifica un pattern $\mathbf{x}$ con la stessa classe dell'elemento $\mathbf{x}'$ ad esso più vicino nel training set TS:
+$$\text{dist}(\mathbf{x}, \mathbf{x}') = \min_{\mathbf{x}_j \in \text{TS}} \{\text{dist}(\mathbf{x}, \mathbf{x}_i)\}$$
+
+In questo modo si cerca di massimizzare la probabilità a posteriori, poiché non è troppo sbagliato pensare che $P(w_i | \mathbf{x})\simeq P(w_i | \mathbf{x}')$
+
+Il problema di questo classificatore sta nel fatto che non viene effettuata una stima della probabilità di appartenenza, in quanto il risultato del classificatore è esclusivo (o una classe, o l'altra nel caso di due classi). Questo comporta che per anche solo un outlier nel TS, creiamo partizionamenti nello spazio potenzialmente errati (quasi sempre). Per questo si impiegano i K-nearest Neighbour.
+
+Fun fact: un classificatore NN, sul training set produce sempre un errore pari a 0 :).
+
+#### K-Nearest Neighbour
+Secondo questa regola, vengono determinati i $k$ (iperparametro) elementi più vicini al pattern $\mathbf{x}$ da classificare. Ogni pattern tra i $k$ vicini vota per la classe a cui esso stesso appartiene, e il pattern $\mathbf{x}$ viene assegnato alla classe che ha ottenuto il maggior numero di voti.
+In generale il valore di $k$ deve essere dispari e di solito < 10.
+
+Possiamo stabilire facilmente una **confidenza** per il classificatore K-NN, definendo $[v_1, v_, \dots, v_s], \qquad \sum_{i=1}^s v_i = k$ i voti ottenuti dal pattern $\mathbf{x}$, e le confidenze come: $\left[\frac{v_1}{k},\frac{v_2}{k},\dots,\frac{v_s}{k}\right]$.
+
+È bene notare come anche se è così semplice e apparentemente poco performante, il K-NN risulta più efficiente addirittura di Parzen, poiché non soffre delle scarse prestazioni in aree dove le distribuzioni di dati sono rade (poiché Parzen lavora con una finestra a dimensione fissa, mentre la K-NN si interessa solo dei K vicini).
+
+#### NN e Prototipi di Classi
+Nelle implementazioni più basilari, K-NN è molto poco efficiente. Esistono versioni ottimizzate che aggirano un po' questo problema.
+Solitamente però si può procedere selezionando/derivando i pattern da cui calcolare la distanza, creando dei **prototipi** per ciascuna classe, e utilizzare questi ultimi per la classificazione come fossero i soli elementi del training set. Queste tecniche prendono il nome di:
+- **editing**: si cancellano solo pattern dal TS senza derivare nuovi pattern
+- **condensing**: i prototipi vengono derivati dalle istanze del TS.
+
+Con questo approccio (fa rima con...) si possono solitamente ottenere dei vantaggi, tra cui:
+- non è necessario calcolare un elevato numero di distanze.
+- i prototipi sono spesso più affidabili e robusti dei singoli pattern.
+
+Processi come **vector quantization** e **clustering**  consentono di ottenere più prototipi per ogni classe in modi molto ottimali.
+
+
+#### NN e Metriche
+La regola del K-NN è strettamente correlata alla metrica usata per il calcolo della distanza.
+La **distanza euclidea** (caso $L_2$ nella definizione di metriche di Minkowski) è sicuramente la più spesso utilizzata:
+$$L_k(\mathbf{a}, \mathbf{b}) = \left(\sum_{i=1}^d|a_i-b_i|^k\right)^{1/k}$$
+
+È però importante sempre prima valutare lo **spazio di variazione dei componenti** (o feature) e la presenza di eventuali forti correlazioni fra le stesse (esempio della lunghezza del piede e altezza, piccoli spostamenti da una parte in termini di unità di misura, risultano in grandi spostamenti dall'altra parte).
+
+##### Normalizzazione
+Per evitare i problemi legati a diversi spazi di variazioni delle feature, si procede con tecniche di normalizzazione, tra cui si ricorda:
+- **Min-Max Scaling**: per ogni feature i-esima $x' = (x - \min_i)/(\max_i - \min_i)$
+	- Non è robusto rispetto gli outliers.
+- **Standardization**: per ogni feature i-esima $x' = (x -\text{mean}_i)/\text{stddev}_i$
+	- Tutte le feature così normalizzate e trasformate hanno media 0 e deviazione standard di 1.
+	- È la più usata.
+
+##### Metric Learning
+Possiamo scegliere che metrica utilizzare, attraverso il learning supervisionato della metrica stessa dai dati del training set.
+Possiamo così creare una funzione obiettivo da massimizzare che:
+- *avvicini* pattern della stessa classe,
+- *allontani* pattern di classi diverse.
+
+Un tipico approccio di metric learning **lineare** determina una matrice $\mathbf{G}$ che trasforma gli input, e continua ad applicare la distanza euclidea agli input trasformati, ovvero: $$\text{dist}(a,b) = ||\mathbf{Ga - Gb}||_2$$
+
+##### Similarità Coseno
+Geometricamente parlando, dati due vettori $\mathbf{a}$ e $\mathbf{b}$, la similarità coseno corrisponde al coseno dell'angolo tra di essi:
+$$\text{CosSimilarity}(\mathbf{a,b}) = \frac{\mathbf{a^T \cdot b}}{||\mathbf{a}|| \cdot||\mathbf{b}||}$$
+
+In questo modo possiamo calcolare la **distanza coseno** come: $$\text{CosDistance}(\mathbf{a, b}) = 1 - \text{CosSimilarity}(\mathbf{a,b})$$
+
+Questa similarità è molto usata nel text mining e la similarità tra testi, dove la lunghezza non è importante, ma è importante la proporzione dei valori nei vettori.
