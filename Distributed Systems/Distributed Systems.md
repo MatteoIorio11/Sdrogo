@@ -280,3 +280,156 @@ As said before,  we can hide failures from other processes through redundancy. T
 - *time*: redoing the transactions after no responses.
 - *physical*
 
+## Computational Process
+The elementary computational process is **sequential**, so every operation is done one at the time. This type of machine has:
+* *input / output*
+* *context*
+As a result, in the following a *computing machine* is the place where a *computational process* occurs. 
+
+The context can be:
+* computing machine
+* resources
+* time
+* space
+all of them are *relevant* to model in order to understand the dynamics of the *computational process*. 
+
+### Context for computation
+
+* *timed computation*: whenever the time of the computational machine is **relevant/essential** for the computing process
+* *spatial computation*: whenever the *spatial features* of the computational machine are **relevant/essential** for the computing process
++ *situated computation*: whenever the *environment* of the computational machine is **relevant/essential**. The *environment* is any meaningful combination of **temporal** and **spatial**
+
+Understanding a *computational process* requires the precise definition of its computational context. Computational process **depends** on how we define the features of the context. 
+
+## Computational System
+
+In a computational system, two or more computational process:
+* **behave** by computing
+* **work together** by interacting
+
+### Type of Computational System
+
+1) *Parallel Systems*
+2) *Concurrent Systems*
+3) *Distributed Systems*
+
+#### Parallel System
+
+The **parallel computing** is typically used for non-sequential computing process, where more than one computation can be performed *at the same time*.  It typically requires a *multi-core architectures* and i can be used to solve *computationally - intensive* problems. A parallel system is a computational system performing parallel computations. 
+
+##### Parallel Computation
+
+We talk of *parallel computation* whenever the **temporal context** is the same fo all computational process
+
+#### Concurrency System
+
+There are two terms for the concurrency system:
+1) **interleaving**: where events occurring in separate concurrent process could occur in any relative order. 
+2) **true concurrency**: where partial orderings are used to explicitly capture temporal relations between events. 
+A concurrent system is a computational system performing concurrent computation. 
+##### Concurrent Computation
+We talk of concurrent computation whenever at least two computational process have a different **temporal context**. 
+
+
+#### Distributed System
+The term refers to a number of *asynchronous* computational process located on different devices and communicating via message passing. Is an activity performed on a **spatially** distributed system. This type of systems are a collection of devices working together through a network connection. The focus is on the **spatial distribution of devices**.  A distributed system is a computational system performing distributed computations. 
+
+##### Distributed Computing 
+In **distributed computing** the focus is on the spatial distribution of processes. The **spatial context** defines the Distributed Computing and the Distributed System.  A **distributed computation** is whenever at least two computational process have a different **spatial context**. 
+
+
+#### Parallel vs Concurrency
+
+* In *parallel systems* the events are totally ordered
+* in *concurrent system* events are at most partially ordered
+**This two systems have a different temporal context**
+
+## Agreement Problems
+
+Agreement problem: When the different components of a system have potentially divergent views over the system state. A *coherent* overall system behaviour can be achieved only when all the components come to **agree** about everything relevant for the system. They have to reach the *same conclusion*. 
+
+### Components and Connectors
+
+Non trivial computational systems are *concurrent* or more generally *distributed systems*, correspondingly concurrent / distributed systems are typically modelled as collections of computing process or devices, interconnected as to interact. 
+
+The time model can be:
+* **sync**: when all computations have the same time reference
+* **async**: otherwise
+
+The **fault tolerance** is the general property of distributed systems to keep working beyond faults. 
+
+### Consensus
+
+A fundamental problem of *fault tolerant* distributed computing is for the *reliable* process to reach **consensus**. The **consensus** is the process by which we reach *agreement* over system state between *unreliable* machines connected by *asynchronous* networks. 
+
+The basic form: achieving consensus on a **single bit**: 
+* each processor has an initial bit
+* a fixed number n of processors
+* the single bit consensus problem is for the non faulty process to agree on a bit, called **consensus value**, y
+**Solvability** depends on the existence of a protocol such that all *non faulty* processors terminate with the same value y. 
+
+The goal of the protocol is for the *non faulty* processes to agree on a vector y, called **consensus vector**. The consensus is about what any processor thinks about the initial value.
+
+### Faults 
+
+Look for an agreement protocol that is reliable as possible in the presence of such faults. So the best that one can hope for is a protocol that is **tolerant** to a prescribed number of "expected" faults. 
+
+## Fischer Lynch Paterson
+
+In a fully asynchronous system, no *consensus* protocol can tolerate even one single *crash failures* under the mere requirement of *non triviality*. Even the simplest case leads to impossibility results. 
+
+### Paxos
+
+* Two phase process:
+	1) *promise*
+	2) *commit*
+* Majority agreement
+* Monotonically increasing numbers
+
+### Paxos steps
+
+1) Values are proposed
+2) no single acceptor for proposal, multiple acceptors
+3) *quorum*: if the bare majority of acceptors, then it is chosen
+4) once a value has been chosen, future proposals must propose the same value
+
+In order to perform this algorithm there are needed two phase:
+1) In the first phase need to figure out if any value has already been chosen
+2) Propose accordingly in the second phase 
+
+### State Machine Replication
+
+All distributed replicas of a replicas of a resource need to agree on the same state over time. State machine approach is a general method for implementing fault tolerant services in distributed systems. 
+
+* The same state machine is replicated over a distributed system
+* Each one has a consensus module
+* Any operation over any replicated machine is performed only if and when all machines have agreed over the same ordering execution
+
+Need consensus over an array of values.
+
+---
+
+## Distributed Systems
+
+A *distributed system* can be defined as a collection of *autonomous computational* entities conceived as a single coherent system by its designer. A distributed system is made of: 
+* independent computational entities
+* no assumptions on their individual nature 
+* heterogeneity
+A distributed system can be seen as a single coherent system. We have in a distributed system:
+* physical distribution of components
+* network base communication
+* uncoupling in terms of control 
+
+### Issues
+
+* *Collaboration*: in order to achieve coherence manu autonomous entities should collaborate as a single system
+* *Amalgamation*: in order to achieve uniformity mani *heterogeneous* entities should *amalgamate*
+
+## Middleware
+
+A distributed system is organised around a **middleware**, the *middleware layer* extends over multiple machines, and offers each application the same interface. 
+
+Through the *separation* the middleware layer:
+* *enables* meaningful interaction between autonomous distributed components
+* communication issue
+* hides differences in technology, structure and behaviour 
