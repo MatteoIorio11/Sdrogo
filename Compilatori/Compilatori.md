@@ -563,3 +563,85 @@ Possiamo dire in generale che:
 
 ###### Teorema 5.29
 > Data una CFG $G$, una **stringa terminale** $w$ ha due distinti alberi sintattici se e solo se $w$ ha **due distinte derivazioni a sinistra** dal simbolo iniziale.
+
+### Ambiguità Inerente
+
+In un CFL, L è *inerentemente ambiguo* se tutte le grammatiche per *L* sono ambigue (ho più di un albero).  Può essere provato che ogni grammatica per *L* si comporta come questa. Il linguaggio *L* è quindi inerentemente ambiguo. 
+
+## Automi a Pila
+
+Un automa a pila (PDA) è in pratica un $\epsilon$-NFA con una Pila. In una transizione un PDA:
+1) Consuma un simbolo dell'input 
+2) Va in un nuovo stato
+3) Rimpiazza il top della pila con una stringa
+Questo tipo di automa è munito di una *memoria ausiliaria* con la quale è in grado di memorizzare l'input corrente. Questo ci permette di riconoscere alcuni linguaggi che non erano in grado di essere analizzati dai DFA. E' fondamentale in *non determinismo* in modo da avere sempre due strade. 
+
+
+### Definizione di un DFA
+
+Un *PDA* è una tupla formata da 7 elementi: 
+$$P=(Q, \Sigma, \Gamma, \delta, q_0, Z_0, F)$$
+dove:
+* Q: è un insieme di finito di stati
+* $\Sigma$: è un alfabeto finito di input
+* $\Gamma$: è un alfabeto finito di pila
+* $\delta$: è una funzione di transizione
+* $q_0$: è lo stato iniziale
+* $Z_0 \in \Gamma$: è il simbolo iniziale della Pila
+* $F \subseteq Q$: insieme di stati di accettazione 
+
+### Descrizioni istantanee
+
+Un PDA passa da una configurazione ad un'altra configurazione:
+* Consuma un simbolo di input o $\epsilon$ 
+* Consumando la cima dello stack sostituendolo con una stringa
+Per ragionare sulle computazioni dei PDA, usiamo delle **descrizioni istantanee (ID)**  del PDA. Una ID è una tupla: $$(q, w, \gamma)$$ dove:
+* q: è lo stato attuale
+* w: è l'input rimanente 
+* $\gamma$: è il contenuto della pila
+
+Sia $P=(Q, \Sigma, \Gamma, \delta, q_0, Z_0, F)$ un PDA. Allora $\forall w \in \Sigma^{*}, \beta \in \Gamma^{*}$ : $$(p, \alpha)\in \delta(q, a, X) \Rightarrow (q, aw, X\beta) \vdash (p, w, \alpha \beta)$$ (Dato un simbolo dell'input e dato un valore in testa alla pila, mi muovo nel nuovo stato $p$ consumando il primo elemento della stringa e mettendolo in cima allo stack)
+
+### Accettazione per stato finale
+Il linguaggio accettato dal PDA P è:
+$$L(P)=\{w:(q_0, w, Z_0) \vdash^{*} (q, \epsilon, \alpha), q \in F \}$$
+
+### Accettazione per pila vuota
+
+Il linguaggio accettato da P, per **pila vuota** è: $$L(P)=\{w:(q_0, w, Z_0) \vdash^{*} (q, \epsilon, \epsilon) \}$$
+In questo caso il momento in cui la stringa è accettata è quando:
+* si ha consumato tutta la stringa di input
+* la pila è vuota
+Questo tipo di grammatica ci permette di effettuare le equivalenze con le grammatiche. 
+
+
+### Da pila vuota a stato finale
+
+###### Teorema 6.9
+> Se $L=N(P_N)$ per un PDA $P_N=(Q, \Sigma, \Gamma_N, \delta, q_0, Z_0, F)$ allora $\exists$ PDA $P_F$ tale che $L=L(P_F)$.
+
+![[Pasted image 20231010125847.png]]
+* Aggiungo un insieme di transizioni che riconoscono quando la pila si svuota
+* Metto un simbolo nella pila esterno all'insieme di simboli della pila ($X_0$) in modo che si possa svuotare
+### Da stato finale a pila vuota
+###### Teorema 6.11
+> Se $L=N(P_F)$ per un PDA $P_F=(Q, \Sigma, \Gamma_F, \delta, q_0, Z_0, F)$ allora $\exists$ PDA $P_N$ tale che $L=N(P_N)$.
+
+![[Pasted image 20231010130225.png]]
+* Per risolvere il problema di riconoscere le stringhe quando la pila è vuota è necessario aggiungere un nuovo simbolo all'interno dei valori dello stack. Dentro $P_F$ rimuovo poi il simbolo aggiunto.
+
+## Equivalenza di PDA e CFG
+
+Un linguaggio è generato da una CFG se e solo se è accettato da un PDA per pila vuota se e solo se è accettato da un PDA per stato finale. 
+
+![[Pasted image 20231010130424.png]]
+L'idea è quella di vedere un PDA come un processo continuo di derivazione canonica sinistra. 
+
+Sia $G=(V, T,Q,S)$ una CFG. Definiamo $P_G$ come:$$(\{q\}, T, V \cup T, \delta, q, S)$$ dove: 
++ S è il simbolo iniziale della pila e corrisponde alla prima variabile con la quale iniziare le derivazioni
++ Si ha un unico stato chiamato $q$ con un insieme finito di auto anelli.
+
+Per costruire questo tipo di PDA è necessario:
+1) aggiungere un insieme finito di transizioni con valore $\epsilon$ con configurazione di pila da S ad ogni sua derivazione. 
+2) aggiungere un insieme di transizioni con valore dell'alfabeto in cui invece si rimuove dalla pila il simbolo che si è letto. 
+![[Appunti.jpeg.png]]
