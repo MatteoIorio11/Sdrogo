@@ -628,7 +628,7 @@ Questo tipo di grammatica ci permette di effettuare le equivalenze con le gramma
 > Se $L=N(P_F)$ per un PDA $P_F=(Q, \Sigma, \Gamma_F, \delta, q_0, Z_0, F)$ allora $\exists$ PDA $P_N$ tale che $L=N(P_N)$.
 
 ![[Pasted image 20231010130225.png]]
-* Per risolvere il problema di riconoscere le stringhe quando la pila è vuota è necessario aggiungere un nuovo simbolo all'interno dei valori dello stack. Dentro $P_F$ rimuovo poi il simbolo aggiunto.
+Un  problema che nasce da questa trasformazione è che in questo momento il nuovo PDA potrebbe accettare gli stati in cui la stringa è vuota ma non si è in uno stato di accettazione del PDA originale. Per rimediare a questo problema si introduce un nuovo simbolo all'interno degli elementi della Pila, in modo da non risultare mai vuota negli stati in cui prima si svuotava. (Chiaro?) 
 
 ## Equivalenza di PDA e CFG
 
