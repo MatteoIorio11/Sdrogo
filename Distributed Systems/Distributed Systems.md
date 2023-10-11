@@ -433,3 +433,57 @@ Through the *separation* the middleware layer:
 * *enables* meaningful interaction between autonomous distributed components
 * communication issue
 * hides differences in technology, structure and behaviour 
+
+---
+### Distributed Ledger Technology Blockchain as Middleware
+
+## Middleware 
+
+The middleware lies in the middle between the operating system and the applications. The middleware is developed once for many applications and it can abstract from the specific OS. 
+
+A key feature of the middleware is **interoperability**:
+* applications using the same middlware can interoperate
+* this is true of any common platform
+
+### Models from middleware to applications
+
+Being asymptotically the most cost effective when development time goes to zero. Adopting a given middleware should ease both new application development and legacy integration. *Middleware* tries to cast a **model** on heterogeneous applications.
+
+### Abstract vs Concrete Middleware
+
+* ***abstract middleware** a common model
+* **concrete middleware** a common infrastructure
+
+*standardisation efforts* become critical to build momentum around infrastructure technology. Now we need:
+* authentication
+* authorisation
+* security
+* distributed access to shared resources
+
+### Distributed Ledger Technology
+
+**Distributed Ledge Technology** refers to process and related technologies that enable nodes in a network to securely propose, validate and record state changes to a *synchronised ledger*. The ledger is synchronised. 
+
+* **ledger**: information store that keeps records of transactions that are intended to be final, definitive and immutable
+* **distributed ledger**: ledger that is shared across a set of DLT nodes
+* **distributed ledger technology**: technology that enables the operation of distributed ledgers. 
+
+* Distributed systems are typically required to be open
+* shared **standards** works at the core of any open system
+* middleware is the most obvious place for standards
+* standardising middleware as the most general foundation
+
+DLT is a secure, cost-effective technology that enables the deployment of globally scalable services, the DLT is considered as temper resistant and auditable technology that is resistant to *systemic failures*. 
+
+
+### Blockchain
+A Blockchain is a way to implement a distributed ledger, but not all distributed ledgers necessarily employ blockchains. 
+
+
+
+
+
+
+
+
+
