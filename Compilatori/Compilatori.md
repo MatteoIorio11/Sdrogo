@@ -645,3 +645,37 @@ Per costruire questo tipo di PDA è necessario:
 1) aggiungere un insieme finito di transizioni con valore $\epsilon$ con configurazione di pila da S ad ogni sua derivazione. 
 2) aggiungere un insieme di transizioni con valore dell'alfabeto in cui invece si rimuove dalla pila il simbolo che si è letto. 
 ![[Appunti.jpeg.png]]
+
+## Da PDA a CFG
+L'idea è quella di emulare il comportamento di un PDA per rimuovere il simbolo Y dalla pila sostituendolo con $Y$ con $Y_1 Y_2... Y_k$ 
+Si definisce una grammatica con variabili della forma $[p_{i-1}Y_ip_i]$ che rappresentano il passaggio da $p_{i-1}$ a $p_i$ con l'effetto di eliminare Y. 
+
+L'idea è che si ha una transizione all'interno del PDA che sostituisce il valore di Y con una stringa di lunghezza K. Abbiamo quindi: $$[qYp_k] \Rightarrow a[p_0Y_1p_1][p_1Y_2p_2]...[p_{k-1}Y_kp_k]$$
+in cui 'a' rappresenta il simbolo della stringa che permette di eseguire la transizione, $p_0$ è lo stato che raggiungo da 'q'. ![[Pasted image 20231011180134.png]]
+
+## PDA Deterministico 
+Un PDA è deterministico se e solo se: 
+1) ogni $\delta(q, a, X)$ con $a \in \Sigma \cup \{\epsilon\}$ contiene al più un elemento, ovvero esiste solo una transizione con stesso valore di transizione e stesso valore di pila
+2) se $\delta(q, a, X)$ non vuoto per un $a \in \Sigma$ allora $\delta(q, \epsilon, X)$ vuoto, ovvero anche quando posso muovermi dallo stesso stato con un valore $\epsilon$ con gli stessi valori di pila
+
+### DPDA che accettano per stato finale
+###### Teorema 6.17
+> Se L è regolare allora L=L(P) per qualche DPDA P
+
+Prova: Dato che L è regolare allora esiste un DFA A tale che L=L(A) sia:$$A=(Q,\Sigma, \delta_A, q_0, F)$$
+definiamo il PDA:$$P=(Q, \Sigma, \{Z_0\}, \delta_p, q_0, Z_0, F)$$ dove $$\delta_p(q,a, Z_0)=\{(\delta_A(q, a), Z_0)\}$$
+In sostanza non agisco mai sulla pila, aggiungo semplicemente un solo valore di pila ovvero $Z_0$. 
+
+## DPDA che accettano per pila vuota 
+
+Possono riconoscere solamente linguaggi con la **proprietà del prefisso**. Un linguaggio L ha la proprietà del prefisso se **non** esistono due stringhe distinte in L tali che una è un prefisso dell'altra. 
+
+###### Teorema 6.17
+> Se L è N(P) per qualche DPDA P se e solo se L ha la proprietà del prefisso e L è L(P') per qualche DPDA P'. 
+
+## DPDA e non ambiguità
+
+###### Teorema 6.17
+> 	Se L=N(P) per qualche DPDA P, allora L ha una CFG non ambigua
+###### Teorema 6.17
+> Se L=L(P) per qualche DPDA P, allora L ha una CFG non ambigua. 
