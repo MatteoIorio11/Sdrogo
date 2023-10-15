@@ -621,13 +621,16 @@ Questo tipo di grammatica ci permette di effettuare le equivalenze con le gramma
 > Se $L=N(P_N)$ per un PDA $P_N=(Q, \Sigma, \Gamma_N, \delta, q_0, Z_0, F)$ allora $\exists$ PDA $P_F$ tale che $L=L(P_F)$.
 
 ![[Pasted image 20231010125847.png]]
-* Aggiungo un insieme di transizioni che riconoscono quando la pila si svuota
-* Metto un simbolo nella pila esterno all'insieme di simboli della pila ($X_0$) in modo che si possa svuotare
+1) Come prima cosa aggiungo un nuovo stato iniziale in cui vado a pushare sullo stack un nuovo simbolo, nella figura indicato con $X_0$, in modo da non svuotare mai la pila
+2) Aggiungo ad ogni stato in cui svuoto la pila una transizione verso un nuovo stato finale in cui vado a rimuovere l'elemento aggiunto con la prima transizione, ovvero $X_0$. 
 ### Da stato finale a pila vuota
 ###### Teorema 6.11
 > Se $L=N(P_F)$ per un PDA $P_F=(Q, \Sigma, \Gamma_F, \delta, q_0, Z_0, F)$ allora $\exists$ PDA $P_N$ tale che $L=N(P_N)$.
 
 ![[Pasted image 20231010130225.png]]
+1) Aggiungo un nuovo stato iniziale in cui vado ad aggiungere un nuovo simbolo, $X_0$
+2) Prendo tutti gli stati finali e realizzo una transizione verso un nuovo stato in cui a svuotare completamente la pila. 
+
 Un  problema che nasce da questa trasformazione è che in questo momento il nuovo PDA potrebbe accettare gli stati in cui la stringa è vuota ma non si è in uno stato di accettazione del PDA originale. Per rimediare a questo problema si introduce un nuovo simbolo all'interno degli elementi della Pila, in modo da non risultare mai vuota negli stati in cui prima si svuotava. (Chiaro?) 
 
 ## Equivalenza di PDA e CFG
