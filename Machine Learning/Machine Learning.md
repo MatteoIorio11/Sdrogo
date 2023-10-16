@@ -525,3 +525,103 @@ $$\text{CosSimilarity}(\mathbf{a,b}) = \frac{\mathbf{a^T \cdot b}}{||\mathbf{a}|
 In questo modo possiamo calcolare la **distanza coseno** come: $$\text{CosDistance}(\mathbf{a, b}) = 1 - \text{CosSimilarity}(\mathbf{a,b})$$
 
 Questa similarità è molto usata nel text mining e la similarità tra testi, dove la lunghezza non è importante, ma è importante la proporzione dei valori nei vettori.
+
+---
+
+## Support Vector Machine
+SVM è uno degli strumenti più utilizzati per la classificazione di pattern, è in grado di determinare **le superfici decisionali tra le classi** (classification boundaries).
+
+SVM nasce come classificatore binario estendibile a più classi:
+* *SVM Lineare*, identifica la separazione tramite un iperpiano. 
+* *SVM Lineare con pattern non linearmente separabili*
+* *SVM Non Lineare*, con una superficie di separazione complessa ('ipersuperficie')
+* *Estensione a multiclasse*
+
+### SVM
+
+Date due classi di pattern multidimensionali linearmente separabili, *SVM* determina quello in grado di separare le classi con il maggior **margine** possibile. Il *margine* è la distanza minima di punti dalle due classi. 
+
+La massimizzazione del margine. è legata alla *generalizzazione*. Il problema delle SVM è posto in termini di ottimizzazione convessa ed ammette un solo minimo globale. 
+
+### Pattern separabili
+
+Date due classi di pattern (*linearmente separabili*), dove $x_i \in R^d$ sono i pattern multidimensionali e $y_i \in \{+1, -1\}$ le etichette delle due classi, esistono diversi iperpiani in grado di eseguire la separazione voluta.
+![[Pasted image 20231016113119.png]]
+$$D(x)= w x + b$$
+dove: 
+* **w**: vettore normale all'iperpiano
+* $\frac{b}{||w||}$: distanza dall'origine
+* $D(x)=0$ luogo dei vettori sul piano di separazione individuato. 
+
+$$D(x) = r||w||$$
+dove $r$ è la distanza di $x$ dal piano
+
+Gli *iperpiani* $(w, b)$ che separano i pattern del TS, con distanza minima $\frac{1}{||w||}$ su ogni lato soddisfano i seguenti vincoli:
+$$wx_i+b\geq+1 \text{ se } y_i=+1 $$
+$$wx_i+b\leq+1 \text{ se } y_i=-1 $$
+La minima distanza tra l'iperpiano di separazione e un pattern del training set è detta **margine** $\tau$ . ![[Pasted image 20231016113538.png]]
+Pertanto il margine $\tau$ è: $\tau = \frac{2}{||w||}$. 
+L'iperpiano ottimo secondo SVM è quello che soddisfa i vincoli di separazione dei pattern e massimizza il margine $\tau$. 
+$$\textbf{Minimizza:  } \frac{||w||^2}{2}$$
+$$\textbf{Vincoli:  } y_i[wx_i+b] - 1 \geq 0$$
+I pattern del training set che giacciono sul margine sono detti **support vector**, definiscono completamente la soluzione del problema, che può essere espressa come *funzione di soli tali pattern*. Il problema di ottimizzazione precedente può essere risolto tramite la **Formulazione Lagrangiana** e successivamente in una **Formulazione Duale**. 
+
+![[Pasted image 20231016114122.png]]
+da minimizzare rispetto a $w$ e $b$, e massimizzare rispetto i coefficienti lagrangiani $a_i$. Utilizzando le condizioni di *Karush-Kuhn-Tucker (KKT)*, il problema può essere posto in **forma duale**, esprimendo i parametri $w$ e $b$ in funzione dei moltiplicatori $a_i$. Il problema può essere risolto **massimizzando** la nuova funzione obiettivo rispetto ai soli $a_i$. 
+![[Pasted image 20231016114358.png]]
+I pattern ($x$) compaiono solamente come **prodotti scalari**. 
+
+Il problema di ottimizzazione precedente può essere risolto tramite un algoritmo di **programmazione quadratica**. Le condizioni *KKT* assicurano che $a_i=0$ solo per tutti i vettori che non sono *support vector*. 
+![[Pasted image 20231016114635.png]]
+
+In questo modo la distanza dall'iperpinao è definita come:
+![[Pasted image 20231016114708.png]]
+
+E successivamente $D(x)$ potrebbe essere anche trasformata in una probabilità. I vantaggi di *SVM* sono: 
+1) Definizione della soluzione sulla base di un numero ridotto di *support vector*
+2) Il numero di support vector $n_{sv}$ indica la **complessità** del problema
+3) *SVM* scala molto bene rispetto alla dimensione *d* dello spazio delle *feature*
+
+## SVM pattern non separabili
+
+Non tutti i pattern possono essere separati da un *iper piano*, ed è necessario rilassare i vincoli di separazione, in modo che alcuni pattern possano valicare i confini della classe. A tal fine si introducono *n* variabili di **slack** positive $\xi_i, i=1,...,n$, e si modificano i vincoli di separazione.  
+$$y_i[wx_i+b]  \geq 1  - \xi_i, i=1,...,n$$
+Per ogni pattern $x_i$ del TS, la variabile $\xi_i$, codifica la deviazione dal margine. Per i pattern separabili del TS le corrispondenti variabili di slack assumeranno valore 0. L'iperpiano ottimo in questo caso dele ancora **massimizzare il margine**, ma allo stesso tempo *minimizzare il numero* di elementi non correttamente classificati. 
+![[Pasted image 20231016175001.png]]
+
+Il coefficiente $C$ nel problema  di ottimizzazione precedente, indica l'*importanza relativa* degli errori di classificazione rispetto all'ampiezza del margine. Ne costituisce un **iper parametro**. 
+
+## SVM non lineari
+**SVM** riesce a separare i pattern con superfici anche molto complesse. 
+* Viene definito un *mapping* $\phi$ non lineare dei pattern dallo spazio di partenza $R^d$, verso uno spazio $R^m$ a più alta dimensionalità. 
+
+$$\phi:R^d \Rightarrow R^m, \phi(x)=[g_1(x), g_2(x),...,g_m(x)]$$
+* Nello spazio $R^m$, i pattern possono essere più facilmente separati da un iperpiano, questo equivale a separare i pattern. $x$ in $R^d$ con *superfici* arbitrariamente **complesse**
+In questo modo riesco a portare in uno spazio a più dimensioni in modo da poterli separarli più velocemente. 
+
+Dal momento in cui i pattern compaiono solamente come prodotti scalari, permette di **evitare manipolazioni** di vettori nello spazio $R^m$. Attraverso la funzione di mapping $\phi$ è possibile ricondurre il prodotto scalare di due pattern mappati nello spazio $R^m$ a una funzione $K$, detta **Kernel**, dei pattern originali nello spazio $R^d$. 
+$$\phi(x)\phi(x')=K(x, x')$$
+
+E' dunque possibile utilizzare il $K$, senza nemmeno conoscere il corrispondente mapping $\phi$. 
+
+## SVM Kernel Function
+
+* Polinomio di grado $q$ (*iper parametro*)
+$$\phi(x)=\phi([x_1, x_2])=[1, x_1, x_2, x_1x_2, x_1^{2}, x_2^{2}, ..., x_1^{2}x_2^{2}]$$
+* *Radial Basis Function (RBF)* di ampiezza $\sigma$ (*iper parametro*)
+$$K(x, x')=e^{- \frac{||x - x'||^2}{2\sigma^2}}$$
+* *Sigmoid*
+$$K(x, x')=tanh(v(xx')+a$$
+Utilizzando il *Kernel Trick* si può risolvere il problema di ottimizzazione senza particolari complicazioni rispetto al caso lineare. Una volta determinati gli $a_i$ (coefficienti lagrangiani), la superficie di separazione è esprimibile come
+$$D(x)=\sum_{i=1,...,n}a_iy_iK(x,x_i)+b$$
+
+Attraverso sto trick in sostanza è possibile portare le variabili in uno spazio multidimensionali senza effettivamente trasformare l'intero vettore aggiungendo delle componenti aggiuntive. 
+## SVM estensione multi-classe
+
+* **One-Against-One**
+* **One-Against-All**
+
+## Sintesi su SVM
+
+* Se la dimensione $d$ dello spazio è molto elevata, si utilizza generalmente *SVM Lineare*
+* Per basse dimensioni, la scelta primaria è *SVM Non Lineare* con *Kernel RBF*
