@@ -576,7 +576,6 @@ Un automa a pila (PDA) è in pratica un $\epsilon$-NFA con una Pila. In una tran
 3) Rimpiazza il top della pila con una stringa
 Questo tipo di automa è munito di una *memoria ausiliaria* con la quale è in grado di memorizzare l'input corrente. Questo ci permette di riconoscere alcuni linguaggi che non erano in grado di essere analizzati dai DFA. E' fondamentale in *non determinismo* in modo da avere sempre due strade. 
 
-
 ### Definizione di un DFA
 
 Un *PDA* è una tupla formata da 7 elementi: 
@@ -614,17 +613,16 @@ In questo caso il momento in cui la stringa è accettata è quando:
 * la pila è vuota
 Questo tipo di grammatica ci permette di effettuare le equivalenze con le grammatiche. 
 
-
 ### Da pila vuota a stato finale
 
-###### Teorema 6.9
+#### Teorema 6.9
 > Se $L=N(P_N)$ per un PDA $P_N=(Q, \Sigma, \Gamma_N, \delta, q_0, Z_0, F)$ allora $\exists$ PDA $P_F$ tale che $L=L(P_F)$.
 
 ![[Pasted image 20231010125847.png]]
 1) Come prima cosa aggiungo un nuovo stato iniziale in cui vado a pushare sullo stack un nuovo simbolo, nella figura indicato con $X_0$, in modo da non svuotare mai la pila
 2) Aggiungo ad ogni stato in cui svuoto la pila una transizione verso un nuovo stato finale in cui vado a rimuovere l'elemento aggiunto con la prima transizione, ovvero $X_0$. 
 ### Da stato finale a pila vuota
-###### Teorema 6.11
+#### Teorema 6.11
 > Se $L=N(P_F)$ per un PDA $P_F=(Q, \Sigma, \Gamma_F, \delta, q_0, Z_0, F)$ allora $\exists$ PDA $P_N$ tale che $L=N(P_N)$.
 
 ![[Pasted image 20231010130225.png]]
@@ -633,7 +631,7 @@ Questo tipo di grammatica ci permette di effettuare le equivalenze con le gramma
 
 Un  problema che nasce da questa trasformazione è che in questo momento il nuovo PDA potrebbe accettare gli stati in cui la stringa è vuota ma non si è in uno stato di accettazione del PDA originale. Per rimediare a questo problema si introduce un nuovo simbolo all'interno degli elementi della Pila, in modo da non risultare mai vuota negli stati in cui prima si svuotava. (Chiaro?) 
 
-## Equivalenza di PDA e CFG
+### Equivalenza di PDA e CFG
 
 Un linguaggio è generato da una CFG se e solo se è accettato da un PDA per pila vuota se e solo se è accettato da un PDA per stato finale. 
 
@@ -649,36 +647,137 @@ Per costruire questo tipo di PDA è necessario:
 2) aggiungere un insieme di transizioni con valore dell'alfabeto in cui invece si rimuove dalla pila il simbolo che si è letto. 
 ![[Appunti.jpeg.png]]
 
-## Da PDA a CFG
-L'idea è quella di emulare il comportamento di un PDA per rimuovere il simbolo Y dalla pila sostituendolo con $Y$ con $Y_1 Y_2... Y_k$ 
+### Da PDA a CFG
+L'idea è quella di emulare il comportamento di un PDA per rimuovere il simbolo Y dalla pila sostituendolo con $Y$ con $Y_1 Y_2… Y_k$ 
 Si definisce una grammatica con variabili della forma $[p_{i-1}Y_ip_i]$ che rappresentano il passaggio da $p_{i-1}$ a $p_i$ con l'effetto di eliminare Y. 
 
-L'idea è che si ha una transizione all'interno del PDA che sostituisce il valore di Y con una stringa di lunghezza K. Abbiamo quindi: $$[qYp_k] \Rightarrow a[p_0Y_1p_1][p_1Y_2p_2]...[p_{k-1}Y_kp_k]$$
+L'idea è che si ha una transizione all'interno del PDA che sostituisce il valore di Y con una stringa di lunghezza K. Abbiamo quindi: $$[qYp_k] \Rightarrow a[p_0Y_1p_1][p_1Y_2p_2]…[p_{k-1}Y_kp_k]$$
 in cui 'a' rappresenta il simbolo della stringa che permette di eseguire la transizione, $p_0$ è lo stato che raggiungo da 'q'. ![[Pasted image 20231011180134.png]]
 
-## PDA Deterministico 
+### PDA Deterministico 
 Un PDA è deterministico se e solo se: 
 1) ogni $\delta(q, a, X)$ con $a \in \Sigma \cup \{\epsilon\}$ contiene al più un elemento, ovvero esiste solo una transizione con stesso valore di transizione e stesso valore di pila
 2) se $\delta(q, a, X)$ non vuoto per un $a \in \Sigma$ allora $\delta(q, \epsilon, X)$ vuoto, ovvero anche quando posso muovermi dallo stesso stato con un valore $\epsilon$ con gli stessi valori di pila
 
 ### DPDA che accettano per stato finale
-###### Teorema 6.17
+#### Teorema 6.17
 > Se L è regolare allora L=L(P) per qualche DPDA P
 
 Prova: Dato che L è regolare allora esiste un DFA A tale che L=L(A) sia:$$A=(Q,\Sigma, \delta_A, q_0, F)$$
 definiamo il PDA:$$P=(Q, \Sigma, \{Z_0\}, \delta_p, q_0, Z_0, F)$$ dove $$\delta_p(q,a, Z_0)=\{(\delta_A(q, a), Z_0)\}$$
 In sostanza non agisco mai sulla pila, aggiungo semplicemente un solo valore di pila ovvero $Z_0$. 
 
-## DPDA che accettano per pila vuota 
+#### DPDA che accettano per pila vuota 
 
 Possono riconoscere solamente linguaggi con la **proprietà del prefisso**. Un linguaggio L ha la proprietà del prefisso se **non** esistono due stringhe distinte in L tali che una è un prefisso dell'altra. 
 
-###### Teorema 6.17
+##### Teorema 6.17
 > Se L è N(P) per qualche DPDA P se e solo se L ha la proprietà del prefisso e L è L(P') per qualche DPDA P'. 
 
-## DPDA e non ambiguità
+#### DPDA e non ambiguità
 
-###### Teorema 6.17
+##### Teorema 6.17
 > 	Se L=N(P) per qualche DPDA P, allora L ha una CFG non ambigua
-###### Teorema 6.17
+##### Teorema 6.17
 > Se L=L(P) per qualche DPDA P, allora L ha una CFG non ambigua. 
+
+---
+### Proprietà dei CFL
+Come per i [[#Proprietà dei linguaggi regolari|linguaggi regolari]], i CFL hanno delle proprietà che li definiscono:
+1. **[[#Forma normale di Chomsky|Semplificazione]]** di una CFG.
+2. **[[#Pumping Lemma (CFG)|Pumping Lemma]]** per CFL.
+3. [[#Proprietà di chiusura (CFL)|Proprietà di Chiusura]].
+4. Proprietà di **decisione**.
+
+#### Forma normale di Chomsky
+Data una CFL per il linguaggio $L$, $L\setminus \{\epsilon\}$ è generato da una CFG della forma:
+$$A \rightarrow BC, \quad \text{o}\quad A \rightarrow \alpha$$
+Dove $A$, $B$ e $C$ sono variabili e $\alpha$ è un simbolo terminale. Questa forma è detta **forma normale di Chomsky (CNF)**, e si ottiene mediante una pulizia della grammatica:
+1. Eliminazione dei simboli inutili.
+2. Eliminazione delle produzioni $\epsilon$.
+3. Eliminazione delle produzioni unità.
+
+##### Eliminazione dei simboli inutili
+Un simbolo $X$ è utile per una grammatica $G = (V, T, P, S)$ se esiste una derivazione:
+$$S \xRightarrow[G]{*} \alpha X\beta \xRightarrow[G]{*} w$$
+Per una stringa di caratteri terminali $w$, ovvero che esiste una derivazione che parta dalla variabile iniziale, passi dalla variabile $X$ e arrivi ad una stringa formata da soli caratteri terminali.
+Dei simboli utili possiamo distinguere:
+1. Un simbolo $X$ è **generante** se $X \xRightarrow[G]{*} w$  per qualche $w \in T^*$, cioè se partendo da quella variabile, si riesce ad arrivare ad una stringa di terminali.
+2. Un simbolo $X$ è **raggiungibile** se $S \xRightarrow[G]{*} \alpha X\beta$ per qualche $\{\alpha, \beta\} \subseteq (V \cup T)^*$, cioè se una variabile compare in una produzione a partire dalla variabile iniziale.
+
+Se per una grammatica agiamo esattamente con l'eliminazione di tutti quei simboli che non rispettano (1) e poi (2) in questo ordine, rimarranno solo simboli utili.
+C'è da precisare che si intende eliminazione di una variabile quando si eliminano tutte le **produzioni** che figurano quella variabile sia nel corpo, sia in testa.
+
+##### Eliminazione di Produzioni $\epsilon$
+Una variabile $A$ è annullabile se $A \xRightarrow[]{*}\epsilon$, ovvero esiste un cammino di derivazione che mi porta ad $\epsilon$.
+
+Se $A$ è annullabile, rimpiazziamo regole del tipo:
+$$B \rightarrow \alpha A \beta$$
+con
+$$B \rightarrow \alpha A \beta, \quad B \rightarrow \alpha \beta$$
+E possiamo infine cancellare tutte le transizioni $\epsilon$ che prevede la CFG.
+
+##### Eliminazione delle Produzioni Unità
+Sono produzioni del tipo
+$$A \rightarrow B$$
+Ovvero da variabile a variabile. Esse sono cancellabili mediante un **procedimento ad espansione**, ovvero il copiare le produzioni di B anche per A, potendo così eliminare la produzione unitaria. 
+Se durante il procedimento di espansione si genera una produzione unità che si ha già espanso (ciclo) la si può semplicemente rimuovere.
+
+#### CNF
+Formalmente, una CFL che non contiene $\epsilon$ è nella forma normale di Chomsky se ha una grammatica $G$ priva di simboli inutili, con produzioni nella forma:
+- $A \rightarrow BC$, dove $\{A, B, C\} \subseteq V$ o
+- $A \rightarrow \alpha$, dove $A \in V$ e $\alpha \in T$
+
+Per ottenere la forma normale di Chomsky su una qualsiasi grammatica per il CFL:
+1. Pulire la grammatica.
+2. Modificare le produzioni con 2 o più simboli in modo tale che siano tutte variabili.
+	-  Per ogni terminale $\alpha$ che compare in un corpo di lunghezza $\geq 2$, creare una nuova variabile, creare una nuova variabile (e.g. $A$) e sostituire $\alpha$ con $A$ in tutti i corpi e aggiungere la nuova regola $A \rightarrow \alpha$.
+3. Ridurre il corpo delle regole di lunghezza superiore a 2 in cascate di produzioni con corpi da 2 variabili. 
+	- Per ogni regola nella forma $A \rightarrow B_1B_2\dots B_k$ con $k \geq 3$, introdurre nuove variabili $C_1, C_2, \dots, C_{k-2}$, e sostituire la regola con:
+$$
+\begin{align}
+	A_1 &\rightarrow B_1C_1 \\
+	C_1 &\rightarrow B_2C_2 \\
+	&\dots \\
+	C_{k-3} &\rightarrow B_{k-2}C_{k-2} \\
+	C_{k-2} &\rightarrow B_{k-1}C_{k-1} \\
+\end{align}
+$$
+In questo modo viene a costruirsi un albero più profondo, ma con la garanzia di essere un **albero binario**!
+
+#### Pumping Lemma (CFG)
+Sia $L$ un CLF, allora $\exists n \geq 1$ che soddisfa:
+Ogni $z \in L : |z| \geq n$ è scomponibile in 5 stringhe: $z = uvwxy$ tali che:
+1. $|vwx| \geq n$
+2. $|vx| > 0$
+3. Per ogni $i\geq 0$, $uv^iwx^iy \in L$
+
+**Dimostrazione**: sia $L\setminus \{\epsilon\}$ un CFL e consideriamo una grammatica in CNF. Assumiamo che la grammatica abbia $m$ variabili. Poniamo $n=2^m$.
+
+Sia $z\in L$  una qualsiasi stringa tale che $|z| \geq n = 2^m$. Si ha che ogni **albero sintattico** di $z$ contiene un cammino di lunghezza $\geq m+1$, cioè che almeno una variabile è ripetuta. Questo è dimostrato dal **Lemma 1**.
+
+**Lemma 1**: se **tutti** i cammini dell'albero sintattico hanno lunghezza $\leq m$ allora la stringa generata ha lunghezza $\leq 2^{m-1}$.
+Dimostrato da:
+![[Pasted image 20231017155459.png|center|400]]
+
+Consideriamo il cammino di lunghezza massima all'interno dell'albero, il quale ha sicuramente lunghezza $\geq m+1$. Etichettiamo questo cammino come $A_0A_1 \dots A_k\alpha$. Esistono $i\neq j$ tali che $A_i = A_j$, assumendo che $i$ e $j$ siano fra le **ultime** $m+1$  variabili del cammino arrivando così ad una configurazione dell'albero sintattico del tipo:
+![[Pasted image 20231017155854.png|center|300]]
+
+A questo punto possiamo fare 3 osservazioni:
+1. L'albero radicato in $A_i$ ha altezza $\leq m + 1$, proprio perché abbiamo scelto $i$ e $j$ tra le ultime variabili del cammino massimo. La string corrispondente a questo sotto albero ha lunghezza $\leq 2^m = n$ , cioè vale $|vwx| \leq n$,.
+2. Le stringhe $v$ ed $x$ non possono essere entrambe vuote, in quanto $A$ essendo in CNF genera due variabili entrambe non annullabili siccome in almeno una delle due il cammino passa (e perciò in quella che passa è sicuramente non nulla). Si ha quindi che $|vx| > 0$.
+3. L'albero sintattico ottenuto ripetendo un numero arbitrario di volte (anche zero), la parte di albero radicato in $A_i$ meno l'albero radicato in $A_j$ continua ad essere un albero sintattico corretto, perciò $\forall i \geq 0, \quad uv^iwx^iy \in L$.
+
+![[Pasted image 20231017162647.png|center]]
+
+#### Proprietà di chiusura (CFL)
+I CFL sono chiusi rispetto:
+- **Unione**: siano $L_1$ e $L_2$ linguaggi CFL aventi grammatiche $G_1$ e $G_2$ rispettivamente e $S_1$ e $S_2$ variabili iniziali, $G(L_1 \cup L_2)$ ha le stesse produzioni di $G_1$ e $G_2$ se non per la nuova produzione della sua variabile iniziale $S_p \rightarrow S_1 | S_2$.
+- **Concatenazione**: stessa cosa per l'unione, ma la produzione iniziale della nuova grammatica è: $S_p \rightarrow S_1S_2$.
+- **Chiusura di Kleene**: Sia $L_1$ con $G_1$ e var. iniziale $S_1$, allora la nuova grammatica partirà dallo stato $S$ con la seguente produzione: $S \rightarrow S_1S | \epsilon$.
+- **Chiusura Positiva**: Sia $L_1$ con $G_1$ e var. iniziale $S_1$, allora la nuova grammatica partirà dallo stato $S$ con la seguente produzione: $S \rightarrow S_1S | S_1$.
+- **Reverse**
+
+##### Intersezione
+I CFL non sono chiusi rispetto l'intersezione, non mi sento di dire altro.
+##### Operazioni su Liberi e Regolari
