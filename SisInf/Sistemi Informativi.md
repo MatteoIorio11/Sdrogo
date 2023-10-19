@@ -593,3 +593,78 @@ Evitare di costruire DFD molto sbilanciati, bisogna fare in modo che i DFD siano
 * **bottom-up**: a partire da una serie di concetti si costruiscono via via le connessioni tra di essi
 * **mixed**: raffinamento di un DFD di massima in stadi successivi con tecniche di *bottom-up* e *top-down*
 * **outside-in**: parte delle interfacce con il sistema e propaga in avanti gli ingressi evidenziando i processi coinvolti nel flusso di dati o propaga all'indietro le uscite. 
+---
+## Studio di Fattibilità
+
+### Motivazioni ed Obiettivi
+La necessità di effettuare uno studio di **fattibilità** nasce dal fatto che si è individuato un possibile progetto, questo richiede un *approfondimento* prima che possa essere avviata la realizzazione, pena un elevato **rischio di insuccesso**. 
+
+L'obiettivo dello studio di fattibilità è dare concretezza a un progetto *pre identificato*, fornendo tutti gli elementi per l'avvio della fase realizzativa. E' importante definire esattamente i benefici attesi del progetto, stimare i costi di impianto e di esercizio *individuando e valutando* i **rischi del progetto**. Viene utilizzato per dare *concretezza* all'ipotesi progettuale, *delineando il processo di passaggio* allo stato attuale a quello finale. Si delinea la seguente struttura:
+
+![[Pasted image 20231019111142.png]]
+
+### Valutazione delle alternative
+
+Lo studio di fattibilità presuppone la valutazione di diverse alternative progettuali. *Delineare* con esattezza i **margini decisionali** di competenza dello studio di fattibilità al fine di non stravolgerne gli obiettivi. 
+
+L'analisi della situazione attuale evidenzia le caratteristiche del sistema informativo su cui deve essere realizzato il progetto relativo allo studio di fattibilità (bisogna dimostrare quale sia il problema e come lo si vuole risolvere):
+
+1) **Il contesto dello studio**: serve a inquadrare il progetto analizzando nel quadro della strategia di sviluppo del sistema informativo
+2) **Descrizione della problematic**a: illustra i problemi o le opportunità da cui scaturisce il progetto, indicando la rilevanza e stabilendo esattamente i confini
+3) **Descrizione della situazione attuale del SI**: consiste nella individuazione e rappresentazione dei processi e dei sistemi informatici coinvolti nell'area di intervento
+4) **Analisi e diagnosi della situazione attuale**: illustra i risultati dell'attività di esame e valutazione critica dei processi impattati dal progetto, risultati finalizzati alla individuazione e quantificazione degli obiettivi di progetto. 
+5) **Identificazione dei vincoli**: Identificare e descrivere le condizioni di ambiente non modificabili dalla situazione attuale
+6) **Definizione degli obiettivi di progetto**: gli obiettivi devono essere espressi in forma quantitativa, in riferimento ai *costi*, *tempi* e a individuate caratteristiche del *prodotto/servizio*. 
+
+### Progetti di massima
+
+**I progetti di massima** consistono in una descrizione generale del sistema informativo previsto e comprendono:
+* *definizione dei requisiti*
+* *le specificazioni del sistema*
+* *principali modalità di realizzazione*
+
+Lo studio deve essere eseguito ad un **elevato livello di aggregazione**, devono essere studiate solamente le **funzionalità principali** e i casi di utilizzo standard infine lo studio potrà **riguardare solo la porzione più importante del SI**. 
+
+1) *Requisiti della soluzione*: devono essere evidenziate le condizioni essenziali che il sistema proposto deve rispettare: 
+	* *informazioni trattate*
+	* *funzioni automatizzate*
+	* *modalità di lavoro*
+	* *requisiti architetturali*
+	* *requisiti di qualità*
+2) *Specifiche generali del sistema*: evidenzia le specifiche di massima del sistema informativo da realizzare, ossia quelle caratteristiche o proprietà che sono essenziali per rispondere ai requisiti individuati
+3) *Modalità di realizzazione*
+
+### Analisi del rischio
+
+Rischio connesso a un progetto è dato dall'esistenza di eventi capaci di pregiudicare il buon esito del progetto:
+* mancata conclusione
+* allungamento dei tempi
+* difficile integrazione con il restante sistema
+
+1) *Individuazione dei fattori di rischio del progetto*
+2) *Definizione del rischio di progetto*: valuta sistematicamente tutti i fattori di rischio
+3) *Modalità di gestione del rischio*: definisce una strategia e un insieme di azioni tese 
+
+### Definizione del rischio di progetto
+
+Individuare il maniera precisa i rischi connessi a un progetto. Consiste nell'attribuire alle varie fasi del progetto un'appropriata **classe di rischio**. L'individuazione dei fattori di rischio deve portare alla definizione di **gestione del rischio** ossia degli accorgimenti per **ridurre** i rischi del progetto. 
+
+### Progetto proposto
+
+1) *Segmentazione del progetto*: suddivisione di un progetto in moduli
+2) *Riepilogo delle acquisizioni e realizzazioni previste
+3) *Modello organizzativo*: definisce la struttura organizzativa
+4) *Piano del progetto*: esplicita la sequenza e le dipendenze tra le attività principali
+
+### Segmentazione del progetto
+
+* **Realizzazione in soluzione unica**: il SI viene realizzato, collaudato in un'unica versione
+* **Realizzazione incrementale**: la realizzazione e il collaudo avvengono per parti successive
+* **Realizzazione evolutiva**: la realizzazione e il collaudo avviene per versioni successive
+* **Approccio agile**: fortemente incrementale ed evolutivo. L'interazione con l'utente è finalizzata ad acquisire *feedback* utili al miglioramento in corso d'opera. 
+
+### Modello Organizzativo
+
+* *Struttura organizzativa proposta al progetto per il committente*, vanno identificate le figure chiave e vengono valutati gli impegni richiesti 
+* *Struttura organizzativa richiesta al fornitore*, individuazione del **Responsabile di Progetto**, definizione dei compiti e delle responsabilità.
+* *Eventuali strumenti/sistemi informatici a supporto di dette interazioni*
