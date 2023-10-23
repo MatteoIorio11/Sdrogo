@@ -625,3 +625,88 @@ Attraverso sto trick in sostanza è possibile portare le variabili in uno spazio
 
 * Se la dimensione $d$ dello spazio è molto elevata, si utilizza generalmente *SVM Lineare*
 * Per basse dimensioni, la scelta primaria è *SVM Non Lineare* con *Kernel RBF*
+
+## Multi Classificatori
+
+Un *multi classificatore* è un approccio dove diversi classificatori sono utilizzati per eseguire la classificazione dei pattern. Le *decisioni* dei singoli classificatori sono poi **fuse**. La combinazione è **efficace** solo quando i singoli classificatori sono *indipendenti* tra loro, ovvero non commettono gli stessi errori. 
+
+L'*indipendenza a livello statistico* è ottenuta tramite:
+* Utilizzando **feature diverse**
+* Utilizzando **algoritmi diversi** per l'estrazione delle **feature**
+* Utilizzando **diversi algoritmi di classificazione**
+* Addestrando lo *stesso algoritmo* su *porzioni* diverse del training set (**bagging**, bagging youuu, put the amore. Non la so sincero)
+* *Insistendo* con l'addestramento sugli **errori** commessi dai predecessori (**boosting**)
+
+### Fusione a livello di decisione
+Ogni singolo classificatore fornisce in output la propria decisione che consiste nella classe cui ha assegnato il pattern. Le decisioni possono poi essere combinate:
+1) **Majority Vote Rule**: ogni classificatore *vota per una classe*, il pattern viene assegnato alla  classe **maggiormente votata**
+2) **Borda Count**: ogni classificatore invece di una singola classe, produce una *classifica* o *ranking* delle classi. I ranking sono poi convertiti in punteggi e poi sommati, la classe con il più **elevato punteggio finale** è quella scelta dal multi classificatore
+
+### Prestazioni Teoriche
+La *majority rule* classifica il pattern come appartenente alla classe che ha ottenuto almeno $k=\frac{(nc+1)}{2}$ voti. 
+* Sia $P$ la probabilità che ogni singolo classificatore esegua la classificazione correttamente, la probabilità $P_{multi}(nc)$ che la **decisione del multi classificatore** sia corretta è esprimibile tramite la *distribuzione binomiale*. Questa formula è basata sulla *indipendenza totale dei classificatori* cosa **difficilmente** ottenibile nella pratica. 
+
+### One-Against-One
+L'approccio *one-against-one* consente di risolvere un problema di classificazione multi classe attraverso classificatori binari. 
+
+* se $s$ sono le classi del problema, si addestrano $k=\frac{s(s-1)}{2}$ classificatori binari: **tutte le possibili coppie indipendentemente dall'ordine**. 
+* Il pattern $x$ viene classificato da ogni classificatore binario, che assegna un **voto alla classe**.
+* Al termine il pattern $x$ è assegnato alla classe che ha ricevuto più voti. Il voto lo si assegna tramite la *distanza dal piano*. 
+
+E' in genere più accurato di *one-against-all* anche se meno efficiente in quanto richiede l'addestramento di un numero maggiore di classificatori, cresce con il numero di pattern. 
+
+### Fusione a livello di confidenza
+
+Ogni singolo classificatore fornisce in output la confidenza di classificazione del pattern rispetto a ciascuna delle classi, ovvero un vettore in cui ci sono le "probabilità" che $x$ appartenga ad ogni classe. L'i-esimo elemento del vettore indica il **grado di appartenenza** del pattern alla 'i-esima' classe. Esistono poi diversi metodi di fusione:
+1) **Somma**: eseguo la somma di ogni singolo grado di appartenenza, e assegno la classe al valore massimo. Molto robusta come operazione. 
+2) **Prodotto**: eseguo il prodotto di ogni singolo grado di appartenenza, viene visto come *probabilità congiunta*. **POCO ROBUSTO RISPETTO AGLI OUTLIERS**. E' più corretto della somma solamente quando c'è *indipendenza*
+3) **Massimo**: si assegna la classe al valore più alto
+4) **Minimo**: si assegna il valore di classe in base al valore *minimo maggiore*. Quindi si assegna una classe che non ha ricevuto una confidenza troppo bassa da nessun classificatore. 
+5) **Media pesata**: una variante efficace è quella della **somma pesata**, dove la somma dei vettori confidenza è eseguita pesando i *diversi classificatori* in base alla loro *abilità*. I *gradi di abilità* possono essere definiti in base alle regole dei classificatori.
+
+## Random Forest
+
+Appartiene alla famiglia dei metodi di **Begging**:
+* Estrazione con *re imbussolamento* di un sottoinsieme $S$ di pattern del training set, possono essere ripescati anche le stesse features. 
+* Addestramento del classificatore $C$ sul sottoinsieme $S$. 
+* Fusione dei classificatori
+
+In *Random Forest* i singoli classificatori sono **classification tree**:
+* I *classification tree* sono uno strumento molto utilizzato in applicazioni con pattern categorici o mixed.
+* Per la crescita dell'albero a partire da un *training set* si sceglie ad ogni livello di coppia che meglio separa le classi. 
+* Per la classificazione di un nuovo pattern si visita l'albero e una volta giunti a una foglia, si classifica il pattern sulla base della classe più comune nel nodo. 
+
+In *Random Forest* per rendere maggiormente indipendenti i classificatori:
+1) Per ogni nodo la scelta della feature migliore su cui partizionare non è fatta sull'interno insieme $d$ delle features ma su un suo sottoinsieme random. 
+2) Random Forest opera simultaneamente due tipi di bagging: *uno sui pattern del training set* e *uno sulle features*. 
+
+Caratteristiche Random Forest:
+* Il numero di *tree* in una foresta varia generalmente da alcune centinaia a delle migliaia, si gestisce tramite l'iper parametro **n_estimators**, il quale **non produce overfitting**. 
+* Gli alberi possono essere fatti crescere fino a quando gli split dei nodi termina naturalmente ma questo produce **overfitting**, l'altezza si può gestire tramite il parametro **max_depth**. 
+
+### AdaBoost
+Appartiene alla famiglia dei metodi di **boosting**:
+* Più classificatori sono combinati per realizzare un classificatore **strong**;
+* L'apprendimento è *incrementale* e prevede di aggiungere a ogni iterazione un classificatore *efficace* sui *pattern critici*;
+* Si assegna un peso a ciascun pattern del training set. Pattern **classificati erroneamente hanno un peso maggiore** e contribuiscono nella selezione del prossimo classificatore. 
+
+*Pseudo codice:*
+![[Pasted image 20231023182111.png]]
+Al termine dell'addestramento il classificatore finale è la media pesata di tutti i classificatori. 
+
+### AdaBoost scelta dei pesi
+
+Scelta del **peso riguardante il classificatore**: 
+
+$$\alpha^{t}=\frac{1}{2}ln(\frac{1-\epsilon^t}{\epsilon^t})$$
+![[Pasted image 20231023182257.png]]
+**Peso molto quando non sbaglio**. Il peso aumenta esponenzialmente quando l'errore si avvicina a 0 e diventa negativo (cerco di dare maggior peso a questo classificatore in quanto è stato in grado di classificare correttamente) se l'errore è superiore a $0.5$ (si fa l'opposto di quello che dice il classificatore). 
+
+Scelta del **peso riguardante il pattern**:
+$$w^{t+1}_i=w^{t}_i \times e^z, \space z=-\alpha^ty_ih^t(x_i)$$
+![[Pasted image 20231023182519.png]]
+* *$w^{t+1}_i$ aumenta se $z > 0$
+* $w^{t+1}_i$ diminuisce se $z<0$ 
+
+## Gradient Boosting
+E' una tecnica di boosting che invece di assegna peso maggiore agli hard examples, cerca i nuovi weak models sui residuali di errore. 
