@@ -668,3 +668,39 @@ Individuare il maniera precisa i rischi connessi a un progetto. Consiste nell'at
 * *Struttura organizzativa proposta al progetto per il committente*, vanno identificate le figure chiave e vengono valutati gli impegni richiesti 
 * *Struttura organizzativa richiesta al fornitore*, individuazione del **Responsabile di Progetto**, definizione dei compiti e delle responsabilità.
 * *Eventuali strumenti/sistemi informatici a supporto di dette interazioni*
+
+### Piano di Progetto
+
+Esplicita la sequenza e le dipendenze tra le principali attività del progetto, deve evidenziare le *necessità* e gli *obiettivi* di fondo cui la programmazione puntuale delle attività dovrà adeguarsi per rispettare sia le scadenze temporali fissate sia la coerente disponibilità dei prodotti intermedi necessari al progresso. 
+
+### La WBS
+
+La *WBS* costituisce una rappresentazione del progetto, suddividendo le attività in livelli, consente un'analisi di dettaglio indispensabile per una corretta identificazione delle attività elementari la cui esecuzione integrata alla realizzazione dell'intero progetto. 
+
+La *WBS* serve a:
+* Non dimenticare parti di lavoro ed evitare duplicazioni
+* Comunicazione tra gli stakeholders
+* Aggregazioni di dati elementari
+
+### Diagramma di Gantt
+
+Il diagramma di Gantt consiste in una tabella nella quale le righe servono per indicare le attività previste dalla WBS, mentre le colonne si utilizzano per indicare i tempi necessari per realizzarle. E' lo strumento per gestire la pianificazione temporale del progetto, permette di:
+* ufficializzare a livello strategico le date desiderate
+* ufficializzare a livello operativo le date di inizio e fine 
+* controllare l'avanzamento del progetto
+* verificare continuamente le nuove stime
+### Diagramma di Pert
+
+Una diagramma di Gantt, non permette di modellare l'interdipendenza delle attività, mentre tramite il diagramma di *PERT*, ad ogni attività possono essere in generale associati una serie di attributi:
+1) durata (data inizio, data fine)
+2) predecessori
+3) risorsa
+4) costo
+E' possibile definire la tempificazione del progetto e il relativo **percorso critico** ossia la catena di attività che condiziona la durata del progetto. Questa viene identificata tramite il :
+* **Forward Pass**: si parte dall'inizio del progetto e si sommano le durate di ciascuna attività fino a determinare la data di fine:
+	* *Early Start*: data di inizio al più presto
+	* *Early Finish*: data di fine al più presto
+* **Backward Pass**: si parte dalla fine del progetto e si sottrae la durata di ciascuna attività:
+	* *Late Start: data di inizio al più tardi
+	* *Late Finish: data di fine al più tard
+Determinate le quattro date per ogni attività si calcola lo scorrimento che indica il ritardo massimo che può avere una singola attività 
