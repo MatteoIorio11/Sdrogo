@@ -781,3 +781,78 @@ I CFL sono chiusi rispetto:
 ##### Intersezione
 I CFL non sono chiusi rispetto l'intersezione, non mi sento di dire altro.
 ##### Operazioni su Liberi e Regolari
+
+
+* da fare PL, e le ultime cose dei CFL e CFG
+---
+## Analisi Lessicale
+
+* parte iniziale in cui parla del lexer e del parser
+### Parse Tree vs AST
+* **Parse Tree**: contengono tutti i token, inclusi anche quelli che il parse necessita per l'esplorazione. 
+* **AST**: albero in cui alcune foglie vengono portate ai livelli dei nodi, in modo da avere rappresentazioni semplificate, mi permette di capire solamente com'è l'albero, **artefatti del parsing**, serve ad appiattire gli alberi semplificando la loro struttura. 
+
+### Parser
+Il parser esegue due task principali:
+1) *Syntax Checking*, controllo la sintassi, non mi blocco nei vari errori che incontro ma vado avanti
+2) *Parse tree construction*, usato per creare gli alberi AST. 
+
+#### Costruzione di un Parser
+Il parser deve descrivere la **context free grammar** e deve essere in grado di generare il parse tree basandomi sul solo *CFG*. 
+
+Le strutture delle grammatiche sono ricorsive.
+
+---
+## Algoritmi di Parsing: top-down parsing
+
+### Parsing della stringa
+
+La ricorsione permette di provare a cascata ogni singola produzione in modo da identificare se la stringa appartiene o meno al linguaggio. In questa tecnica viene utilizzato anche il *back tracking*. 
+
+#### Parser Ricorsivo Sinistro
+Si definiscono delle *funzioni booleane* che permettono di controllare se il *Token* che sto leggendo assieme a tutti gli altri appartengono o meno alla CFG. Alla fine della stringa viene aggiunto un carattere terminatore che permette di indicare la fine della stringa. Solo quando leggerò questo carattere la stringa sarà accettata dal linguaggio. 
+
+#### Problemi del parser ricorsivo sinistro
+
+**Problema**: 
+I *parser ricorsivi sinistri* presentano un errore che potrebbe alterare l'intera operazione di parsing. In particolare se ho una variabile che partendo da essa arrivo in una stringa in cui la stessa variabile di partenza è all'inizio ad esempio: $S \Rightarrow Sa$. 
+
+La ricorsione in questi casi non funziona dal momento in cui si genera un **loop**. 
+
+**Soluzione**:
+La soluzione che permette di ovviare a questo problema è molto semplice, si vanno ad aggiungere una serie di nuove variabili che mi permettono di spostare la ricorsione da **sinistra** verso **destra**: 
+$S \Rightarrow S0 | 1$ si trasforma in $$S \Rightarrow 1S', \space S' \Rightarrow 0S' \space | \epsilon$$
+In questo modo riesco a preservare il linguaggio della grammatica. 
+
+##### Algoritmo per risolvere il problema della ricorsione a sinistra
+Data la grammatica
+$$S \Rightarrow S\alpha_1 \space |...|S\alpha_n \space | \beta_1 \space |...| \beta_n$$
+Tutte le variabili iniziali vengono sostituite con una nuova variabile della grammatica, trasformandola in una ricorsiva a destra. *Prendo i simboli terminali e li faccio seguire dalla variabile*: 
+$$S \Rightarrow \beta_1S'\space | ... | \beta_mS'$$
+$$S' \Rightarrow \alpha_1 S' \space |...| \alpha_nS'$$
+
+In sintesi per ciascuna variabile si va a rimuovere la *ricorsione diretta* andando ad espanderla con una nuova variabile. Questo però funziona solamente in grammatiche in cui non ho:
+* produzioni $\epsilon$
+* produzioni unitarie
+
+La ricorsione rimane *buona* solamente per linguaggi di piccole dimensioni. 
+
+### Predictive Parsers
+
+In questa tipologia di parser viene introdotto il *lookahead*, ovvero si va a controllare il valore del *token* successivo in modo da *predire* la variabile migliore. In questo caso quindi non si va ad aspettare un mismatch. All'interno di questi parser si va sempre ad utilizzare la ricorsione introducendo però: 
+* controllare i token successivi
+* rimozione del backtracking
+
+La modalità di funzionamento di questo pattern sono: 
+1) Lo scanning dei token avviene da *sinistra verso destra*
+2) Si utilizza la *left most derivation*, ovvero utilizzo sempre la derivazione canonica sinistra
+3) Si va a predire la variabile andando a guardare avanti i successivi *k* token. 
+
+In questo caso la ricorsione di basa sul *token* successivo, in questo modo si capisce quale sarà la variabile nella quale potrò continuare a derivare. In questo caso quindi si andrà a creare una tabella nella quale, in base al token, si sceglie la variabile migliore. Una proprietà fondamentale però è che **la grammatica non sia ambigua**, poiché devo sempre avere un solo nodo per derivare la stringa. 
+
+### Left Factoring 
+Una grammatica deve essere *fattorizzata a sinistra* priva di essere sottoposta alla fase di *parsing*. 
+Data la seguente grammatica
+![[Screenshot 2023-10-24 (13.03.42).jpeg.png]]
+Per fattorizzarla basta raccogliere per lettera comune e realizzare una variabile che contenga i pezzi che non sono stati raccolti (guardando ad esempio la prima variabile *E* avrò: $+E\space \& \space \epsilon$)  
+![[Screenshot 2023-10-24 (13.04.15).jpeg.png]]
